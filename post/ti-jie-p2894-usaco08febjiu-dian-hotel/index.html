@@ -1,0 +1,328 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>题解 P2894 【[USACO08FEB]酒店Hotel】 | Gridea</title>
+<link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1580975955748">
+<link href="https://cdn.remixicon.com/releases/v2.1.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://ac-automation27.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="题解 P2894 【[USACO08FEB]酒店Hotel】 | Gridea - Atom Feed" href="https://ac-automation27.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="这道题是道线段树的好题，值得一做
+为什么说是道线段树好题呢，因为它不拘于线段树的模板，在查询部分非常毒瘤有趣。
+回到正题，看到区间操作，容易想到线段树维护。
+和维护区间最大子段和相似，存储最大连续空房，最大前缀空房和最大后缀空房。
+还有一点..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://ac-automation27.github.io">
+  <img class="avatar" src="https://ac-automation27.github.io/images/avatar.png?v=1580975955748" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              题解 P2894 【[USACO08FEB]酒店Hotel】
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-06
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h4 id="这道题是道线段树的好题值得一做">这道题是道线段树的好题，值得一做</h4>
+<p>为什么说是道线段树好题呢，因为它不拘于线段树的模板，在查询部分非常<s>毒瘤</s>有趣。</p>
+<p>回到正题，看到区间操作，容易想到线段树维护。</p>
+<p>和维护区间最大子段和相似，存储最大连续空房，最大前缀空房和最大后缀空房。</p>
+<p>还有一点：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>a</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">tag</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span></span>有三种值，代表区间退房（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>），区间入住（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>），没有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>a</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">tag</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span></span>（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>）</p>
+<p>值得注意的是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>u</mi><mi>s</mi><mi>h</mi><mi>u</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">pushup</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mord mathdefault">u</span><span class="mord mathdefault">p</span></span></span></span>操作和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>u</mi><mi>s</mi><mi>h</mi><mi>d</mi><mi>o</mi><mi>w</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">pushdown</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">n</span></span></span></span>操作（其他和普通线段树一样）</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>d</mi><mi>e</mi><mo>:</mo></mrow><annotation encoding="application/x-tex">code:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span></span></span>（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>u</mi><mi>s</mi><mi>h</mi><mi>u</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">pushup</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mord mathdefault">u</span><span class="mord mathdefault">p</span></span></span></span>操作和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>u</mi><mi>s</mi><mi>h</mi><mi>d</mi><mi>o</mi><mi>w</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">pushdown</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">n</span></span></span></span>操作）</p>
+<pre><code>void up(int root){
+	a[root].lm=a[ls].lm;
+	a[root].rm=a[rs].rm;
+	a[root].sum=max(max(a[ls].sum,a[rs].sum),a[ls].rm+a[rs].lm);//sum只有三种可能：只包含左孩子，横跨左右孩子，只包含右孩子
+	if(a[ls].sum==a[ls].len)
+		a[root].lm=a[ls].sum+a[rs].lm;
+	if(a[rs].sum==a[rs].len)
+		a[root].rm=a[rs].sum+a[ls].rm;//最大前缀空房和最大后缀空房
+	return;
+}
+void pd(int root){
+	if(!a[root].tag)return;
+	if(a[root].tag==1){
+		a[ls].sum=0;a[ls].lm=0;a[ls].rm=0;a[ls].tag=1;
+		a[rs].sum=0;a[rs].lm=0;a[rs].rm=0;a[rs].tag=1;//区间入住，全置0
+	}
+	else{
+		a[ls].sum=a[ls].len;a[ls].lm=a[ls].len;
+		a[ls].rm=a[ls].len;a[ls].tag=2;
+		a[rs].sum=a[rs].len;a[rs].lm=a[rs].len;
+		a[rs].rm=a[rs].len;a[rs].tag=2;//区间退房，全置len
+	}
+	a[root].tag=0;
+}
+</code></pre>
+<p>还有一个重点（也是个人认为的本体最难点）：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi><mi>u</mi><mi>e</mi><mi>r</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">query</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>怎么写？</p>
+<p>其实这里的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi><mi>u</mi><mi>e</mi><mi>r</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">query</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>已经不太像线段树的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi><mi>u</mi><mi>e</mi><mi>r</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">query</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>了</p>
+<p>对于每次查询到的节点，如果左孩子有足够空房就递归到左孩子，否则横跨两个孩子，然后再递归右孩子。</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>d</mi><mi>e</mi><mo>:</mo></mrow><annotation encoding="application/x-tex">code:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span></span></span></p>
+<pre><code>int query(int root,int l,int r,int k){
+	pd(root);
+	if(a[root].sum&lt;k)return 0;
+	if(a[ls].sum&gt;=k)return query(ls,l,mid,k);//左孩子
+	if(a[ls].rm+a[rs].lm&gt;=k)return mid-a[ls].rm+1;//横跨
+	if(a[rs].sum&gt;=k)return query(rs,mid+1,r,k);//右孩子
+}
+</code></pre>
+<p>所有的难点都攻克了，除此以外，还要注意：</p>
+<ul>
+<li>别直接用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>i</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">cin</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span></span></span></span></li>
+<li>记得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>u</mi><mi>s</mi><mi>h</mi><mi>d</mi><mi>o</mi><mi>w</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">pushdown</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">n</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>u</mi><mi>s</mi><mi>h</mi><mi>u</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">pushup</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mord mathdefault">u</span><span class="mord mathdefault">p</span></span></span></span></li>
+<li><s>别把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">ls</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">rs</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span></span></span></span>弄混</s></li>
+</ul>
+<p>最后就是完整代码了~</p>
+<pre><code>#include&lt;iostream&gt;
+using namespace std;
+#define ls (root&lt;&lt;1)
+#define rs (root&lt;&lt;1|1)
+#define mid ((l+r)&gt;&gt;1)
+struct point{
+	int sum,lm,rm,len,tag;
+} a[400005];
+void up(int root){
+	a[root].lm=a[ls].lm;
+	a[root].rm=a[rs].rm;
+	a[root].sum=max(max(a[ls].sum,a[rs].sum),a[ls].rm+a[rs].lm);//sum只有三种可能：只包含左孩子，横跨左右孩子，只包含右孩子
+	if(a[ls].sum==a[ls].len)
+		a[root].lm=a[ls].sum+a[rs].lm;
+	if(a[rs].sum==a[rs].len)
+		a[root].rm=a[rs].sum+a[ls].rm;//最大前缀空房和最大后缀空房
+	return;
+}
+void pd(int root){
+	if(!a[root].tag)return;
+	if(a[root].tag==1){
+		a[ls].sum=0;a[ls].lm=0;a[ls].rm=0;a[ls].tag=1;
+		a[rs].sum=0;a[rs].lm=0;a[rs].rm=0;a[rs].tag=1;//区间入住，全置0
+	}
+	else{
+		a[ls].sum=a[ls].len;a[ls].lm=a[ls].len;
+		a[ls].rm=a[ls].len;a[ls].tag=2;
+		a[rs].sum=a[rs].len;a[rs].lm=a[rs].len;
+		a[rs].rm=a[rs].len;a[rs].tag=2;//区间退房，全置len
+	}
+	a[root].tag=0;
+}
+void build(int root,int l,int r){
+	a[root].len=r-l+1;a[root].sum=a[root].len;
+	a[root].lm=a[root].len;a[root].rm=a[root].len;//简单初始化
+	a[root].tag=0;
+	if(l==r)return;
+	build(ls,l,mid);
+	build(rs,mid+1,r);
+}
+void change1(int root,int l,int r,int ql,int qr){//入住 
+	pd(root);
+	if(ql&lt;=l&amp;&amp;qr&gt;=r){//打tag
+		a[root].tag=1;
+		a[root].sum=0;a[root].lm=0;a[root].rm=0;
+		return;
+	}
+	if(ql&lt;=mid)change1(ls,l,mid,ql,qr);//递归左孩子
+	if(qr&gt;mid)change1(rs,mid+1,r,ql,qr);//递归右孩子
+	up(root);
+	return;
+}
+void change2(int root,int l,int r,int ql,int qr){//退房 
+	pd(root);
+	if(ql&lt;=l&amp;&amp;qr&gt;=r){//打tag
+		a[root].sum=a[root].len;a[root].lm=a[root].len;
+		a[root].rm=a[root].len;a[root].tag=2;
+		return;
+	}
+	if(ql&lt;=mid)change2(ls,l,mid,ql,qr);//递归左孩子
+	if(qr&gt;mid)change2(rs,mid+1,r,ql,qr);//递归右孩子
+	up(root);
+	return;
+}
+int query(int root,int l,int r,int k){
+	pd(root);
+	if(a[root].sum&lt;k)return 0;
+	if(a[ls].sum&gt;=k)return query(ls,l,mid,k);//左孩子
+	if(a[ls].rm+a[rs].lm&gt;=k)return mid-a[ls].rm+1;//横跨
+	if(a[rs].sum&gt;=k)return query(rs,mid+1,r,k);//右孩子
+}
+int main()
+{
+	ios::sync_with_stdio(false);cin.tie(0);
+	int n,m,opt,x,y,t;
+	cin&gt;&gt;n&gt;&gt;m;
+	build(1,1,n);
+	for(int i=0;i&lt;m;i++){
+		cin&gt;&gt;opt;
+		if(opt==1){
+			cin&gt;&gt;x;
+			t=query(1,1,n,x);
+			cout&lt;&lt;t&lt;&lt;endl;
+			if(t)change1(1,1,n,t,t+x-1);
+		}
+		else{
+			cin&gt;&gt;x&gt;&gt;y;
+			change2(1,1,n,x,x+y-1);
+		}
+	}
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E8%BF%99%E9%81%93%E9%A2%98%E6%98%AF%E9%81%93%E7%BA%BF%E6%AE%B5%E6%A0%91%E7%9A%84%E5%A5%BD%E9%A2%98%E5%80%BC%E5%BE%97%E4%B8%80%E5%81%9A">这道题是道线段树的好题，值得一做</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://ac-automation27.github.io/post/ti-jie-p1471-fang-chai">
+              <h3 class="post-title">
+                题解 P1471 【方差】
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://ac-automation27.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

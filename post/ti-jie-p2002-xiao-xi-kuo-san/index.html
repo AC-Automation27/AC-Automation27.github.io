@@ -2,21 +2,20 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>题解 P3419 【[POI2005]SAM-Toy Cars】 | Gridea</title>
+<title>题解 P2002 【消息扩散】 | Gridea</title>
 <link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1580975955748">
 <link href="https://cdn.remixicon.com/releases/v2.1.0/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://ac-automation27.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="题解 P3419 【[POI2005]SAM-Toy Cars】 | Gridea - Atom Feed" href="https://ac-automation27.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="题解 P2002 【消息扩散】 | Gridea - Atom Feed" href="https://ac-automation27.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="贪心+线段树
-
-另一篇用线段树的题解码风自认为有点奇怪，就写一篇（自认为）码风正常一点的
-提供一道弱化版P2088 果汁店的难题题目基本一样，范围小了很多
-思路比较简单，就是每次需要将玩具放回架子上时，优先放离下次使用最远的玩具
-那么我们先..." />
+    <meta name="description" content="刚学tarjan，写篇题解加深下印象。
+tarjan算法详解
+给定一张有向图，求它的所有强连通分量。
+每次选择一个未遍历的点开始dfs。
+定义dfn[i]表示i被遍历到的时间，low[i]表示从i出发，只经过至多一条dfn变小的边，能走到的..." />
     <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
@@ -79,81 +78,82 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              题解 P3419 【[POI2005]SAM-Toy Cars】
+              题解 P2002 【消息扩散】
             </h2>
             <div class="post-info">
               <span>
                 2020-02-06
               </span>
               <span>
-                4 min read
+                3 min read
               </span>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h3 id="贪心线段树">贪心+线段树</h3>
+                <p>刚学tarjan，写篇题解加深下印象。</p>
+<h2 id="tarjan算法详解">tarjan算法详解</h2>
+<p>给定一张有向图，求它的所有强连通分量。</p>
+<p>每次选择一个未遍历的点开始dfs。</p>
+<p>定义dfn[i]表示i被遍历到的时间，low[i]表示从i出发，只经过至多一条dfn变小的边，能走到的dfn最小的点的dfn的值。（可能有些绕，看不懂建议多看几遍）</p>
+<p>维护一个栈，dfs到一个点时将它加入栈内。</p>
+<p>如果一个点的dfn=low，那么不停弹出栈顶元素直到这个点被弹出，被弹出的所有点就构成了一个强连通分量。</p>
+<p>时间复杂度O(m),m是边数</p>
 <hr>
-<p>另一篇用线段树的题解码风自认为有点奇怪，就写一篇（自认为）码风正常一点的</p>
-<p>提供一道弱化版<a href="https://www.luogu.com.cn/problem/P2088">P2088 果汁店的难题</a>题目基本一样，范围小了很多</p>
-<p>思路比较简单，就是每次需要将玩具放回架子上时，优先放离下次使用最远的玩具</p>
-<p>那么我们先预处理出一个next数组（代码中为nxt），来保存对于每个玩具，下一次使用同样的玩具是什么时候</p>
-<p>那么线段树用来维护什么呢？我们用线段树来维护每种玩具下一次使用是什么时候。当然，如果这种玩具不在地上，就不加入线段树的维护（因为我们需要用线段树来维护最大值，所以将这种玩具下一次使用的时间设为0）</p>
-<p>这样的话，我们每次要将一个新的玩具放到地上时，就要用线段树来查询离下次使用时间最远的一个玩具，然后放回架子上了！</p>
-<p>最后就是代码了，细节还是有一点的，需要注意一下</p>
-<pre><code>#include&lt;iostream&gt;
+<h4 id="思路先用tarjan缩点然后统计入度为0的点的个数缩点指将每一个强连通分量缩成一个点">思路：先用tarjan缩点，然后统计入度为0的点的个数（缩点指将每一个强连通分量缩成一个点）</h4>
+<p>这里有一个小技巧，可以不用在缩点后重新建图，直接统计入度即可</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;vector&gt;
 using namespace std;
-int nxt[500005],book[500005],a[500005];//book数组辅助处理nxt数组，a为初始数组
-bool bj[500005];//bj数组记录玩具是否在地上
-int maxx[400005],wz[400005];//线段树数组
-void up(int root){
-	if((maxx[root&lt;&lt;1])&gt;(maxx[root&lt;&lt;1|1])){
-		maxx[root]=maxx[root&lt;&lt;1];
-		wz[root]=wz[root&lt;&lt;1];
+#define N 100005
+int dfn[N],low[N],tim=1,stack[N],top=0,belong[N],pn=0,du[N];
+bool in[N];
+vector&lt;int&gt; a[N];
+void tarjan(int u){
+	low[u]=tim;
+	dfn[u]=tim++;
+	stack[top++]=u;
+	in[u]=true;//先初始化dfn值和low值，并压入栈
+	int siz=a[u].size(),v;
+	for(int i=0;i&lt;siz;i++){
+		v=a[u][i];
+		if(!dfn[v]){
+			tarjan(v);
+			low[u]=min(low[u],low[v]);
+		}
+		else if(in[v]) 
+			low[u]=min(low[u],low[v]);//递归并更新low值
 	}
-	else{
-		maxx[root]=maxx[root&lt;&lt;1|1];
-		wz[root]=wz[root&lt;&lt;1|1];
-	}
+	if(dfn[u]==low[u]){
+		pn++;
+		while(stack[top]!=u){
+			top--;
+			belong[stack[top]]=pn;
+			in[stack[top]]=false;
+		}
+	}//将强连通分量中的点打上标记
 }
-void change(int root,int l,int r,int k,int temp){
-	if(l==r){maxx[root]=temp;wz[root]=l;return;}
-	int mid=(l+r)&gt;&gt;1;
-	if(k&lt;=mid)change(root&lt;&lt;1,l,mid,k,temp);
-	else change(root&lt;&lt;1|1,mid+1,r,k,temp);
-	up(root);
-}
-//----以上是线段树板子
-int main(){
-	int k,q,n,st=0,sum=0;//sum是答案，st记录地上的玩具数目
-	cin&gt;&gt;k&gt;&gt;q&gt;&gt;n;
-	for(int i=1;i&lt;=n;i++){
-		cin&gt;&gt;a[i];
-		nxt[book[a[i]]]=i;
-		book[a[i]]=i;
-	}//处理nxt数组，用book数组记录当种玩具最靠后的位置
-	for(int i=1;i&lt;=n;i++)if(nxt[i]==0)nxt[i]=999999999;//如果是同种玩具最后一个，nxt设为inf
-	for(int i=1;i&lt;=n;i++){
-		if(bj[a[i]]){
-			change(1,1,k,a[i],nxt[i]);
-			continue;
-		}//玩具在地上就直接在线段树上改，然后直接过
-		if(st&lt;q){
-			st++;
-			change(1,1,k,a[i],nxt[i]);
-			bj[a[i]]=1;
-			sum++;
-			continue;
-		}//玩具还没放满时直接放，线段树上改
-		int x=wz[1];//找到最远的玩具
-		change(1,1,k,x,0);//放回架子
-		change(1,1,k,a[i],nxt[i]);//当前的拿回地上
-		bj[x]=0;
-		bj[a[i]]=1;
-		sum++;//统计答案
+int main()
+{
+	int n,m,x,y,ans=0;
+	cin&gt;&gt;n&gt;&gt;m;
+	for(int i=0;i&lt;m;i++){
+		cin&gt;&gt;x&gt;&gt;y;
+		if(x!=y)
+			a[x].push_back(y);
 	}
-	cout&lt;&lt;sum;
+	for(int i=1;i&lt;=n;i++)
+		if(!dfn[i])
+			tarjan(i);//如果没有遍历过，那就遍历它
+	for(int i=1;i&lt;=n;i++)
+		for(int j=0;j&lt;a[i].size();j++)
+			if(belong[i]!=belong[a[i][j]])
+				du[belong[a[i][j]]]++;//统计入度
+	for(int i=1;i&lt;=pn;i++)
+		ans+=(du[i]==0);//统计答案
+	cout&lt;&lt;ans;
 	return 0;
 }
 
@@ -164,9 +164,10 @@ int main(){
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li>
+<li><a href="#tarjan%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3">tarjan算法详解</a><br>
+*
 <ul>
-<li><a href="#%E8%B4%AA%E5%BF%83%E7%BA%BF%E6%AE%B5%E6%A0%91">贪心+线段树</a></li>
+<li><a href="#%E6%80%9D%E8%B7%AF%E5%85%88%E7%94%A8tarjan%E7%BC%A9%E7%82%B9%E7%84%B6%E5%90%8E%E7%BB%9F%E8%AE%A1%E5%85%A5%E5%BA%A6%E4%B8%BA0%E7%9A%84%E7%82%B9%E7%9A%84%E4%B8%AA%E6%95%B0%E7%BC%A9%E7%82%B9%E6%8C%87%E5%B0%86%E6%AF%8F%E4%B8%80%E4%B8%AA%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%E7%BC%A9%E6%88%90%E4%B8%80%E4%B8%AA%E7%82%B9">思路：先用tarjan缩点，然后统计入度为0的点的个数（缩点指将每一个强连通分量缩成一个点）</a></li>
 </ul>
 </li>
 </ul>
@@ -181,9 +182,9 @@ int main(){
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://ac-automation27.github.io/post/csp-s-you-ji">
+            <a href="https://ac-automation27.github.io/post/ti-jie-p1438-wu-liao-de-shu-lie">
               <h3 class="post-title">
-                CSP-S游记
+                题解 P1438 【无聊的数列】
               </h3>
             </a>
           </div>
