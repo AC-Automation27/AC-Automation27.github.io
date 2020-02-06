@@ -1,0 +1,245 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>题解 P3419 【[POI2005]SAM-Toy Cars】 | Gridea</title>
+<link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1580975410739">
+<link href="https://cdn.remixicon.com/releases/v2.1.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://ac-automation27.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="题解 P3419 【[POI2005]SAM-Toy Cars】 | Gridea - Atom Feed" href="https://ac-automation27.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="贪心+线段树
+
+另一篇用线段树的题解码风自认为有点奇怪，就写一篇（自认为）码风正常一点的
+提供一道弱化版P2088 果汁店的难题题目基本一样，范围小了很多
+思路比较简单，就是每次需要将玩具放回架子上时，优先放离下次使用最远的玩具
+那么我们先..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://ac-automation27.github.io">
+  <img class="avatar" src="https://ac-automation27.github.io/images/avatar.png?v=1580975410739" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              题解 P3419 【[POI2005]SAM-Toy Cars】
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-06
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h3 id="贪心线段树">贪心+线段树</h3>
+<hr>
+<p>另一篇用线段树的题解码风自认为有点奇怪，就写一篇（自认为）码风正常一点的</p>
+<p>提供一道弱化版<a href="https://www.luogu.com.cn/problem/P2088">P2088 果汁店的难题</a>题目基本一样，范围小了很多</p>
+<p>思路比较简单，就是每次需要将玩具放回架子上时，优先放离下次使用最远的玩具</p>
+<p>那么我们先预处理出一个next数组（代码中为nxt），来保存对于每个玩具，下一次使用同样的玩具是什么时候</p>
+<p>那么线段树用来维护什么呢？我们用线段树来维护每种玩具下一次使用是什么时候。当然，如果这种玩具不在地上，就不加入线段树的维护（因为我们需要用线段树来维护最大值，所以将这种玩具下一次使用的时间设为0）</p>
+<p>这样的话，我们每次要将一个新的玩具放到地上时，就要用线段树来查询离下次使用时间最远的一个玩具，然后放回架子上了！</p>
+<p>最后就是代码了，细节还是有一点的，需要注意一下</p>
+<pre><code>#include&lt;iostream&gt;
+using namespace std;
+int nxt[500005],book[500005],a[500005];//book数组辅助处理nxt数组，a为初始数组
+bool bj[500005];//bj数组记录玩具是否在地上
+int maxx[400005],wz[400005];//线段树数组
+void up(int root){
+	if((maxx[root&lt;&lt;1])&gt;(maxx[root&lt;&lt;1|1])){
+		maxx[root]=maxx[root&lt;&lt;1];
+		wz[root]=wz[root&lt;&lt;1];
+	}
+	else{
+		maxx[root]=maxx[root&lt;&lt;1|1];
+		wz[root]=wz[root&lt;&lt;1|1];
+	}
+}
+void change(int root,int l,int r,int k,int temp){
+	if(l==r){maxx[root]=temp;wz[root]=l;return;}
+	int mid=(l+r)&gt;&gt;1;
+	if(k&lt;=mid)change(root&lt;&lt;1,l,mid,k,temp);
+	else change(root&lt;&lt;1|1,mid+1,r,k,temp);
+	up(root);
+}
+//----以上是线段树板子
+int main(){
+	int k,q,n,st=0,sum=0;//sum是答案，st记录地上的玩具数目
+	cin&gt;&gt;k&gt;&gt;q&gt;&gt;n;
+	for(int i=1;i&lt;=n;i++){
+		cin&gt;&gt;a[i];
+		nxt[book[a[i]]]=i;
+		book[a[i]]=i;
+	}//处理nxt数组，用book数组记录当种玩具最靠后的位置
+	for(int i=1;i&lt;=n;i++)if(nxt[i]==0)nxt[i]=999999999;//如果是同种玩具最后一个，nxt设为inf
+	for(int i=1;i&lt;=n;i++){
+		if(bj[a[i]]){
+			change(1,1,k,a[i],nxt[i]);
+			continue;
+		}//玩具在地上就直接在线段树上改，然后直接过
+		if(st&lt;q){
+			st++;
+			change(1,1,k,a[i],nxt[i]);
+			bj[a[i]]=1;
+			sum++;
+			continue;
+		}//玩具还没放满时直接放，线段树上改
+		int x=wz[1];//找到最远的玩具
+		change(1,1,k,x,0);//放回架子
+		change(1,1,k,a[i],nxt[i]);//当前的拿回地上
+		bj[x]=0;
+		bj[a[i]]=1;
+		sum++;//统计答案
+	}
+	cout&lt;&lt;sum;
+	return 0;
+}
+
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E8%B4%AA%E5%BF%83%E7%BA%BF%E6%AE%B5%E6%A0%91">贪心+线段树</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://ac-automation27.github.io/post/csp-s-you-ji">
+              <h3 class="post-title">
+                CSP-S游记
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://ac-automation27.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

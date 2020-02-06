@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ac-automation27.github.io</id>
     <title>Gridea</title>
-    <updated>2020-02-06T07:37:23.551Z</updated>
+    <updated>2020-02-06T07:50:21.389Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ac-automation27.github.io"/>
     <link rel="self" href="https://ac-automation27.github.io/atom.xml"/>
@@ -11,22 +11,275 @@
     <icon>https://ac-automation27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
     <entry>
-        <title type="html"><![CDATA[Try]]></title>
-        <id>https://ac-automation27.github.io/post/try</id>
-        <link href="https://ac-automation27.github.io/post/try">
+        <title type="html"><![CDATA[题解 P3419 【[POI2005]SAM-Toy Cars】]]></title>
+        <id>https://ac-automation27.github.io/post/ti-jie-p3419-poi2005sam-toy-cars</id>
+        <link href="https://ac-automation27.github.io/post/ti-jie-p3419-poi2005sam-toy-cars">
         </link>
-        <updated>2020-02-06T07:33:35.000Z</updated>
-        <content type="html"><![CDATA[<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>n</mi></munderover><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{i=0}^n a_i
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.929066em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6513970000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>LaTeX</mtext></mrow><annotation encoding="application/x-tex">\LaTeX
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.89883em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">L</span><span class="mspace" style="margin-right:-0.36em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-2.904999em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord text"><span class="mord textrm sizing reset-size6 size3">A</span></span></span></span></span></span><span class="mspace" style="margin-right:-0.15em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.46782999999999997em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span></span></span></p>
+        <updated>2020-02-06T07:50:03.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="贪心线段树">贪心+线段树</h3>
+<hr>
+<p>另一篇用线段树的题解码风自认为有点奇怪，就写一篇（自认为）码风正常一点的</p>
+<p>提供一道弱化版<a href="https://www.luogu.com.cn/problem/P2088">P2088 果汁店的难题</a>题目基本一样，范围小了很多</p>
+<p>思路比较简单，就是每次需要将玩具放回架子上时，优先放离下次使用最远的玩具</p>
+<p>那么我们先预处理出一个next数组（代码中为nxt），来保存对于每个玩具，下一次使用同样的玩具是什么时候</p>
+<p>那么线段树用来维护什么呢？我们用线段树来维护每种玩具下一次使用是什么时候。当然，如果这种玩具不在地上，就不加入线段树的维护（因为我们需要用线段树来维护最大值，所以将这种玩具下一次使用的时间设为0）</p>
+<p>这样的话，我们每次要将一个新的玩具放到地上时，就要用线段树来查询离下次使用时间最远的一个玩具，然后放回架子上了！</p>
+<p>最后就是代码了，细节还是有一点的，需要注意一下</p>
+<pre><code>#include&lt;iostream&gt;
+using namespace std;
+int nxt[500005],book[500005],a[500005];//book数组辅助处理nxt数组，a为初始数组
+bool bj[500005];//bj数组记录玩具是否在地上
+int maxx[400005],wz[400005];//线段树数组
+void up(int root){
+	if((maxx[root&lt;&lt;1])&gt;(maxx[root&lt;&lt;1|1])){
+		maxx[root]=maxx[root&lt;&lt;1];
+		wz[root]=wz[root&lt;&lt;1];
+	}
+	else{
+		maxx[root]=maxx[root&lt;&lt;1|1];
+		wz[root]=wz[root&lt;&lt;1|1];
+	}
+}
+void change(int root,int l,int r,int k,int temp){
+	if(l==r){maxx[root]=temp;wz[root]=l;return;}
+	int mid=(l+r)&gt;&gt;1;
+	if(k&lt;=mid)change(root&lt;&lt;1,l,mid,k,temp);
+	else change(root&lt;&lt;1|1,mid+1,r,k,temp);
+	up(root);
+}
+//----以上是线段树板子
+int main(){
+	int k,q,n,st=0,sum=0;//sum是答案，st记录地上的玩具数目
+	cin&gt;&gt;k&gt;&gt;q&gt;&gt;n;
+	for(int i=1;i&lt;=n;i++){
+		cin&gt;&gt;a[i];
+		nxt[book[a[i]]]=i;
+		book[a[i]]=i;
+	}//处理nxt数组，用book数组记录当种玩具最靠后的位置
+	for(int i=1;i&lt;=n;i++)if(nxt[i]==0)nxt[i]=999999999;//如果是同种玩具最后一个，nxt设为inf
+	for(int i=1;i&lt;=n;i++){
+		if(bj[a[i]]){
+			change(1,1,k,a[i],nxt[i]);
+			continue;
+		}//玩具在地上就直接在线段树上改，然后直接过
+		if(st&lt;q){
+			st++;
+			change(1,1,k,a[i],nxt[i]);
+			bj[a[i]]=1;
+			sum++;
+			continue;
+		}//玩具还没放满时直接放，线段树上改
+		int x=wz[1];//找到最远的玩具
+		change(1,1,k,x,0);//放回架子
+		change(1,1,k,a[i],nxt[i]);//当前的拿回地上
+		bj[x]=0;
+		bj[a[i]]=1;
+		sum++;//统计答案
+	}
+	cout&lt;&lt;sum;
+	return 0;
+}
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[CSP-S游记]]></title>
+        <id>https://ac-automation27.github.io/post/csp-s-you-ji</id>
+        <link href="https://ac-automation27.github.io/post/csp-s-you-ji">
+        </link>
+        <updated>2020-02-06T07:48:15.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="初赛">初赛</h2>
+<p>自我感觉良好，应该能过</p>
+<p>坐标BJ，机考（听说好多考场没说让不让用编译器，我们考场让用qwq）</p>
+<p>先是卡了40min（RP- -），然后才进去。最后全场补了1h</p>
+<p>进去写完第一部分，交卷，显示未登录，登陆之后答案没了（RP- -*2）</p>
+<p>还基本记得答案，补上了。之后第二部分的时候留了个心眼，把答案记了一下qwq</p>
+<p>第二部分写了一半老师说了让记答案-_-</p>
+<p>然后左边选手忘记答案，吞了答案之后放弃（其实还有1h），然后各种卡电脑（重启了3次）</p>
+<p>最后状压不会，大概只蒙对了一个。并查集没判两个点相等没看出来，错了一道选择。</p>
+<p>其他的貌似没什么了qwq，估分不到90，过初赛应该问题不大，等复赛了</p>
+<h2 id="1024">10.24</h2>
+<p>BJ初赛出分了，89.5（估的真准）</p>
+<p>班里有个大佬卡线58.5进了复赛qwq</p>
+<h2 id="复赛">复赛</h2>
+<h4 id="day-1">Day 1</h4>
+<p>luogu数据：100+65+0<br>
+官方数据：100+50+0（为什么班里有个T2写<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>+一条链的dalao有100分啊qwq）<br>
+开始15分钟写完T1，ull又调了15min（qwq）<br>
+T2 30min想了个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>算法，一条链死也没想到<br>
+T3 n!没打出来（wtcl）</p>
+<h4 id="day-2">Day 2</h4>
+<p>luogu数据：24+8+40<br>
+官方数据：24+4+40<br>
+先开了T2，30min写了个假贪心就滚了<br>
+然后T3，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">n^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>暴力1.5h没调出来，一条链和完全二叉树没时间想<br>
+最后1h，去T1写了个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mi>m</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">2^{mn}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span></span></span></span></span>的垃圾算法，然后调完了T3的暴力（分全是最后1h拿的qwq）</p>
+<p>然后就二等滚出了，等明年初二打吧</p>
+<p>最后卡线<code>1=qwq</code></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[题解 P2091 【排序】]]></title>
+        <id>https://ac-automation27.github.io/post/ti-jie-p2091-pai-xu</id>
+        <link href="https://ac-automation27.github.io/post/ti-jie-p2091-pai-xu">
+        </link>
+        <updated>2020-02-06T07:48:05.000Z</updated>
+        <content type="html"><![CDATA[<p>貌似没什么人做，来写一篇题解</p>
+<p>首先，我们拆出给定序列的置换与<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">(</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo>…</mo><mo separator="true">,</mo><mi>n</mi><mo fence="true">)</mo></mrow><annotation encoding="application/x-tex">\left ( 1,2,3\dots,n \right )</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose delimcenter" style="top:0em;">)</span></span></span></span></span>这个置换的循环</p>
+<p>然后，对于每一个循环，计算循环内部的答案</p>
+<p>我们先定义全局最小值为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mi>i</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">Min</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span></span></span></span>，循环内部最小值为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span>，循环中数的总和为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>，循环中数的数量为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>n</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">cnt</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span></span></span></span>，则可能的交换方式有：</p>
+<ol>
+<li>用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span>一个一个与别的数交换，所需的体力值为：</li>
+</ol>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mo>∗</mo><mo>(</mo><mi>c</mi><mi>n</mi><mi>t</mi><mo>−</mo><mn>2</mn><mo>)</mo><mo>+</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">M*(cnt-2)+S
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span></span></p>
+<ol start="2">
+<li>将全局最小值与循环内部最小值交换，然后用全局最小值与别的数交换，最后再将全局最小值和循环内部最小值交换，所需体力值为：</li>
+</ol>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mi>i</mi><mi>n</mi><mo>∗</mo><mo>(</mo><mi>c</mi><mi>n</mi><mi>t</mi><mo>+</mo><mn>1</mn><mo>)</mo><mo>+</mo><mi>S</mi><mo>+</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">Min*(cnt+1)+S+M
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">c</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span></span></p>
+<p>对于每个循环，将两种方法的最小值加到总答案里就行了。<br>
+代码：</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#define ll long long
+using namespace std;
+ll read(){
+	ll x=0;
+	char ch=getchar();
+	while(ch&lt;'0'||ch&gt;'9')ch=getchar();
+	while(ch&gt;='0'&amp;&amp;ch&lt;='9'){
+		x*=10;x+=ch-'0';
+		ch=getchar();
+	}
+	return x;
+}
+ll a[200005],wz[200005],val[200005];
+bool book[200005];
+int main(){
+	ll n,cnt,ans,minn,S,minm=2147483647;
+	bool bj;
+	cin&gt;&gt;n;
+	for(int i=1;i&lt;=n;i++){
+		a[i]=read();
+		wz[a[i]]=i;
+	}
+	for(int i=1;i&lt;=n;i++){
+		val[i]=read();
+		minm=min(minm,val[i]);
+	}
+	ans=0;
+	for(int i=1;i&lt;=n;i++){
+		if(!book[a[i]]){
+			int x=i;
+			cnt=0;S=0;
+			minn=2147483647;
+			while(!book[a[x]]){
+				book[a[x]]=1;
+				S+=val[x];cnt++;
+				minn=min(minn,val[x]);
+				x=wz[x];
+			}
+			ans+=min(minn*(cnt-2)+S,minm*(cnt+1)+S+minn);
+		}
+	}
+	cout&lt;&lt;ans&lt;&lt;endl;
+	return 0;
+} 
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于作者]]></title>
+        <id>https://ac-automation27.github.io/post/guan-yu-zuo-zhe</id>
+        <link href="https://ac-automation27.github.io/post/guan-yu-zuo-zhe">
+        </link>
+        <updated>2020-02-06T07:44:53.000Z</updated>
+        <content type="html"><![CDATA[<p>洛谷账号：<a href="https://www.luogu.com.cn/user/55959">AC-Automation</a><br>
+CF 账号：<a href="https://codeforces.com/profile/AC-Automation"><img src="https://cfrating.ihcr.top/?user=AC-Automation" alt="" loading="lazy"></a><br>
+大部分文章同时发布于洛谷博客</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[题解 CF1197B 【Pillars】]]></title>
+        <id>https://ac-automation27.github.io/post/ti-jie-cf1197b-pillars</id>
+        <link href="https://ac-automation27.github.io/post/ti-jie-cf1197b-pillars">
+        </link>
+        <updated>2020-02-06T07:44:42.000Z</updated>
+        <content type="html"><![CDATA[<p>根据题面我们很容易看出，对于任何一个碟子，只要它的半径不为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>，它的上面就不能放碟子（因为放了就移不下来了）</p>
+<p>这样的话，我们考虑以半径为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>的碟子为界，将所有碟子分为两半。显而易见，它左边的碟子直径必然是递增的，而右边则必然是递减的。以此为条件判断即可。</p>
+<p>上代码：</p>
 <pre><code class="language-cpp">#include&lt;iostream&gt;
 using namespace std;
+int a[200005];
 int main(){
-    int a,b;
-    cin&gt;&gt;a&gt;&gt;b;
-    cout&lt;&lt;a+b;
-    return 0;
+	int n,maxm=0,wz;
+	cin&gt;&gt;n;
+	for(int i=0;i&lt;n;i++){
+		cin&gt;&gt;a[i];
+		if(a[i]&gt;=maxm)
+			maxm=a[i],wz=i;//标记直径最长的碟子位置
+	}
+	int bj=true;
+	for(int i=1;i&lt;wz;i++)
+		if(a[i]&lt;a[i-1])bj=false;//判断左边碟子直径
+	for(int i=wz+1;i&lt;n;i++)
+		if(a[i]&gt;a[i-1])bj=false;//右边同理
+	if(bj)cout&lt;&lt;&quot;YES\n&quot;;
+	else cout&lt;&lt;&quot;NO\n&quot;;
+	return 0;
+}
+</code></pre>
+<p>吐槽：没有蓝题难度吧...最多橙题~黄题吧</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[题解 CF1197C 【Array Splitting】]]></title>
+        <id>https://ac-automation27.github.io/post/ti-jie-cf1197c-array-splitting</id>
+        <link href="https://ac-automation27.github.io/post/ti-jie-cf1197c-array-splitting">
+        </link>
+        <updated>2020-02-06T07:44:02.000Z</updated>
+        <content type="html"><![CDATA[<p>感觉这题没有蓝题难度吧，CF的题恶评太严重了。</p>
+<p>言归正传，我们考虑先分成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>段，然后合并成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>段。</p>
+<p>每次计算合并后造成的影响，合并影响最小的。</p>
+<p>以样例1为例：</p>
+<pre><code>6 3
+4 8 15 16 23 42
+
+</code></pre>
+<p>计算两数之间的差值为：4，7，1，7，19</p>
+<p>我们分别将差值为1，4，7的两个数合并，合并后原序列变成4<sub>8，15</sub>23，42（或者4~16，23，42），统计后得到答案为12。</p>
+<p>考虑如何方便计算。</p>
+<p>我们可以先计算<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>[</mo><mi>n</mi><mo>]</mo><mo>−</mo><mi>a</mi><mo>[</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">a[n]-a[1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault">n</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span></span></span></span>的差值，在减去没有被合并的差值。这里可以用堆来找出前<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>小的差值贪心地来合并（当然排序也行了）</p>
+<p>时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mtext> </mtext><mi>l</mi><mi>o</mi><mi>g</mi><mtext> </mtext><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n\ log\ n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace"> </span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mspace"> </span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<p>最后放代码：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;queue&gt;
+#include&lt;algorithm&gt; 
+#include&lt;functional&gt;
+using namespace std;
+int a[300005];
+priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; pq;
+int main(){
+	int n,sum,k;
+	cin&gt;&gt;n&gt;&gt;k;sum=n;
+	for(int i=0;i&lt;n;i++)cin&gt;&gt;a[i];
+	for(int i=0;i&lt;n-1;i++){
+		pq.push(a[i+1]-a[i]);//计算差值
+	}
+	while(sum&gt;k){
+		pq.pop();
+		sum--;//找到前k小差值
+	}
+	int ans=a[n-1]-a[0];
+	while(!pq.empty()){
+		ans-=pq.top();//计算答案
+		pq.pop();
+	}
+	cout&lt;&lt;ans;
+	return 0;
 }
 </code></pre>
 ]]></content>
