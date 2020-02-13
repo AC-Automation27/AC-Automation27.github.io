@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>题解 CF1097B 【Petr and a Combination Lock】 | AC-Automation&#39;s blog</title>
+<title>题解 CF27C 【Unordered Subsequence】 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -80,9 +80,9 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">题解 CF1097B 【Petr and a Combination Lock】</h2>
+          <h2 class="post-title">题解 CF27C 【Unordered Subsequence】</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-06</span>
+            <span><i class="icon-calendar-outline"></i> 2020-02-13</span>
             
               <span>
                 <i class="icon-pricetags-outline"></i>
@@ -96,40 +96,46 @@
             
           </div>
           <div class="post-content">
-            <h4 id="这道题一看数据规模就知道是爆搜">这道题一看数据规模就知道是爆搜</h4>
-<p>是一道还不错的DFS练习题</p>
-<p>只要每一次尝试顺时针或逆时针转，转完之后计算是否转回0°就好了</p>
-<h3 id="注意如果逆时针转不能直接减去度数会变成负数">注意如果逆时针转，不能直接减去度数，会变成负数。</h3>
-<p>代码：</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
+            <p>这道题的翻译有问题，要找到的是最短的非有序子序列。</p>
+<p>很明显，长度 &lt; 3 的子序列不可能是非有序的，这样的话我们只需要找到长度为三，且非有序的子序列就行了。因为如果我们有一个长度为4的非有序子序列，我们一定可以删掉其中的一个元素，并保持它的非有序性。</p>
+<p>于是，题目简化为找到一个长度为3的非有序子序列。我们可以枚举这个子序列的中间点，然后判断是否可以以它为中间点找到非有序子序列。这可以用前缀最大最小值，后缀最大最小值来完成。<br>
+code: 😄</p>
+<pre><code>#include&lt;iostream&gt;
 using namespace std;
-bool flag=true;//有没有得到解
-int a[20];//转动度数
-void dfs(int nd,int n){
-	if(n==-1){
-		if(nd%360==0)
-			flag=false;
-		return;
-	}//判断是否转回0°
-	if(flag)
-		dfs(nd+a[n],n-1);//向下搜
-	if(flag)
-		dfs(nd+360-a[n],n-1);//向下搜
-}
-int main()
-{
+int a[100005];
+struct node{
+	int premax,premin,sufmax,sufmin;
+}q[100005];//前后缀最大最小值
+int main(){
 	int n;
 	cin&gt;&gt;n;
-	for(int i=0;i&lt;n;i++)
-		cin&gt;&gt;a[i];//输入
-	dfs(0,n-1);//递归
-	if(flag)
-		cout&lt;&lt;&quot;NO\n&quot;;
-	else
-		cout&lt;&lt;&quot;YES\n&quot;;//输出
+	for(int i=1;i&lt;=n;i++)cin&gt;&gt;a[i];
+	a[n+2]=999999999;
+	a[n+1]=-999999999;
+	q[0].premin=q[n+1].sufmin=n+2;
+	q[0].premax=q[n+1].sufmax=n+1;
+	for(int i=1;i&lt;=n;i++){
+		q[i].premax=(a[i]&gt;a[q[i-1].premax])?i:q[i-1].premax;
+		q[i].premin=(a[i]&lt;a[q[i-1].premin])?i:q[i-1].premin;
+	}
+	for(int i=n;i&gt;0;i--){
+		q[i].sufmax=(a[i]&gt;a[q[i+1].sufmax])?i:q[i+1].sufmax;
+		q[i].sufmin=(a[i]&lt;a[q[i+1].sufmin])?i:q[i+1].sufmin;
+	}//预处理
+	for(int i=2;i&lt;n;i++){
+		if(a[q[i-1].premin]&lt;a[i]&amp;&amp;a[q[i+1].sufmin]&lt;a[i]){
+			cout&lt;&lt;3&lt;&lt;endl&lt;&lt;q[i-1].premin&lt;&lt;' '&lt;&lt;i&lt;&lt;' '&lt;&lt;q[i+1].sufmin;
+			return 0;
+		}
+		if(a[q[i-1].premax]&gt;a[i]&amp;&amp;a[q[i+1].sufmax]&gt;a[i]){
+			cout&lt;&lt;3&lt;&lt;endl&lt;&lt;q[i-1].premax&lt;&lt;' '&lt;&lt;i&lt;&lt;' '&lt;&lt;q[i+1].sufmax;
+			return 0;
+		}
+	}
+    //如果对于一个中间点，它的左边最小和右边最小都比它小，或者它的左边最大和右边最大都比它大，那么它就可以构成非有序子序列
+	cout&lt;&lt;0;
 	return 0;
 }
-//个人认为代码可读性还是可以的吧
 
 </code></pre>
 
@@ -138,9 +144,9 @@ int main()
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://ac-automation27.github.io/post/ti-jie-p4939-agent2">
+            <a class="purple-link" href="https://ac-automation27.github.io/post/ti-jie-cf873b-balanced-substring">
               <h3 class="post-title">
-                下一篇：题解 P4939 【Agent2】
+                下一篇：题解 CF873B 【Balanced Substring】
               </h3>
             </a>
           </div>
