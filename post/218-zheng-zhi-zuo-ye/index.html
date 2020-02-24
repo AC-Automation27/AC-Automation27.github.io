@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>题解 CF902B 【Coloring a Tree】  | AC-Automation&#39;s blog</title>
+<title>2.18政治作业 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -80,66 +80,21 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">题解 CF902B 【Coloring a Tree】 </h2>
+          <h2 class="post-title">2.18政治作业</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-08</span>
+            <span><i class="icon-calendar-outline"></i> 2020-02-18</span>
             
           </div>
           <div class="post-content">
-            <p>题面：一颗树，每次可以选择一个子树染成同一个颜色，求染成目标状态的最小操作次数。</p>
-<p>首先，如果对于一个子树，这个子树的根节点需要被染色，那么这个根节点一定要先被染色，然后他的孩子们才会被染色。因为给这个根节点染色的时候，它下面的孩子们同时也会被染色，若是之前就给他的孩子们染色，那么这样的染色是会被浪费掉的。</p>
-<p>其次，对于两个兄弟子树，他们染色的先后顺序是不影响染色的次数的。</p>
-<p>知道的这两点之后，就有了一种很容易设计出的算法了。从根节点开始遍历整棵树，如果某个子树的根节点需要被染色，则ans++，并将这个子树染成这种颜色（打标记），然后再遍历它的所有孩子，重复以上操作。</p>
-<p>代码（注释应该比较清晰）</p>
-<pre><code>#include&lt;iostream&gt;
-using namespace std;
-struct edge{
-	int v,nxt;
-}a[20005];
-int head[10005],clr[10005],cnt=0;
-void add_edge(int u,int v){
-	cnt++;
-	a[cnt].v=v;
-	a[cnt].nxt=head[u];
-	head[u]=cnt;
-}//链式前向星
-int dfs(int u,int color,int fa){//color代表它这个子树之前被染成什么颜色了，u是节点编号
-	int ans=0;
-	if(color!=clr[u])ans++;//需要被染色一次
-	for(int i=head[u];i;i=a[i].nxt){
-		if(a[i].v==fa)continue;
-		ans+=dfs(a[i].v,clr[u],u);//递归下去，此时这个子树一定被染成了clr[u]这个颜色，因为如果没有将当前节点的子树染色，则这个子树一定在之前被染过一次色
-	}
-	return ans;
-}
-int main(){
-	int n,v;
-	cin&gt;&gt;n;
-	for(int i=2;i&lt;=n;i++){
-		cin&gt;&gt;v;
-		add_edge(i,v);
-		add_edge(v,i);
-	}
-	for(int i=1;i&lt;=n;i++)cin&gt;&gt;clr[i];
-	cout&lt;&lt;dfs(1,0,-1);
-	return 0;
-}
-
-
-</code></pre>
+            <p>谣言3：只要不吃野味、海鲜就不会被感染。<br>
+首先，目前已经有发现人传人的现象，有一些一线的工作人员也被感染。不可能所有的感染者都吃了野味或者海鲜。所以说，即使不吃野味，海鲜，也有可能感染新型冠状病毒。<br>
+另外，在2月5日一名感染新型冠状病毒的孕妇产下的新生儿，也被发现感染新型冠状病毒。这就更加证实了只要不吃野味、海鲜就不会被感染是错误的。这名新生儿无论怎样不可能吃过野味，海鲜。<br>
+这条谣言能够传播的很重要的一个原因是人们总是希望疫情能够好转，更容易去盲目相信一些好的进展。</p>
 
           </div>
         </div>
 
         
-          <div class="next-post">
-            <a class="purple-link" href="https://ac-automation27.github.io/post/ti-jie-cf816b-karen-and-coffee">
-              <h3 class="post-title">
-                下一篇：题解 CF816B 【Karen and Coffee】
-              </h3>
-            </a>
-          </div>
-          
       </div>
 
       
