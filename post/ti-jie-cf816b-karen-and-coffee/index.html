@@ -1,102 +1,104 @@
-
 <!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
+    <meta charset="utf-8" >
 
 <title>题解 CF816B 【Karen and Coffee】 | AC-Automation&#39;s blog</title>
-<meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1582550176754">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1582608123313">
 <link rel="stylesheet" href="https://ac-automation27.github.io/styles/main.css">
 
 
 
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
 
 
 
+    <meta name="description" content="思路：用差分来维护每种温度被食谱的认可度，再用前缀和处理询问（本来以为要用线段树维护，后来发现询问都在最后，于是写的差分）。
+有关差分的介绍请看这里：差分数组&amp;树上差分
+前缀和不用多讲了吧
+最后是代码：
+#include&lt;io..." />
+    <meta name="keywords" content="【题解】" />
   </head>
   <body>
     <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://ac-automation27.github.io">
-        <img class="avatar" src="https://ac-automation27.github.io/images/avatar.png?v=1582550176754" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://ac-automation27.github.io">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://ac-automation27.github.io">
+        <img src="https://ac-automation27.github.io/images/avatar.png?v=1582608123313" class="site-logo">
         <h1 class="site-title">AC-Automation&#39;s blog</h1>
       </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
     </div>
-    <div class="right">
-      <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
-      </transition>
-    </div>
-  </div>
-</div>
-
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
+    <div>
       
         
-          <a href="/" class="menu purple-link">
+          <a href="/" class="site-nav">
             首页
           </a>
         
       
         
-          <a href="/archives" class="menu purple-link">
+          <a href="/archives" class="site-nav">
             归档
           </a>
         
       
         
-          <a href="/tags" class="menu purple-link">
+          <a href="/tags" class="site-nav">
             标签
           </a>
         
       
         
-          <a href="/post/about" class="menu purple-link">
+          <a href="/post/about" class="site-nav">
             关于
           </a>
         
       
     </div>
   </div>
-</transition>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://ac-automation27.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
 
 
-      <div class="content-container">
-        <div class="post-detail">
-          
-          <h2 class="post-title">题解 CF816B 【Karen and Coffee】</h2>
-          <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-06</span>
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">题解 CF816B 【Karen and Coffee】</h2>
+            <div class="post-date">2020-02-06</div>
             
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://ac-automation27.github.io/tag/OSh4LBKEC">
-                    【题解】
-                    
-                  </a>
-                
-              </span>
-            
-          </div>
-          <div class="post-content">
-            <p>思路：用差分来维护每种温度被食谱的认可度，再用前缀和处理询问（本来以为要用线段树维护，后来发现询问都在最后，于是写的差分）。</p>
+            <div class="post-content" v-pre>
+              <p>思路：用差分来维护每种温度被食谱的认可度，再用前缀和处理询问（本来以为要用线段树维护，后来发现询问都在最后，于是写的差分）。</p>
 <p>有关差分的介绍请看这里：<a href="https://rpdreamer.blog.luogu.org/ci-fen-and-shu-shang-ci-fen">差分数组&amp;树上差分</a></p>
 <p><s>前缀和不用多讲了吧</s></p>
 <p>最后是代码：</p>
@@ -131,45 +133,39 @@ int main()
 }
 </code></pre>
 
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="tag">
+                    【题解】
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://ac-automation27.github.io/post/ti-jie-cf1097b-petr-and-a-combination-lock">
+                  <h3 class="post-title">
+                    题解 CF1097B 【Petr and a Combination Lock】
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
           </div>
+
         </div>
-
-        
-          <div class="next-post">
-            <a class="purple-link" href="https://ac-automation27.github.io/post/ti-jie-cf1097b-petr-and-a-combination-lock">
-              <h3 class="post-title">
-                下一篇：题解 CF1097B 【Petr and a Combination Lock】
-              </h3>
-            </a>
-          </div>
-          
       </div>
-
-      
-
-      <div class="site-footer">
-  <div class="slogan"></div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://ac-automation27.github.io/atom.xml" target="_blank">RSS</a>
-</div>
-
-
     </div>
-    <script type="application/javascript">
 
-hljs.initHighlightingOnLoad()
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
 
 var app = new Vue({
   el: '#app',
@@ -179,6 +175,8 @@ var app = new Vue({
 })
 
 </script>
+
+
 
 
 

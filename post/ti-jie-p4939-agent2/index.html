@@ -1,102 +1,107 @@
-
 <!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
+    <meta charset="utf-8" >
 
 <title>题解 P4939 【Agent2】 | AC-Automation&#39;s blog</title>
-<meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1582550176754">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1582608123313">
 <link rel="stylesheet" href="https://ac-automation27.github.io/styles/main.css">
 
 
 
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
 
 
 
+    <meta name="description" content="先看题目描述，总结起来就是：
+1. 区间修改
+2. 单点查询
+于是：
+标准的线段树、树状数组题目。
+墙裂推荐树状数组~~（只要能用）~~，码量小，空间和时间都比线段树优
+所以，这里只讲树状数组
+这里的树状数组采用了差分和前缀和的思想，利用树..." />
+    <meta name="keywords" content="【题解】" />
   </head>
   <body>
     <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://ac-automation27.github.io">
-        <img class="avatar" src="https://ac-automation27.github.io/images/avatar.png?v=1582550176754" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://ac-automation27.github.io">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://ac-automation27.github.io">
+        <img src="https://ac-automation27.github.io/images/avatar.png?v=1582608123313" class="site-logo">
         <h1 class="site-title">AC-Automation&#39;s blog</h1>
       </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
     </div>
-    <div class="right">
-      <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
-      </transition>
-    </div>
-  </div>
-</div>
-
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
+    <div>
       
         
-          <a href="/" class="menu purple-link">
+          <a href="/" class="site-nav">
             首页
           </a>
         
       
         
-          <a href="/archives" class="menu purple-link">
+          <a href="/archives" class="site-nav">
             归档
           </a>
         
       
         
-          <a href="/tags" class="menu purple-link">
+          <a href="/tags" class="site-nav">
             标签
           </a>
         
       
         
-          <a href="/post/about" class="menu purple-link">
+          <a href="/post/about" class="site-nav">
             关于
           </a>
         
       
     </div>
   </div>
-</transition>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://ac-automation27.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
 
 
-      <div class="content-container">
-        <div class="post-detail">
-          
-          <h2 class="post-title">题解 P4939 【Agent2】</h2>
-          <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-06</span>
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">题解 P4939 【Agent2】</h2>
+            <div class="post-date">2020-02-06</div>
             
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://ac-automation27.github.io/tag/OSh4LBKEC">
-                    【题解】
-                    
-                  </a>
-                
-              </span>
-            
-          </div>
-          <div class="post-content">
-            <p>先看题目描述，总结起来就是：</p>
+            <div class="post-content" v-pre>
+              <p>先看题目描述，总结起来就是：</p>
 <h4 id="1-区间修改">1. 区间修改</h4>
 <h4 id="2-单点查询">2. 单点查询</h4>
 <p>于是：</p>
@@ -146,45 +151,39 @@ int main()
 
 </code></pre>
 
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="tag">
+                    【题解】
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://ac-automation27.github.io/post/ti-jie-p4346-cerc2015ascii-addition">
+                  <h3 class="post-title">
+                    题解 P4346 【[CERC2015]ASCII Addition】
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
           </div>
+
         </div>
-
-        
-          <div class="next-post">
-            <a class="purple-link" href="https://ac-automation27.github.io/post/ti-jie-p4346-cerc2015ascii-addition">
-              <h3 class="post-title">
-                下一篇：题解 P4346 【[CERC2015]ASCII Addition】
-              </h3>
-            </a>
-          </div>
-          
       </div>
-
-      
-
-      <div class="site-footer">
-  <div class="slogan"></div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://ac-automation27.github.io/atom.xml" target="_blank">RSS</a>
-</div>
-
-
     </div>
-    <script type="application/javascript">
 
-hljs.initHighlightingOnLoad()
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
 
 var app = new Vue({
   el: '#app',
@@ -194,6 +193,8 @@ var app = new Vue({
 })
 
 </script>
+
+
 
 
 
