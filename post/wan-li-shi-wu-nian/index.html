@@ -1,251 +1,135 @@
+
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" >
+    
+<meta charset="utf-8" >
 
 <title>万历十五年 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1582608540364">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1582608609428">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://ac-automation27.github.io/styles/main.css">
 
 
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
 
-
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
   </head>
   <body>
-  
-    <nav class="navbar border fixed split-nav">
-  <div class="nav-brand">
-    <h3><a href="https://ac-automation27.github.io">AC-Automation&#39;s blog</a></h3>
-  </div>
-  <div class="collapsible">
-    <input id="collapsible1" type="checkbox" name="collapsible1">
-    <button>
-      <label for="collapsible1">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-      </label>
-    </button>
-    <div class="collapsible-body">
-      <ul class="inline">
-        
-          <li>
-            
-              <a href="/" class="menu">
-                首页
-              </a>
-            
-          </li>
-        
-          <li>
-            
-              <a href="/archives" class="menu">
-                归档
-              </a>
-            
-          </li>
-        
-          <li>
-            
-              <a href="/tags" class="menu">
-                标签
-              </a>
-            
-          </li>
-        
-          <li>
-            
-              <a href="/post/about" class="menu">
-                关于
-              </a>
-            
-          </li>
-        
-      </ul>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://ac-automation27.github.io">
+        <img class="avatar" src="https://ac-automation27.github.io/images/avatar.png?v=1582608609428" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://ac-automation27.github.io">
+        <h1 class="site-title">AC-Automation&#39;s blog</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
     </div>
   </div>
-</nav>
+</div>
 
-    <div id="top" class="row site">
-      <div class="sm-12 md-8 col">
-        <div class="paper">
-          <article class="article">
-            <h1>万历十五年</h1>
-            <p class="article-meta">
-              2020-02-11
-              
-            </p>
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">万历十五年</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2020-02-11</span>
             
-            <div class="post-content">
-              <p>读过《万历十五年》后，我认为，万历皇帝所处时代的制度体系，是万历皇帝在自己执政的中后期懒散，不理朝政，最终引发整个王朝走向灭亡的重要原因。</p>
+          </div>
+          <div class="post-content">
+            <p>读过《万历十五年》后，我认为，万历皇帝所处时代的制度体系，是万历皇帝在自己执政的中后期懒散，不理朝政，最终引发整个王朝走向灭亡的重要原因。</p>
 <p>在这样的制度下，万历皇帝便成为了为这个制度所利用的一个傀儡，作为一个国家的象征。在自己“执政”的几十年内，无论是在册封妃子，立太子，或是在其他方面，他所做出的选择，都必须是所有文官所认为的“正确的选择”。万历皇帝名义上是整个国家的统治者和管理者，但是实际上却不能做出任何完全属于自己的决定。真正掌控整个国家重大决定的，是整个文官集团。最开始他的雄心壮志，也因此慢慢被磨灭。</p>
 <p>整个文官集团用道德，经典，孔孟之道等来约束和劝谏皇帝，但他们大部分都是以为天下、百姓着想为明，以巩固自身位置，谋取个人利益为暗。用申时行的话来说，就是“人们口头上公认的理想--阳”和“人们不能告人的私欲--阴”。大部分的官员将四书五经这样的经典所代表的道德纯粹作为升官发财之路，正是因此，万历皇帝认为自己没有改变现状的机会，便就失去了专心于朝政的动力。他没有办法面对整个文官集团，并让整个文官集团服从自己。于是他便选择了消极应对、不上早朝、拒绝递补高级官员职位。高级官员职位的严重空缺，相当于扼杀了官员晋升的唯一途径，使他们之前得到的功名毫无意义，以此来对文官集团进行报复。这无疑使整个国家陷入更深的危机。</p>
 <p>这也就是说，明朝社会根本不是按照公开宣布、冠冕堂皇的规则运行着的。真正起作用的规则，都是公认，但却从不直言的“潜规则”。所谓的道德，只是被作为一种说辞，一种被利用的概念。比如说，名义上万历皇帝掌控着整个国家，但事实上真正做主的是整个文官集团。不管是张居正，还是海瑞，都因为触动了这一“潜规则”，触动了某些人的利益，最终要么死后被抄家，要么无法实现自己的政治目标、解决制度上的问题。以“潜规则”办事也是整个明朝走向最终衰亡的重要原因。</p>
 <p>由此看来，一个政治制度若是出现了坏的变化，在无法修复的情况下，这个政治制度的死亡便是必然的。只有按时对漏洞进行修复，这个制度才能长久的留存。像万历年间的“潜规则”，便是这样的“坏的变化”。若是没有人成功的按时进行修复，便会像偌大的明朝一样，一触而亡。</p>
 
-            </div>
-          </article>
+          </div>
         </div>
-        <div class="paper" data-aos="fade-in">
-          
-        </div>
+
         
       </div>
 
-      <div class="sm-12 md-4 col sidebar">
-  <div class="paper info-container">
-    <img src="https://ac-automation27.github.io/images/avatar.png?v=1582608540364" class="no-responsive avatar">
-    <div class="text-muted"></div>
-    <div class="social-container">
       
-        
+
+      <div class="site-footer">
+  <div class="slogan"></div>
+  <div class="social-container">
+    
       
-        
+    
       
-        
+    
       
-        
+    
       
-        
+    
       
-    </div>
+    
   </div>
-  <div class="paper">
-    <div class="sidebar-title">
-      最新文章
-    </div>
-    <div class="row">
-      <ul>
-        
-          
-            <li>
-              <a href="https://ac-automation27.github.io/post/ti-jie-cf466c-number-of-ways">题解 CF466C 【Number of Ways】</a>
-            </li>
-          
-        
-          
-            <li>
-              <a href="https://ac-automation27.github.io/post/218-zheng-zhi-zuo-ye">2.18政治作业</a>
-            </li>
-          
-        
-          
-            <li>
-              <a href="https://ac-automation27.github.io/post/ti-jie-cf27c-unordered-subsequence">题解 CF27C 【Unordered Subsequence】</a>
-            </li>
-          
-        
-          
-            <li>
-              <a href="https://ac-automation27.github.io/post/wan-li-shi-wu-nian">万历十五年</a>
-            </li>
-          
-        
-          
-            <li>
-              <a href="https://ac-automation27.github.io/post/ti-jie-cf873b-balanced-substring">题解 CF873B 【Balanced Substring】</a>
-            </li>
-          
-        
-          
-            <li>
-              <a href="https://ac-automation27.github.io/post/ti-jie-cf902b-coloring-a-tree">题解 CF902B 【Coloring a Tree】 </a>
-            </li>
-          
-        
-          
-            <li>
-              <a href="https://ac-automation27.github.io/post/di-yi-zhang-ming-ling-ta">第一章 冥灵塔</a>
-            </li>
-          
-        
-          
-            <li>
-              <a href="https://ac-automation27.github.io/post/ti-jie-cf816b-karen-and-coffee">题解 CF816B 【Karen and Coffee】</a>
-            </li>
-          
-        
-          
-            <li>
-              <a href="https://ac-automation27.github.io/post/ti-jie-cf1097b-petr-and-a-combination-lock">题解 CF1097B 【Petr and a Combination Lock】</a>
-            </li>
-          
-        
-          
-            <li>
-              <a href="https://ac-automation27.github.io/post/ti-jie-p4939-agent2">题解 P4939 【Agent2】</a>
-            </li>
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </ul>
-    </div>
-  </div>
-  <div class="paper">
-    <div class="sidebar-title">
-      标签列表
-    </div>
-    <div class="row">
-      
-        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge ">
-          【题解】
-        </a>
-      
-        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge secondary">
-          【学习笔记】
-        </a>
-      
-    </div>
-  </div>
-  <div class="paper">
-    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://ac-automation27.github.io/atom.xml" target="_blank">RSS</a>
-  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://ac-automation27.github.io/atom.xml" target="_blank">RSS</a>
 </div>
 
 
     </div>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-<script type="application/javascript">
-
-AOS.init();
+    <script type="application/javascript">
 
 hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
 </script>
 
