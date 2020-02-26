@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>题解 CF1097B 【Petr and a Combination Lock】 | AC-Automation&#39;s blog</title>
+<title>CF 1700* 刷题 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -80,57 +80,136 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">题解 CF1097B 【Petr and a Combination Lock】</h2>
+          <h2 class="post-title">CF 1700* 刷题</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-06</span>
-            
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://ac-automation27.github.io/tag/OSh4LBKEC">
-                    【题解】
-                    
-                  </a>
-                
-              </span>
+            <span><i class="icon-calendar-outline"></i> 2020-02-26</span>
             
           </div>
           <div class="post-content">
-            <h4 id="这道题一看数据规模就知道是爆搜">这道题一看数据规模就知道是爆搜</h4>
-<p>是一道还不错的DFS练习题</p>
-<p>只要每一次尝试顺时针或逆时针转，转完之后计算是否转回0°就好了</p>
-<h3 id="注意如果逆时针转不能直接减去度数会变成负数">注意如果逆时针转，不能直接减去度数，会变成负数。</h3>
-<p>代码：</p>
+            <p>CF466C</p>
 <pre><code class="language-cpp">#include&lt;iostream&gt;
+#define int long long
 using namespace std;
-bool flag=true;//有没有得到解
-int a[20];//转动度数
-void dfs(int nd,int n){
-	if(n==-1){
-		if(nd%360==0)
-			flag=false;
-		return;
-	}//判断是否转回0°
-	if(flag)
-		dfs(nd+a[n],n-1);//向下搜
-	if(flag)
-		dfs(nd+360-a[n],n-1);//向下搜
-}
-int main()
-{
-	int n;
+int a[500005];
+bool b1[500005],b2[500005];
+int c[500005];
+signed main(){
+	int n,sum=0,kk;
 	cin&gt;&gt;n;
-	for(int i=0;i&lt;n;i++)
-		cin&gt;&gt;a[i];//输入
-	dfs(0,n-1);//递归
-	if(flag)
-		cout&lt;&lt;&quot;NO\n&quot;;
-	else
-		cout&lt;&lt;&quot;YES\n&quot;;//输出
+	for(int i=1;i&lt;=n;i++)cin&gt;&gt;a[i],sum+=a[i];
+	if(sum%3!=0){
+		cout&lt;&lt;0;
+		return 0;
+	}
+	kk=sum/3;
+	sum=0;
+	for(int i=1;i&lt;=n;i++){
+		sum+=a[i];
+		if(sum==kk)b1[i]=1;
+	}
+	sum=0;
+	for(int i=n;i&gt;0;i--){
+		sum+=a[i];
+		if(sum==kk)b2[i]=1;
+	}
+	for(int i=1;i&lt;=n;i++){
+		c[i]=c[i-1]+b1[i];
+	}
+	int ans=0;
+	for(int i=3;i&lt;=n;i++){
+		ans+=b2[i]*c[i-2];
+	}
+	cout&lt;&lt;ans;
 	return 0;
 }
-//个人认为代码可读性还是可以的吧
-
+</code></pre>
+<p>CF474D</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#define int long long
+const int mod=1000000007;
+using namespace std;
+int dp[500005],sum[500005];
+int l[500005],r[500005];
+signed main(){
+	int n,k,maxx=0;
+	cin&gt;&gt;n&gt;&gt;k;
+	for(int i=0;i&lt;n;i++){
+		cin&gt;&gt;l[i]&gt;&gt;r[i];
+		maxx=max(maxx,r[i]);
+	}
+	dp[0]=1;
+	for(int i=1;i&lt;=maxx;i++){
+		if(i&gt;=k){
+			dp[i]=dp[i-1]+dp[i-k];
+		}
+		else dp[i]=dp[i-1];
+		sum[i]=sum[i-1]+dp[i];
+		sum[i]%=mod;
+		dp[i]%=mod;
+	}
+	for(int i=0;i&lt;n;i++){
+		cout&lt;&lt;((sum[r[i]]-sum[l[i]-1])%mod+mod)%mod&lt;&lt;endl;
+	}
+	return 0;
+}
+</code></pre>
+<p>CF546D</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+using namespace std;
+int a[5000005],b[5000005],sum[5000005];
+int main(){
+	int n,x,y;
+	cin&gt;&gt;n;
+	for(int i=2;i&lt;=5000000;i++){
+		if(a[i]==0){
+			for(int j=i*2;j&lt;=5000000;j+=i){
+				a[j]=i;
+			}
+		}
+	}
+	for(int i=2;i&lt;=5000000;i++){
+		if(a[i]==0)b[i]=1;
+		else{
+			b[i]=b[a[i]]+b[i/a[i]];
+		}
+	}
+	for(int i=2;i&lt;=5000000;i++){
+	//	cout&lt;&lt;b[i]&lt;&lt;' ';
+		sum[i]=sum[i-1]+b[i];
+	}
+	for(int i=0;i&lt;n;i++){
+		cin&gt;&gt;x&gt;&gt;y;
+		cout&lt;&lt;sum[x]-sum[y]&lt;&lt;endl;
+	} 
+	return 0;
+}
+</code></pre>
+<p>CF372A</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int a[500005];
+bool book[500005]; 
+int main(){
+	int n;
+	cin&gt;&gt;n;
+	for(int i=0;i&lt;n;i++)cin&gt;&gt;a[i];
+	sort(a,a+n);
+	int L=n/2-1,ans=0;
+	for(int i=n-1;i&gt;=0;i--){
+		if(book[i])continue;
+		while(book[L]||a[L]*2&gt;a[i]){
+			L--;
+			if(L==-1)break;
+		}
+		if(L==-1)break;
+		book[L]=1;
+		ans++;
+		book[i]=1;
+	}
+	cout&lt;&lt;n-ans;
+	return 0;
+}
 </code></pre>
 
           </div>
@@ -138,9 +217,9 @@ int main()
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://ac-automation27.github.io/post/ti-jie-p4939-agent2">
+            <a class="purple-link" href="https://ac-automation27.github.io/post/ti-jie-cf466c-number-of-ways">
               <h3 class="post-title">
-                下一篇：题解 P4939 【Agent2】
+                下一篇：题解 CF466C 【Number of Ways】
               </h3>
             </a>
           </div>
