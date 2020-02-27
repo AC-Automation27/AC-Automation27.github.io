@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ac-automation27.github.io</id>
     <title>AC-Automation&apos;s blog</title>
-    <updated>2020-02-26T13:03:11.296Z</updated>
+    <updated>2020-02-27T07:28:43.113Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ac-automation27.github.io"/>
     <link rel="self" href="https://ac-automation27.github.io/atom.xml"/>
@@ -10,12 +10,12 @@
     <icon>https://ac-automation27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, AC-Automation&apos;s blog</rights>
     <entry>
-        <title type="html"><![CDATA[CF 1700* 刷题]]></title>
+        <title type="html"><![CDATA[刷题日志]]></title>
         <id>https://ac-automation27.github.io/post/cf-1700-shua-ti</id>
         <link href="https://ac-automation27.github.io/post/cf-1700-shua-ti">
         </link>
         <updated>2020-02-26T12:58:40.000Z</updated>
-        <content type="html"><![CDATA[<p>CF466C</p>
+        <content type="html"><![CDATA[<p>2-24 CF466C</p>
 <pre><code class="language-cpp">#include&lt;iostream&gt;
 #define int long long
 using namespace std;
@@ -52,7 +52,7 @@ signed main(){
 	return 0;
 }
 </code></pre>
-<p>CF474D</p>
+<p>2-24 CF474D</p>
 <pre><code class="language-cpp">#include&lt;iostream&gt;
 #define int long long
 const int mod=1000000007;
@@ -82,7 +82,7 @@ signed main(){
 	return 0;
 }
 </code></pre>
-<p>CF546D</p>
+<p>2-25 CF546D</p>
 <pre><code class="language-cpp">#include&lt;iostream&gt;
 using namespace std;
 int a[5000005],b[5000005],sum[5000005];
@@ -113,7 +113,7 @@ int main(){
 	return 0;
 }
 </code></pre>
-<p>CF372A</p>
+<p>2-26 CF372A</p>
 <pre><code class="language-cpp">#include&lt;iostream&gt;
 #include&lt;algorithm&gt;
 using namespace std;
@@ -137,6 +137,196 @@ int main(){
 		book[i]=1;
 	}
 	cout&lt;&lt;n-ans;
+	return 0;
+}
+</code></pre>
+<p>2-27 P6136</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdlib&gt;
+#include&lt;cstdio&gt;
+using namespace std;
+#define MAXN 1100005
+struct fhq_treap{
+	int rt,cnt,siz[MAXN],ch[MAXN][2],rnd[MAXN],val[MAXN];
+	inline int new_node(int v){
+		cnt++;
+		rnd[cnt]=rand();
+		val[cnt]=v;
+		siz[cnt]=1;
+		return cnt;
+	}
+	inline void up(int root){
+		siz[root]=siz[ch[root][0]]+siz[ch[root][1]]+1;
+	}
+	int merge(int x,int y){
+		if(!x||!y)return x+y;
+		if(rnd[x]&lt;rnd[y]){
+			ch[x][1]=merge(ch[x][1],y);
+			up(x);
+			return x;
+		}
+		else{
+			ch[y][0]=merge(x,ch[y][0]);
+			up(y);
+			return y;
+		}
+	}
+	void split(int root,int pos,int &amp;x,int &amp;y){//&lt;pos:x?y
+		if(!root){
+			x=y=0;
+			return;
+		}
+		if(val[root]&lt;pos){
+			x=root;
+			split(ch[root][1],pos,ch[root][1],y);
+		}
+		else{
+			y=root;
+			split(ch[root][0],pos,x,ch[root][0]);
+		}
+		up(root);
+	}
+	inline void insert(int val){
+		int x,y=new_node(val),z;
+		split(rt,val,x,z);
+		rt=merge(merge(x,y),z);
+	}
+	inline void del(int val){
+		int x,y,z;
+		split(rt,val,x,y);
+		split(y,val+1,y,z);
+		y=merge(ch[y][0],ch[y][1]);
+		rt=merge(merge(x,y),z);
+	}
+	inline int get_kth(int root,int k){
+		while(1){
+			if(siz[ch[root][0]]&gt;=k)root=ch[root][0];
+			else if(siz[ch[root][0]]==k-1)return val[root];
+			else{
+				k-=siz[ch[root][0]]+1;
+				root=ch[root][1];
+			}
+		}
+	}
+	inline int get_rank(int v){
+		int x,y,ans;
+		split(rt,v,x,y);
+		ans=siz[x]+1;
+		rt=merge(x,y);
+		return ans;
+	}
+	inline int pre(int v){
+		int x,y,ans;
+		split(rt,v,x,y);
+		ans=get_kth(x,siz[x]);
+		rt=merge(x,y);
+		return ans;
+	}
+	inline int suf(int v){
+		int x,y,ans;
+		split(rt,v+1,x,y);
+		ans=get_kth(y,1);
+		rt=merge(x,y);
+		return ans;
+	}
+}T; 
+inline int read(){
+	int x=0;
+	char ch=getchar();
+	while(ch&lt;'0'||ch&gt;'9')ch=getchar();
+	while(ch&gt;='0'&amp;&amp;ch&lt;='9'){
+		x*=10;
+		x+=ch-48;
+		ch=getchar();
+	}
+	return x;
+}
+int main(){
+	int n,m,opt,x,lst=0,ans=0;
+	cin&gt;&gt;n&gt;&gt;m;
+	for(register int i=0;i&lt;n;i++){
+		opt=read();
+		T.insert(opt);
+	}
+	for(register int i=0;i&lt;m;i++){
+		opt=read();
+		x=read();
+		x^=lst;
+		if(opt==1){
+			T.insert(x);
+		}
+		else if(opt==2){
+			T.del(x);
+		}
+		else if(opt==3){
+			lst=T.get_rank(x);
+			ans^=lst;
+		}
+		else if(opt==4){
+			lst=T.get_kth(T.rt,x);
+			ans^=lst;
+		}
+		else if(opt==5){
+			lst=T.pre(x);
+			ans^=lst;
+		}
+		else if(opt==6){
+			lst=T.suf(x);
+			ans^=lst;
+		}
+	}
+	cout&lt;&lt;ans&lt;&lt;endl;
+	return 0;
+}
+</code></pre>
+<p>2-27 P1351</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#define int long long
+using namespace std;
+struct node{
+	int v,nxt;
+}a[400005];
+int maxx[200005][2],sum[200005],pfs[200005];
+int val[200005],head[200005],cnt;
+void add_edge(int u,int v){
+	cnt++;
+	a[cnt].v=v;
+	a[cnt].nxt=head[u];
+	head[u]=cnt;
+}
+void dfs(int u,int fa){
+	for(int i=head[u];i;i=a[i].nxt){
+		if(maxx[u][0]==0)maxx[u][0]=val[a[i].v];
+		else if(maxx[u][1]==0)maxx[u][1]=val[a[i].v];
+		else if(val[a[i].v]&gt;maxx[u][0]){maxx[u][1]=maxx[u][0];maxx[u][0]=val[a[i].v];}
+		else if(val[a[i].v]&gt;maxx[u][1])maxx[u][1]=val[a[i].v];
+		pfs[u]+=val[a[i].v]*val[a[i].v];
+		sum[u]+=val[a[i].v];
+		if(a[i].v==fa)continue;
+		dfs(a[i].v,u);
+	}
+} 
+signed main(){
+	int n,u,v,maxxx=0,ans=0;
+	cin&gt;&gt;n;
+	for(int i=1;i&lt;n;i++){
+		cin&gt;&gt;u&gt;&gt;v; 
+		add_edge(u,v);
+		add_edge(v,u);
+	}
+	for(int i=1;i&lt;=n;i++)cin&gt;&gt;val[i];
+	dfs(1,0);
+	for(int i=1;i&lt;=n;i++){
+		sum[i]%=10007;
+		pfs[i]%=10007;
+		maxxx=max(maxxx,maxx[i][0]*maxx[i][1]);
+		ans+=sum[i]*sum[i];
+		ans-=pfs[i];
+	}
+	ans%=10007;
+	ans+=10007;
+	ans%=10007;
+	cout&lt;&lt;maxxx&lt;&lt;&quot; &quot;&lt;&lt;ans;
 	return 0;
 }
 </code></pre>
