@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>题解 CF816B 【Karen and Coffee】 | AC-Automation&#39;s blog</title>
+<title>【代码仓库】P1351 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -80,15 +80,15 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">题解 CF816B 【Karen and Coffee】</h2>
+          <h2 class="post-title">【代码仓库】P1351</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-06</span>
+            <span><i class="icon-calendar-outline"></i> 2020-02-28</span>
             
               <span>
                 <i class="icon-pricetags-outline"></i>
                 
-                  <a href="https://ac-automation27.github.io/tag/OSh4LBKEC">
-                    【题解】
+                  <a href="https://ac-automation27.github.io/tag/hBgwjQq0s">
+                    【代码仓库】
                     
                   </a>
                 
@@ -96,37 +96,53 @@
             
           </div>
           <div class="post-content">
-            <p>思路：用差分来维护每种温度被食谱的认可度，再用前缀和处理询问（本来以为要用线段树维护，后来发现询问都在最后，于是写的差分）。</p>
-<p>有关差分的介绍请看这里：<a href="https://rpdreamer.blog.luogu.org/ci-fen-and-shu-shang-ci-fen">差分数组&amp;树上差分</a></p>
-<p><s>前缀和不用多讲了吧</s></p>
-<p>最后是代码：</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
+            <pre><code class="language-cpp">#include&lt;iostream&gt;
+#define int long long
 using namespace std;
-int a[200005],b[200005],sum[200005];
-int main()
-{
-	int n,k,q,l,r;
-	cin&gt;&gt;n&gt;&gt;k&gt;&gt;q;
-	for(int i=0;i&lt;n;i++)
-	{
-		cin&gt;&gt;l&gt;&gt;r;
-		b[l]++;
-		b[r+1]--;
-	}//差分
-	int sum1=0,sum2=0;
-	for(int i=1;i&lt;=200000;i++)
-	{
-		sum1+=b[i];
-		a[i]=sum1;
-		if(a[i]&gt;=k)
-			sum2++;
-		sum[i]=sum2;
-	}//计算前缀和
-	for(int i=0;i&lt;q;i++)
-	{
-		cin&gt;&gt;l&gt;&gt;r;
-		cout&lt;&lt;sum[r]-sum[l-1]&lt;&lt;endl;
-	}//处理询问
+struct node{
+	int v,nxt;
+}a[400005];
+int maxx[200005][2],sum[200005],pfs[200005];
+int val[200005],head[200005],cnt;
+void add_edge(int u,int v){
+	cnt++;
+	a[cnt].v=v;
+	a[cnt].nxt=head[u];
+	head[u]=cnt;
+}
+void dfs(int u,int fa){
+	for(int i=head[u];i;i=a[i].nxt){
+		if(maxx[u][0]==0)maxx[u][0]=val[a[i].v];
+		else if(maxx[u][1]==0)maxx[u][1]=val[a[i].v];
+		else if(val[a[i].v]&gt;maxx[u][0]){maxx[u][1]=maxx[u][0];maxx[u][0]=val[a[i].v];}
+		else if(val[a[i].v]&gt;maxx[u][1])maxx[u][1]=val[a[i].v];
+		pfs[u]+=val[a[i].v]*val[a[i].v];
+		sum[u]+=val[a[i].v];
+		if(a[i].v==fa)continue;
+		dfs(a[i].v,u);
+	}
+} 
+signed main(){
+	int n,u,v,maxxx=0,ans=0;
+	cin&gt;&gt;n;
+	for(int i=1;i&lt;n;i++){
+		cin&gt;&gt;u&gt;&gt;v; 
+		add_edge(u,v);
+		add_edge(v,u);
+	}
+	for(int i=1;i&lt;=n;i++)cin&gt;&gt;val[i];
+	dfs(1,0);
+	for(int i=1;i&lt;=n;i++){
+		sum[i]%=10007;
+		pfs[i]%=10007;
+		maxxx=max(maxxx,maxx[i][0]*maxx[i][1]);
+		ans+=sum[i]*sum[i];
+		ans-=pfs[i];
+	}
+	ans%=10007;
+	ans+=10007;
+	ans%=10007;
+	cout&lt;&lt;maxxx&lt;&lt;&quot; &quot;&lt;&lt;ans;
 	return 0;
 }
 </code></pre>
@@ -135,14 +151,6 @@ int main()
         </div>
 
         
-          <div class="next-post">
-            <a class="purple-link" href="https://ac-automation27.github.io/post/ti-jie-cf1097b-petr-and-a-combination-lock">
-              <h3 class="post-title">
-                下一篇：题解 CF1097B 【Petr and a Combination Lock】
-              </h3>
-            </a>
-          </div>
-          
       </div>
 
       

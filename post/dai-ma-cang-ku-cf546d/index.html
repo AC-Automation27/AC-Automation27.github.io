@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>题解 CF816B 【Karen and Coffee】 | AC-Automation&#39;s blog</title>
+<title>【代码仓库】CF546D | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -80,15 +80,15 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">题解 CF816B 【Karen and Coffee】</h2>
+          <h2 class="post-title">【代码仓库】CF546D</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-06</span>
+            <span><i class="icon-calendar-outline"></i> 2020-02-28</span>
             
               <span>
                 <i class="icon-pricetags-outline"></i>
                 
-                  <a href="https://ac-automation27.github.io/tag/OSh4LBKEC">
-                    【题解】
+                  <a href="https://ac-automation27.github.io/tag/hBgwjQq0s">
+                    【代码仓库】
                     
                   </a>
                 
@@ -96,37 +96,33 @@
             
           </div>
           <div class="post-content">
-            <p>思路：用差分来维护每种温度被食谱的认可度，再用前缀和处理询问（本来以为要用线段树维护，后来发现询问都在最后，于是写的差分）。</p>
-<p>有关差分的介绍请看这里：<a href="https://rpdreamer.blog.luogu.org/ci-fen-and-shu-shang-ci-fen">差分数组&amp;树上差分</a></p>
-<p><s>前缀和不用多讲了吧</s></p>
-<p>最后是代码：</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
+            <pre><code class="language-cpp">#include&lt;iostream&gt;
 using namespace std;
-int a[200005],b[200005],sum[200005];
-int main()
-{
-	int n,k,q,l,r;
-	cin&gt;&gt;n&gt;&gt;k&gt;&gt;q;
-	for(int i=0;i&lt;n;i++)
-	{
-		cin&gt;&gt;l&gt;&gt;r;
-		b[l]++;
-		b[r+1]--;
-	}//差分
-	int sum1=0,sum2=0;
-	for(int i=1;i&lt;=200000;i++)
-	{
-		sum1+=b[i];
-		a[i]=sum1;
-		if(a[i]&gt;=k)
-			sum2++;
-		sum[i]=sum2;
-	}//计算前缀和
-	for(int i=0;i&lt;q;i++)
-	{
-		cin&gt;&gt;l&gt;&gt;r;
-		cout&lt;&lt;sum[r]-sum[l-1]&lt;&lt;endl;
-	}//处理询问
+int a[5000005],b[5000005],sum[5000005];
+int main(){
+	int n,x,y;
+	cin&gt;&gt;n;
+	for(int i=2;i&lt;=5000000;i++){
+		if(a[i]==0){
+			for(int j=i*2;j&lt;=5000000;j+=i){
+				a[j]=i;
+			}
+		}
+	}
+	for(int i=2;i&lt;=5000000;i++){
+		if(a[i]==0)b[i]=1;
+		else{
+			b[i]=b[a[i]]+b[i/a[i]];
+		}
+	}
+	for(int i=2;i&lt;=5000000;i++){
+	//	cout&lt;&lt;b[i]&lt;&lt;' ';
+		sum[i]=sum[i-1]+b[i];
+	}
+	for(int i=0;i&lt;n;i++){
+		cin&gt;&gt;x&gt;&gt;y;
+		cout&lt;&lt;sum[x]-sum[y]&lt;&lt;endl;
+	} 
 	return 0;
 }
 </code></pre>
@@ -135,14 +131,6 @@ int main()
         </div>
 
         
-          <div class="next-post">
-            <a class="purple-link" href="https://ac-automation27.github.io/post/ti-jie-cf1097b-petr-and-a-combination-lock">
-              <h3 class="post-title">
-                下一篇：题解 CF1097B 【Petr and a Combination Lock】
-              </h3>
-            </a>
-          </div>
-          
       </div>
 
       
