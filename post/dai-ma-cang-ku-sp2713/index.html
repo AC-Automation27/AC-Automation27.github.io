@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>【代码仓库】P1351 | AC-Automation&#39;s blog</title>
+<title>【代码仓库】SP2713 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -80,7 +80,7 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">【代码仓库】P1351</h2>
+          <h2 class="post-title">【代码仓库】SP2713</h2>
           <div class="post-info post-detail-info">
             <span><i class="icon-calendar-outline"></i> 2020-02-28</span>
             
@@ -97,52 +97,73 @@
           </div>
           <div class="post-content">
             <pre><code class="language-cpp">#include&lt;iostream&gt;
-#define int long long
+#include&lt;cmath&gt; 
 using namespace std;
+#define ll long long
+ll data[100005];
 struct node{
-	int v,nxt;
-}a[400005];
-int maxx[200005][2],sum[200005],pfs[200005];
-int val[200005],head[200005],cnt;
-void add_edge(int u,int v){
-	cnt++;
-	a[cnt].v=v;
-	a[cnt].nxt=head[u];
-	head[u]=cnt;
+	bool gt;
+	ll sum;
+} a[400005];
+inline int ls(int x){return x&lt;&lt;1;}
+inline int rs(int x){return (x&lt;&lt;1)+1;}
+void up(int rt){
+	a[rt].sum=a[ls(rt)].sum+a[rs(rt)].sum;
+	a[rt].gt=a[ls(rt)].gt&amp;a[rs(rt)].gt;
+	return;
 }
-void dfs(int u,int fa){
-	for(int i=head[u];i;i=a[i].nxt){
-		if(maxx[u][0]==0)maxx[u][0]=val[a[i].v];
-		else if(maxx[u][1]==0)maxx[u][1]=val[a[i].v];
-		else if(val[a[i].v]&gt;maxx[u][0]){maxx[u][1]=maxx[u][0];maxx[u][0]=val[a[i].v];}
-		else if(val[a[i].v]&gt;maxx[u][1])maxx[u][1]=val[a[i].v];
-		pfs[u]+=val[a[i].v]*val[a[i].v];
-		sum[u]+=val[a[i].v];
-		if(a[i].v==fa)continue;
-		dfs(a[i].v,u);
+void build(int rt,int l,int r){
+	if(l==r){
+		a[rt].gt=(data[l]&lt;=1);
+		a[rt].sum=data[l];
+		return;
 	}
-} 
-signed main(){
-	int n,u,v,maxxx=0,ans=0;
-	cin&gt;&gt;n;
-	for(int i=1;i&lt;n;i++){
-		cin&gt;&gt;u&gt;&gt;v; 
-		add_edge(u,v);
-		add_edge(v,u);
+	int mid=(l+r)&gt;&gt;1;
+	build(ls(rt),l,mid);
+	build(rs(rt),mid+1,r);
+	up(rt);
+	return;
+}
+void change(int rt,int l,int r,int ql,int qr){
+	if(ql&lt;=l&amp;&amp;qr&gt;=r&amp;&amp;a[rt].gt==1)return;
+	if(l==r){
+		a[rt].sum=sqrt(a[rt].sum);
+		if(a[rt].sum&lt;=1)a[rt].gt=1;
+		return;
 	}
-	for(int i=1;i&lt;=n;i++)cin&gt;&gt;val[i];
-	dfs(1,0);
-	for(int i=1;i&lt;=n;i++){
-		sum[i]%=10007;
-		pfs[i]%=10007;
-		maxxx=max(maxxx,maxx[i][0]*maxx[i][1]);
-		ans+=sum[i]*sum[i];
-		ans-=pfs[i];
+	int mid=(l+r)&gt;&gt;1;
+	if(ql&lt;=mid)change(ls(rt),l,mid,ql,qr);
+	if(qr&gt;mid)change(rs(rt),mid+1,r,ql,qr);
+	up(rt);
+	return; 
+}
+ll query(int rt,int l,int r,int ql,int qr){
+	if(ql&lt;=l&amp;&amp;qr&gt;=r)return a[rt].sum;
+	int mid=(l+r)&gt;&gt;1;
+	ll ans=0;
+	if(ql&lt;=mid)ans+=query(ls(rt),l,mid,ql,qr);
+	if(qr&gt;mid)ans+=query(rs(rt),mid+1,r,ql,qr);
+	return ans;
+}
+int main(){
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	cout.tie(0);
+	int n,m,x,y,z,ttt=0;
+	while(cin&gt;&gt;n){
+		ttt++; 
+		cout&lt;&lt;&quot;Case #&quot;&lt;&lt;ttt&lt;&lt;&quot;:&quot;&lt;&lt;endl; 
+		for(int i=1;i&lt;=n;i++)cin&gt;&gt;data[i];
+		build(1,1,n);
+		cin&gt;&gt;m;
+		for(register int i=0;i&lt;m;i++){
+			cin&gt;&gt;x&gt;&gt;y&gt;&gt;z;
+			if(y&gt;z)swap(y,z);
+			if(x==0)change(1,1,n,y,z);
+			else cout&lt;&lt;query(1,1,n,y,z)&lt;&lt;endl;
+		}
+		cout&lt;&lt;endl;
 	}
-	ans%=10007;
-	ans+=10007;
-	ans%=10007;
-	cout&lt;&lt;maxxx&lt;&lt;&quot; &quot;&lt;&lt;ans;
 	return 0;
 }
 </code></pre>
