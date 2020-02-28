@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>题解 CF1197B 【Pillars】 | AC-Automation&#39;s blog</title>
+<title>【代码仓库】 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -78,65 +78,48 @@
 
 
       <div class="content-container">
-        <div class="post-detail">
-          
-          <h2 class="post-title">题解 CF1197B 【Pillars】</h2>
-          <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-06</span>
-            
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://ac-automation27.github.io/tag/OSh4LBKEC">
-                    【题解】
-                    
-                  </a>
-                
-              </span>
-            
-          </div>
-          <div class="post-content">
-            <p>根据题面我们很容易看出，对于任何一个碟子，只要它的半径不为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>，它的上面就不能放碟子（因为放了就移不下来了）</p>
-<p>这样的话，我们考虑以半径为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>的碟子为界，将所有碟子分为两半。显而易见，它左边的碟子直径必然是递增的，而右边则必然是递减的。以此为条件判断即可。</p>
-<p>上代码：</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-using namespace std;
-int a[200005];
-int main(){
-	int n,maxm=0,wz;
-	cin&gt;&gt;n;
-	for(int i=0;i&lt;n;i++){
-		cin&gt;&gt;a[i];
-		if(a[i]&gt;=maxm)
-			maxm=a[i],wz=i;//标记直径最长的碟子位置
-	}
-	int bj=true;
-	for(int i=1;i&lt;wz;i++)
-		if(a[i]&lt;a[i-1])bj=false;//判断左边碟子直径
-	for(int i=wz+1;i&lt;n;i++)
-		if(a[i]&gt;a[i-1])bj=false;//右边同理
-	if(bj)cout&lt;&lt;&quot;YES\n&quot;;
-	else cout&lt;&lt;&quot;NO\n&quot;;
-	return 0;
-}
-</code></pre>
-<p>吐槽：没有蓝题难度吧...最多橙题~黄题吧</p>
 
-          </div>
+        <div class="current-tag-container">
+          <h2 class="title">
+            <i class="icon icon-pricetags-outline"></i> 【代码仓库】
+          </h2> 
         </div>
 
         
-          <div class="next-post">
-            <a class="purple-link" href="https://ac-automation27.github.io/post/ti-jie-cf1197c-array-splitting">
-              <h3 class="post-title">
-                下一篇：题解 CF1197C 【Array Splitting】
-              </h3>
-            </a>
-          </div>
-          
+<section class="post-item">
+    <div class="content">
+      <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-cf466c">
+        <h2 class="post-title">【代码仓库】 CF466C</h2>
+      </a>
+      <div class="post-abstract">
+        
       </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-02-28</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://ac-automation27.github.io/tag/hBgwjQq0s">
+                【代码仓库】
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
 
-      
+
+<div class="pagination-container">
+  
+  
+</div>
+
+
+      </div>
 
       <div class="site-footer">
   <div class="slogan"></div>
