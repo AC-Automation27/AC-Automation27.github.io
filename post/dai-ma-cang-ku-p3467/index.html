@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>【小说】 | AC-Automation&#39;s blog</title>
+<title>【代码仓库】P3467 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -78,48 +78,54 @@
 
 
       <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">【代码仓库】P3467</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2020-02-29</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://ac-automation27.github.io/tag/hBgwjQq0s">
+                    【代码仓库】
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <pre><code class="language-cpp">#include&lt;iostream&gt;
+using namespace std;
+int stk[250005],a[250005];
+int main(){
+	int n,top=-1,ljt,ans;
+	cin&gt;&gt;n;
+	ans=n;
+	for(int i=1;i&lt;=n;i++)cin&gt;&gt;ljt&gt;&gt;a[i];
+	for(int i=1;i&lt;=n;i++){
+		while(top&gt;=0&amp;&amp;a[stk[top]]&gt;a[i])top--;
+		if(top&gt;=0&amp;&amp;a[stk[top]]==a[i]){
+			top--;
+			ans--;
+		}
+		stk[++top]=i;
 
-        <div class="current-tag-container">
-          <h2 class="title">
-            <i class="icon icon-pricetags-outline"></i> 【小说】
-          </h2> 
+	}
+	cout&lt;&lt;ans; 
+	return 0;
+}
+
+</code></pre>
+
+          </div>
         </div>
 
         
-<section class="post-item">
-    <div class="content">
-      <a href="https://ac-automation27.github.io/post/di-yi-zhang-ming-ling-ta">
-        <h2 class="post-title">第一章 冥灵塔</h2>
-      </a>
-      <div class="post-abstract">
-        
       </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2020-02-06</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://ac-automation27.github.io/tag/he9wNgNzq">
-                【小说】
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
 
-
-<div class="pagination-container">
-  
-  
-</div>
-
-
-      </div>
+      
 
       <div class="site-footer">
   <div class="slogan"></div>
