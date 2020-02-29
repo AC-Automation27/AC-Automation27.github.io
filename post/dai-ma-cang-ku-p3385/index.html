@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>题解 P4939 【Agent2】 | AC-Automation&#39;s blog</title>
+<title>【代码仓库】P3385 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -80,15 +80,15 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">题解 P4939 【Agent2】</h2>
+          <h2 class="post-title">【代码仓库】P3385</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-06</span>
+            <span><i class="icon-calendar-outline"></i> 2020-02-29</span>
             
               <span>
                 <i class="icon-pricetags-outline"></i>
                 
-                  <a href="https://ac-automation27.github.io/tag/OSh4LBKEC">
-                    【题解】
+                  <a href="https://ac-automation27.github.io/tag/hBgwjQq0s">
+                    【代码仓库】
                     
                   </a>
                 
@@ -96,68 +96,73 @@
             
           </div>
           <div class="post-content">
-            <p>先看题目描述，总结起来就是：</p>
-<h4 id="1-区间修改">1. 区间修改</h4>
-<h4 id="2-单点查询">2. 单点查询</h4>
-<p>于是：</p>
-<h2 id="标准的线段树-树状数组题目">标准的线段树、树状数组题目。</h2>
-<p>墙裂推荐树状数组~~（只要能用）~~，码量小，空间和时间都比线段树优</p>
-<h4 id="所以这里只讲树状数组">所以，这里只讲树状数组</h4>
-<p>这里的树状数组采用了差分和前缀和的思想，利用树状数组维护差分数组的前缀和（不懂树状数组的出门左转<a href="https://www.luogu.org/problemnew/solution/P3374">这里</a>。<s>话说会树状数组的还看题解干嘛</s>）</p>
-<p>久违的放代码时间：</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
+            <pre><code class="language-cpp">#include&lt;iostream&gt;
 using namespace std;
-int n,m;
-long long c[100000005];
-inline int lowbit(int x){return x&amp;(-x);}//树状数组的标志
-void add(int x,int t){//单点加（为什么要t看后面）
-	while(x&lt;=n){
-		c[x]+=t;
-		x+=lowbit(x);
-	}
+int head[4005],cnt,dis[4005],q[10000005],hd,tl,c[4005];
+bool vis[4005]; 
+struct node{
+	int v,nxt,val;
+}a[10005];
+void add_edge(int u,int v,int val){
+	cnt++;
+	a[cnt].v=v;
+	a[cnt].val=val;
+	a[cnt].nxt=head[u];
+	head[u]=cnt; 
 }
-long long sum(int x){//求和
-	long long ret=0;
-	while(x&gt;0){
-		ret+=c[x];
-		x-=lowbit(x);
-	}
-	return ret;
-}
-int main()
-{
-	ios::sync_with_stdio(false);
-	cin&gt;&gt;n&gt;&gt;m;
-	int opt,x,y;
-	for(int i=0;i&lt;m;i++){
-		cin&gt;&gt;opt;
-		if(!opt){
-			cin&gt;&gt;x&gt;&gt;y;
-			add(x,1);
-			add(y+1,-1);//差分，用到上面的t了~
+int main(){
+	int n,m,u,v,w;
+	int T;
+	cin&gt;&gt;T;
+	while(T--){
+        hd=tl=0;
+		cin&gt;&gt;n&gt;&gt;m;
+		cnt=0;
+		for(int i=1;i&lt;=n;i++){
+			dis[i]=1000000000;
+			head[i]=0;
+			vis[i]=0;
+			c[i]=0;
 		}
-		else{
-			cin&gt;&gt;x;
-			cout&lt;&lt;sum(x)&lt;&lt;endl;
+		for(int i=0;i&lt;m;i++){
+			cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;
+			add_edge(u,v,w);
+			if(w&gt;=0)add_edge(v,u,w);
 		}
+		q[tl++]=1;
+		dis[1]=0;
+		bool bj=0;
+		while(hd&lt;tl){
+			int u=q[hd];
+			for(int i=head[u];i;i=a[i].nxt){
+				if(dis[a[i].v]&gt;dis[u]+a[i].val){
+					dis[a[i].v]=dis[u]+a[i].val;
+					c[a[i].v]++;
+					if(!vis[a[i].v]){
+						q[tl++]=a[i].v;
+						vis[a[i].v]=1;
+					}
+					if(c[a[i].v]==n){
+						bj=1;
+						break;
+					}
+				}
+			}
+			if(bj==1)break;
+			vis[u]=0;
+			hd++;
+		}
+		if(bj==1)cout&lt;&lt;&quot;YE5\n&quot;;
+		else cout&lt;&lt;&quot;N0\n&quot;;
 	}
 	return 0;
-}//完结撒花！
-
+}
 </code></pre>
 
           </div>
         </div>
 
         
-          <div class="next-post">
-            <a class="purple-link" href="https://ac-automation27.github.io/post/ti-jie-p4346-cerc2015ascii-addition">
-              <h3 class="post-title">
-                下一篇：题解 P4346 【[CERC2015]ASCII Addition】
-              </h3>
-            </a>
-          </div>
-          
       </div>
 
       
