@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>【代码仓库】P5960 | AC-Automation&#39;s blog</title>
+<title>【代码仓库】P2286 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -80,7 +80,7 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">【代码仓库】P5960</h2>
+          <h2 class="post-title">【代码仓库】P2286</h2>
           <div class="post-info post-detail-info">
             <span><i class="icon-calendar-outline"></i> 2020-03-01</span>
             
@@ -97,47 +97,146 @@
           </div>
           <div class="post-content">
             <pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdlib&gt;
 using namespace std;
-int head[50005],dis[50005],queue[10000005],p[50005],hd,tl,cnt;
-struct node{
-	int v,nxt,val;
-}a[1000005];
-void add_edge(int u,int v,int val){
-	a[++cnt].v=v;
-	a[cnt].val=val;
-	a[cnt].nxt=head[u];
-	head[u]=cnt;
-}
-int main(){
-	int n,m,u,v,w;
-	cin&gt;&gt;n&gt;&gt;m;
-	for(int i=0;i&lt;m;i++){
-		cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;
-		add_edge(v,u,w);
+#define MAXN 1000005
+#define int long long
+struct fhq_treap{
+	int rt,cnt,siz[MAXN],ch[MAXN][2],rnd[MAXN],val[MAXN];
+	int new_node(int v){
+		cnt++;
+		rnd[cnt]=rand();
+		val[cnt]=v;
+		siz[cnt]=1;
+		return cnt;
 	}
-	for(int i=1;i&lt;=n;i++){
-		add_edge(n+1,i,0);
-		dis[i]=100000000;
+	void up(int root){
+		siz[root]=siz[ch[root][0]]+siz[ch[root][1]]+1;
 	}
-	queue[tl++]=n+1;
-	while(hd&lt;tl){
-		u=queue[hd];
-		hd++;
-		for(int i=head[u];i;i=a[i].nxt){
-			if(dis[u]+a[i].val&lt;dis[a[i].v]){
-				dis[a[i].v]=dis[u]+a[i].val;
-				queue[tl++]=a[i].v;
-				p[a[i].v]++;
-				if(p[a[i].v]==n){
-					cout&lt;&lt;&quot;NO&quot;;
-					return 0;
-				} 
+	int merge(int x,int y){
+		if(!x||!y)return x+y;
+		if(rnd[x]&lt;rnd[y]){
+			ch[x][1]=merge(ch[x][1],y);
+			up(x);
+			return x;
+		}
+		else{
+			ch[y][0]=merge(x,ch[y][0]);
+			up(y);
+			return y;
+		}
+	}
+	void split(int root,int pos,int &amp;x,int &amp;y){//&lt;pos:x?y
+		if(!root){
+			x=y=0;
+			return;
+		}
+		if(val[root]&lt;pos){
+			x=root;
+			split(ch[root][1],pos,ch[root][1],y);
+		}
+		else{
+			y=root;
+			split(ch[root][0],pos,x,ch[root][0]);
+		}
+		up(root);
+	}
+	void insert(int val){
+		int x,y=new_node(val),z;
+		split(rt,val,x,z);
+		rt=merge(merge(x,y),z);
+	}
+	void del(int val){
+		int x,y,z;
+		split(rt,val,x,y);
+		split(y,val+1,y,z);
+		y=merge(ch[y][0],ch[y][1]);
+		rt=merge(merge(x,y),z);
+	}
+	int get_kth(int root,int k){
+		while(1){
+			if(siz[ch[root][0]]&gt;=k)root=ch[root][0];
+			else if(siz[ch[root][0]]==k-1)return val[root];
+			else{
+				k-=siz[ch[root][0]]+1;
+				root=ch[root][1];
 			}
 		}
 	}
-	for(int i=1;i&lt;=n;i++)cout&lt;&lt;dis[i]&lt;&lt;' ';
+	int get_rank(int v){
+		int x,y,ans;
+		split(rt,v,x,y);
+		ans=siz[x]+1;
+		rt=merge(x,y);
+		return ans;
+	}
+	int pre(int v){
+		int x,y,ans;
+		split(rt,v,x,y);
+		if(siz[x]==0)return -1000000000;
+		ans=get_kth(x,siz[x]);
+		rt=merge(x,y);
+		return ans;
+	}
+	int suf(int v){
+		int x,y,ans;
+		split(rt,v+1,x,y);
+		if(siz[y]==0)return 1000000000;
+		ans=get_kth(y,1);
+		rt=merge(x,y);
+		return ans;
+	}
+}T; 
+signed main(){
+	int n,opt,x,t1,t2,ans=0;
+	int kk=2;
+	cin&gt;&gt;n;
+	for(int i=0;i&lt;n;i++){
+		cin&gt;&gt;opt&gt;&gt;x;
+		if(opt==0){
+			if(kk==2)kk=0;
+			if(kk==0){
+				T.insert(x);
+			}
+			else{
+				t1=T.pre(x);
+				t2=T.suf(x);
+				if(t2-x&lt;x-t1){
+					T.del(t2);
+					ans+=t2-x;
+				}
+				else{
+					T.del(t1);
+					ans+=x-t1;
+				}
+			}
+			if(T.siz[T.rt]==0)kk=2;
+		}
+		else if(opt==1){
+			if(kk==2)kk=1;
+			if(kk==1){
+				T.insert(x);
+			}
+			else{
+				t1=T.pre(x);
+				t2=T.suf(x);
+				if(t2-x&lt;x-t1){
+					T.del(t2);
+					ans+=t2-x;
+				}
+				else{
+					T.del(t1);
+					ans+=x-t1;
+				}
+			}
+			if(T.siz[T.rt]==0)kk=2;
+		}
+		ans%=1000000;
+	}
+	cout&lt;&lt;ans&lt;&lt;endl;
 	return 0;
 }
+
 </code></pre>
 
           </div>
