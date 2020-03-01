@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>【代码仓库】 CF466C | AC-Automation&#39;s blog</title>
+<title>【代码仓库】P5960 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -80,9 +80,9 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">【代码仓库】 CF466C</h2>
+          <h2 class="post-title">【代码仓库】P5960</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-28</span>
+            <span><i class="icon-calendar-outline"></i> 2020-03-01</span>
             
               <span>
                 <i class="icon-pricetags-outline"></i>
@@ -97,38 +97,45 @@
           </div>
           <div class="post-content">
             <pre><code class="language-cpp">#include&lt;iostream&gt;
-#define int long long
 using namespace std;
-int a[500005];
-bool b1[500005],b2[500005];
-int c[500005];
-signed main(){
-	int n,sum=0,kk;
-	cin&gt;&gt;n;
-	for(int i=1;i&lt;=n;i++)cin&gt;&gt;a[i],sum+=a[i];
-	if(sum%3!=0){
-		cout&lt;&lt;0;
-		return 0;
-	}
-	kk=sum/3;
-	sum=0;
-	for(int i=1;i&lt;=n;i++){
-		sum+=a[i];
-		if(sum==kk)b1[i]=1;
-	}
-	sum=0;
-	for(int i=n;i&gt;0;i--){
-		sum+=a[i];
-		if(sum==kk)b2[i]=1;
+int head[50005],dis[50005],queue[10000005],p[50005],hd,tl,cnt;
+struct node{
+	int v,nxt,val;
+}a[1000005];
+void add_edge(int u,int v,int val){
+	a[++cnt].v=v;
+	a[cnt].val=val;
+	a[cnt].nxt=head[u];
+	head[u]=cnt;
+}
+int main(){
+	int n,m,u,v,w;
+	cin&gt;&gt;n&gt;&gt;m;
+	for(int i=0;i&lt;m;i++){
+		cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;
+		add_edge(v,u,w);
 	}
 	for(int i=1;i&lt;=n;i++){
-		c[i]=c[i-1]+b1[i];
+		add_edge(n+1,i,0);
+		dis[i]=100000000;
 	}
-	int ans=0;
-	for(int i=3;i&lt;=n;i++){
-		ans+=b2[i]*c[i-2];
+	queue[tl++]=n+1;
+	while(hd&lt;tl){
+		u=queue[hd];
+		hd++;
+		for(int i=head[u];i;i=a[i].nxt){
+			if(dis[u]+a[i].val&lt;dis[a[i].v]){
+				dis[a[i].v]=dis[u]+a[i].val;
+				queue[tl++]=a[i].v;
+				p[a[i].v]++;
+				if(p[a[i].v]==n){
+					cout&lt;&lt;&quot;NO&quot;;
+					return 0;
+				} 
+			}
+		}
 	}
-	cout&lt;&lt;ans;
+	for(int i=1;i&lt;=n;i++)cout&lt;&lt;dis[i]&lt;&lt;' ';
 	return 0;
 }
 </code></pre>

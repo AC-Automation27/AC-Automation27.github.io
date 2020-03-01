@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>【代码仓库】 CF466C | AC-Automation&#39;s blog</title>
+<title>【代码仓库】 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -78,68 +78,76 @@
 
 
       <div class="content-container">
-        <div class="post-detail">
-          
-          <h2 class="post-title">【代码仓库】 CF466C</h2>
-          <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-28</span>
-            
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://ac-automation27.github.io/tag/hBgwjQq0s">
-                    【代码仓库】
-                    
-                  </a>
-                
-              </span>
-            
-          </div>
-          <div class="post-content">
-            <pre><code class="language-cpp">#include&lt;iostream&gt;
-#define int long long
-using namespace std;
-int a[500005];
-bool b1[500005],b2[500005];
-int c[500005];
-signed main(){
-	int n,sum=0,kk;
-	cin&gt;&gt;n;
-	for(int i=1;i&lt;=n;i++)cin&gt;&gt;a[i],sum+=a[i];
-	if(sum%3!=0){
-		cout&lt;&lt;0;
-		return 0;
-	}
-	kk=sum/3;
-	sum=0;
-	for(int i=1;i&lt;=n;i++){
-		sum+=a[i];
-		if(sum==kk)b1[i]=1;
-	}
-	sum=0;
-	for(int i=n;i&gt;0;i--){
-		sum+=a[i];
-		if(sum==kk)b2[i]=1;
-	}
-	for(int i=1;i&lt;=n;i++){
-		c[i]=c[i-1]+b1[i];
-	}
-	int ans=0;
-	for(int i=3;i&lt;=n;i++){
-		ans+=b2[i]*c[i-2];
-	}
-	cout&lt;&lt;ans;
-	return 0;
-}
-</code></pre>
 
-          </div>
+        <div class="current-tag-container">
+          <h2 class="title">
+            <i class="icon icon-pricetags-outline"></i> 【代码仓库】
+          </h2> 
         </div>
 
         
+<section class="post-item">
+    <div class="content">
+      <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-cf474d">
+        <h2 class="post-title">【代码仓库】CF474D</h2>
+      </a>
+      <div class="post-abstract">
+        
       </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-02-28</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://ac-automation27.github.io/tag/hBgwjQq0s">
+                【代码仓库】
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
 
-      
+<section class="post-item">
+    <div class="content">
+      <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-cf466c">
+        <h2 class="post-title">【代码仓库】 CF466C</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-02-28</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://ac-automation27.github.io/tag/hBgwjQq0s">
+                【代码仓库】
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+
+<div class="pagination-container">
+  
+    <a href="https://ac-automation27.github.io/tag/hBgwjQq0s" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+</div>
+
+
+      </div>
 
       <div class="site-footer">
   <div class="slogan"></div>

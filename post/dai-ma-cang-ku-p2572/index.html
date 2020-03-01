@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>【代码仓库】P2572 | AC-Automation&#39;s blog</title>
+<meta name="description" content="">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1583035079112">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://ac-automation27.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://ac-automation27.github.io">
+        <img class="avatar" src="https://ac-automation27.github.io/images/avatar.png?v=1583035079112" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://ac-automation27.github.io">
+        <h1 class="site-title">AC-Automation&#39;s blog</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">【代码仓库】P2572</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2020-03-01</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://ac-automation27.github.io/tag/hBgwjQq0s">
+                    【代码仓库】
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <pre><code class="language-cpp">#include&lt;iostream&gt;
+using namespace std;
+bool data[100005];
+struct node{
+	int sum,tag,lmax[2],rmax[2],omax[2];
+	bool rev;
+} a[400005];
+node up(node lft,node rgt,int lln,int rln){
+	node ret;
+	ret.sum=lft.sum+rgt.sum;
+	if(lft.lmax[0]==lln)ret.lmax[0]=lft.lmax[0]+rgt.lmax[0];
+	else ret.lmax[0]=lft.lmax[0];
+	if(rgt.rmax[0]==rln)ret.rmax[0]=rgt.rmax[0]+lft.rmax[0];
+	else ret.rmax[0]=rgt.rmax[0];
+	ret.omax[0]=max(max(lft.omax[0],rgt.omax[0]),lft.rmax[0]+rgt.lmax[0]);
+	
+	if(lft.lmax[1]==lln)ret.lmax[1]=lft.lmax[1]+rgt.lmax[1];
+	else ret.lmax[1]=lft.lmax[1];
+	if(rgt.rmax[1]==rln)ret.rmax[1]=rgt.rmax[1]+lft.rmax[1];
+	else ret.rmax[1]=rgt.rmax[1];
+	ret.omax[1]=max(max(lft.omax[1],rgt.omax[1]),lft.rmax[1]+rgt.lmax[1]);
+	ret.rev=0;
+	ret.tag=2;
+	return ret;
+}
+int ls(int x){return x&lt;&lt;1;}
+int rs(int x){return (x&lt;&lt;1)+1;}
+void pd(int rt,int l,int r){
+	int mid=(l+r)&gt;&gt;1;
+	if(a[rt].tag!=2){
+		a[ls(rt)].tag=a[rt].tag;
+		a[rs(rt)].tag=a[rt].tag;
+		a[ls(rt)].rev=a[rs(rt)].rev=0;
+		a[rt].tag=2;
+		a[ls(rt)].omax[1]=a[ls(rt)].rmax[1]=a[ls(rt)].lmax[1]=a[ls(rt)].tag*(mid-l+1);
+		a[ls(rt)].omax[0]=a[ls(rt)].rmax[0]=a[ls(rt)].lmax[0]=(1-a[ls(rt)].tag)*(mid-l+1);
+		a[ls(rt)].sum=a[ls(rt)].tag*(mid-l+1);
+		
+		a[rs(rt)].omax[1]=a[rs(rt)].rmax[1]=a[rs(rt)].lmax[1]=a[rs(rt)].tag*(r-mid);
+		a[rs(rt)].omax[0]=a[rs(rt)].rmax[0]=a[rs(rt)].lmax[0]=(1-a[rs(rt)].tag)*(r-mid);
+		a[rs(rt)].sum=a[rs(rt)].tag*(r-mid);
+		a[rt].rev=0;
+	}
+	if(a[rt].rev==1){
+			a[ls(rt)].rev^=1;
+			if(a[ls(rt)].tag!=2)a[ls(rt)].tag^=1;
+			swap(a[ls(rt)].lmax[0],a[ls(rt)].lmax[1]);
+			swap(a[ls(rt)].rmax[0],a[ls(rt)].rmax[1]);
+			swap(a[ls(rt)].omax[0],a[ls(rt)].omax[1]);
+			a[ls(rt)].sum=mid-l+1-a[ls(rt)].sum;
+			a[rs(rt)].rev^=1;
+			if(a[rs(rt)].tag!=2)a[rs(rt)].tag^=1;
+			swap(a[rs(rt)].lmax[0],a[rs(rt)].lmax[1]);
+			swap(a[rs(rt)].rmax[0],a[rs(rt)].rmax[1]);
+			swap(a[rs(rt)].omax[0],a[rs(rt)].omax[1]);
+			a[rs(rt)].sum=r-mid-a[rs(rt)].sum;
+		a[rt].rev=0;
+	}
+}
+void build(int rt,int l,int r){
+	a[rt].rev=0;
+	a[rt].tag=2;
+	if(l==r){
+		a[rt].sum=data[l];
+		a[rt].omax[1]=a[rt].rmax[1]=a[rt].lmax[1]=(data[l]==1);
+		a[rt].omax[0]=a[rt].rmax[0]=a[rt].lmax[0]=(data[l]==0);
+		return;
+	}
+	int mid=(l+r)&gt;&gt;1;
+	build(ls(rt),l,mid);
+	build(rs(rt),mid+1,r);
+	a[rt]=up(a[ls(rt)],a[rs(rt)],mid-l+1,r-mid);
+	return;
+}
+void alc(int rt,int l,int r,int ql,int qr,bool k){
+	if(ql&lt;=l&amp;&amp;qr&gt;=r){
+		a[rt].tag=k;
+		a[rt].rev=0;
+		a[rt].omax[1]=a[rt].rmax[1]=a[rt].lmax[1]=k*(r-l+1);
+		a[rt].omax[0]=a[rt].rmax[0]=a[rt].lmax[0]=(1-k)*(r-l+1);
+		a[rt].sum=k*(r-l+1);
+		return;		
+	}
+	int mid=(l+r)&gt;&gt;1;
+	pd(rt,l,r);
+	if(ql&lt;=mid)alc(ls(rt),l,mid,ql,qr,k);
+	if(qr&gt;mid)alc(rs(rt),mid+1,r,ql,qr,k);
+	a[rt]=up(a[ls(rt)],a[rs(rt)],mid-l+1,r-mid);
+	return;
+}
+void swp(int rt,int l,int r,int ql,int qr){
+	if(ql&lt;=l&amp;&amp;qr&gt;=r){
+		if(a[rt].tag!=2)a[rt].tag^=1;
+		a[rt].rev^=1;
+		swap(a[rt].lmax[0],a[rt].lmax[1]);
+		swap(a[rt].rmax[0],a[rt].rmax[1]);
+		swap(a[rt].omax[0],a[rt].omax[1]);
+		a[rt].sum=r-l+1-a[rt].sum;
+		return;		
+	}
+	int mid=(l+r)&gt;&gt;1;
+	pd(rt,l,r);
+	if(ql&lt;=mid)swp(ls(rt),l,mid,ql,qr);
+	if(qr&gt;mid)swp(rs(rt),mid+1,r,ql,qr);
+	a[rt]=up(a[ls(rt)],a[rs(rt)],mid-l+1,r-mid);
+	return;
+}
+int query_sum(int rt,int l,int r,int ql,int qr){
+	if(ql&lt;=l&amp;&amp;qr&gt;=r){
+		return a[rt].sum;
+	}
+	int mid=(l+r)&gt;&gt;1,s=0;
+	pd(rt,l,r);
+	if(ql&lt;=mid)s+=query_sum(ls(rt),l,mid,ql,qr);
+	if(qr&gt;mid)s+=query_sum(rs(rt),mid+1,r,ql,qr);
+	a[rt]=up(a[ls(rt)],a[rs(rt)],mid-l+1,r-mid);
+	return s;
+}
+node query(int rt,int l,int r,int ql,int qr){
+	pd(rt,l,r);
+	if(ql&lt;=l&amp;&amp;qr&gt;=r){
+		return a[rt];
+	}
+	int mid=(l+r)&gt;&gt;1;
+	node s;
+	bool x=0;
+	if(ql&lt;=mid){
+		s=query(ls(rt),l,mid,ql,qr);
+		x=1;
+	}
+	if(qr&gt;mid){
+		if(x==1)s=up(s,query(rs(rt),mid+1,r,ql,qr),mid-l+1,r-mid);
+		else s=query(rs(rt),mid+1,r,ql,qr);
+	}
+	a[rt]=up(a[ls(rt)],a[rs(rt)],mid-l+1,r-mid);
+	return s;
+}
+int main(){
+	int n,m,opt,l,r;
+	cin&gt;&gt;n&gt;&gt;m;
+	for(int i=1;i&lt;=n;i++)cin&gt;&gt;data[i];
+	build(1,1,n);
+	for(int i=0;i&lt;m;i++){
+		cin&gt;&gt;opt&gt;&gt;l&gt;&gt;r;
+		l++;r++;
+		if(opt==0)alc(1,1,n,l,r,0);
+		else if(opt==1)alc(1,1,n,l,r,1);
+		else if(opt==2)swp(1,1,n,l,r);
+		else if(opt==3)cout&lt;&lt;query_sum(1,1,n,l,r)&lt;&lt;endl;
+		else if(opt==4)cout&lt;&lt;query(1,1,n,l,r).omax[1]&lt;&lt;endl;
+	}
+	return 0;
+}
+</code></pre>
+
+          </div>
+        </div>
+
+        
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan"></div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://ac-automation27.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
