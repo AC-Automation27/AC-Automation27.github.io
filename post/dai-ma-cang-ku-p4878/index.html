@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>【代码仓库】CF474D | AC-Automation&#39;s blog</title>
+<title>【代码仓库】P4878 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -80,9 +80,9 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">【代码仓库】CF474D</h2>
+          <h2 class="post-title">【代码仓库】P4878</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-28</span>
+            <span><i class="icon-calendar-outline"></i> 2020-03-03</span>
             
               <span>
                 <i class="icon-pricetags-outline"></i>
@@ -98,30 +98,67 @@
           <div class="post-content">
             <pre><code class="language-cpp">#include&lt;iostream&gt;
 #define int long long
-const int mod=1000000007;
 using namespace std;
-int dp[500005],sum[500005];
-int l[500005],r[500005];
+int head[50005],dis[50005],queue[10000005],p[50005],hd,tl,cnt;
+struct node{
+	int v,nxt,val;
+}a[1000005];
+void add_edge(int u,int v,int val){
+	a[++cnt].v=v;
+	a[cnt].val=val;
+	a[cnt].nxt=head[u];
+	head[u]=cnt;
+}
 signed main(){
-	int n,k,maxx=0;
-	cin&gt;&gt;n&gt;&gt;k;
-	for(int i=0;i&lt;n;i++){
-		cin&gt;&gt;l[i]&gt;&gt;r[i];
-		maxx=max(maxx,r[i]);
+	int n,m1,m2,u,v,w;
+	cin&gt;&gt;n&gt;&gt;m1&gt;&gt;m2;
+	for(int i=0;i&lt;m1;i++){
+		cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;
+		add_edge(u,v,w);
 	}
-	dp[0]=1;
-	for(int i=1;i&lt;=maxx;i++){
-		if(i&gt;=k){
-			dp[i]=dp[i-1]+dp[i-k];
+	for(int i=0;i&lt;m2;i++){
+		cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;
+		add_edge(v,u,-w);
+	}
+	for(int i=1;i&lt;=n;i++){
+		dis[i]=100000000000000000ll;
+		add_edge(n+1,i,0);
+	}
+	queue[tl++]=n+1;
+	while(hd&lt;tl){
+		u=queue[hd];
+		hd++;
+		for(int i=head[u];i;i=a[i].nxt){
+			if(dis[u]+a[i].val&lt;dis[a[i].v]){
+				dis[a[i].v]=dis[u]+a[i].val;
+				queue[tl++]=a[i].v;
+				p[a[i].v]++;
+				if(p[a[i].v]&gt;n){
+					cout&lt;&lt;-1;
+					return 0;
+				} 
+			}
 		}
-		else dp[i]=dp[i-1];
-		sum[i]=sum[i-1]+dp[i];
-		sum[i]%=mod;
-		dp[i]%=mod;
 	}
-	for(int i=0;i&lt;n;i++){
-		cout&lt;&lt;((sum[r[i]]-sum[l[i]-1])%mod+mod)%mod&lt;&lt;endl;
+	for(int i=1;i&lt;=n;i++)dis[i]=100000000000000000ll;
+	dis[1]=0;
+	hd=tl=0;
+	queue[tl++]=1;
+	while(hd&lt;tl){
+		u=queue[hd];
+		hd++;
+		for(int i=head[u];i;i=a[i].nxt){
+			if(dis[u]+a[i].val&lt;dis[a[i].v]){
+				dis[a[i].v]=dis[u]+a[i].val;
+				queue[tl++]=a[i].v;
+			}
+		}
 	}
+	if(dis[n]==100000000000000000ll){
+		cout&lt;&lt;-2;
+		return 0;
+	}
+	cout&lt;&lt;dis[n];
 	return 0;
 }
 </code></pre>
