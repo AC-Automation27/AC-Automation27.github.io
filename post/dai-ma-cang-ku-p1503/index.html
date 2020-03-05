@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>第一章 冥灵塔 | AC-Automation&#39;s blog</title>
+<title>【代码仓库】P1503 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -80,15 +80,15 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">第一章 冥灵塔</h2>
+          <h2 class="post-title">【代码仓库】P1503</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-02-06</span>
+            <span><i class="icon-calendar-outline"></i> 2020-03-05</span>
             
               <span>
                 <i class="icon-pricetags-outline"></i>
                 
-                  <a href="https://ac-automation27.github.io/tag/he9wNgNzq">
-                    【小说】
+                  <a href="https://ac-automation27.github.io/tag/hBgwjQq0s">
+                    【代码仓库】
                     
                   </a>
                 
@@ -96,9 +96,126 @@
             
           </div>
           <div class="post-content">
-            <p>在特鲁大陆的正中央，屹立着一座数十米高的尖顶塔楼。在这座塔楼的塔尖旁，环绕着6块不同种类的宝石。红色的是红宝石，对应着贪心；蓝色的是蓝晶，对应的是数论；绿色的是祖母绿，对应的是树论；橙色的是玛瑙，对应的是图论；紫色的是紫水晶，对应的是动态规划；淡蓝色的是月光石，对应的是数据结构。被这6颗宝石环绕着的，是一颗足有拳头大的珍珠。这颗珍珠吸取了所有算法之精华，被称为“算法之灵”。在这7颗宝石的维护下，整块特鲁大陆围绕着这冥灵塔呈一个圆形。<br>
-围绕着冥灵塔，建起了一座城市。这座城市既是统领整块大陆的帝国--安纳锐瑟帝国的首都，也同时是这块大陆上最著名的算法学院--金鲁萨学院的所在地。据传，所有高级算法掌握者中，约有56%毕业于金鲁萨学院。<br>
-在每个城市中，都会有几名管理员在这座城市中进行管理和执法。所有管理员的算法实力都极强，他们都是从所有的算法宗师中挑选出来的。金鲁萨学院的院长，便是曾管理过首都的管理员之一。他的脾气较为古怪，蓄着一脸的胡须，平时不让大部分教师和学生进入它的办公室，只有一年两次的全校大会中才能窥见他的真面目。不过却曾有部分成绩优越，实力强劲的学院学生得到过他的面授机会。在这样短短几十分钟的面授中，很多学生的实力都得到了质的提升。其中有至少60%的学生，都达到了算法宗师级的水准，由此可见这位元老级管理员的强劲实力。</p>
+            <pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdlib&gt;
+#include&lt;stack&gt;
+using namespace std;
+#define MAXN 100005
+struct fhq_treap{
+	int ch[MAXN][2],siz[MAXN],val[MAXN],rnd[MAXN],rt,cnt;
+	void up(int root){
+		siz[root]=siz[ch[root][0]]+siz[ch[root][1]]+1;
+	}
+	int new_node(int v){
+		cnt++;
+		val[cnt]=v;
+		rnd[cnt]=rand();
+		siz[cnt]=1;
+		return cnt;
+	}
+	int merge(int x,int y){
+		if(!x||!y){
+			return x+y;
+		}
+		if(rnd[x]&lt;rnd[y]){
+			ch[x][1]=merge(ch[x][1],y);
+			up(ch[x][1]);
+			return x;
+		}
+		else{
+			ch[y][0]=merge(x,ch[y][0]);
+			up(ch[y][0]);
+			return y;
+		}
+	}
+	void split(int root,int pos,int &amp;x,int &amp;y){
+		if(!root){
+			x=y=0;
+			return;
+		}
+		if(val[root]&lt;pos){
+			x=root;
+			split(ch[x][1],pos,ch[x][1],y);
+		}
+		else{
+			y=root;
+			split(ch[y][0],pos,x,ch[y][0]);
+		}
+		up(root);
+	}
+	void insert(int val){
+		int x,y;
+		split(rt,val,x,y);
+		rt=merge(merge(x,new_node(val)),y);
+	}
+	void del(int val){
+		int x,y,z;
+		split(rt,val,x,y);
+		split(y,val+1,y,z);
+		y=merge(ch[y][0],ch[y][1]);
+		rt=merge(merge(x,y),z);
+	}
+	int rank(int v){
+		int x,y,ret;
+		split(rt,v,x,y);
+		ret=siz[x];
+		rt=merge(x,y);
+		return ret+1;
+	}
+	int kth(int x,int k){
+		while(1){
+			if(siz[ch[x][0]]&gt;=k){
+				x=ch[x][0];
+			}
+			else if(siz[ch[x][0]]+1==k)return val[x];
+			else{
+				k-=siz[ch[x][0]]+1;
+				x=ch[x][1];
+			} 
+		}
+	}
+	int pre(int val){
+		int x,y,ret;
+		split(rt,val,x,y);
+		ret=kth(x,siz[x]);
+		rt=merge(x,y);
+		return ret;
+	}
+	int suf(int val){
+		int x,y,ret;
+		split(rt,val+1,x,y);
+		ret=kth(y,1);
+		rt=merge(x,y);
+		return ret;
+	}
+} T;
+int main(){
+	int n,m,x;
+	char ch;
+	cin&gt;&gt;n&gt;&gt;m;
+	T.insert(0);
+	T.insert(n+1);
+	stack&lt;int&gt; q;
+	for(int i=0;i&lt;m;i++){
+		cin&gt;&gt;ch;
+		if(ch=='D'){
+			cin&gt;&gt;x;
+			T.insert(x);
+			q.push(x);
+		}
+		else if(ch=='R'){
+			T.del(q.top());
+			q.pop();
+		}
+		else{
+			cin&gt;&gt;x;
+			if(T.kth(T.rt,T.rank(x))==x)cout&lt;&lt;0&lt;&lt;endl;
+			else cout&lt;&lt;T.suf(x)-T.pre(x)-1&lt;&lt;endl;
+		}
+	}
+	return 0;
+}
+</code></pre>
 
           </div>
         </div>
