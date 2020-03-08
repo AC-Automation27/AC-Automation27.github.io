@@ -2,22 +2,13 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ac-automation27.github.io</id>
     <title>AC-Automation&apos;s blog</title>
-    <updated>2020-03-08T14:27:16.941Z</updated>
+    <updated>2020-03-08T14:30:48.862Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ac-automation27.github.io"/>
     <link rel="self" href="https://ac-automation27.github.io/atom.xml"/>
     <logo>https://ac-automation27.github.io/images/avatar.png</logo>
     <icon>https://ac-automation27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, AC-Automation&apos;s blog</rights>
-    <entry>
-        <title type="html"><![CDATA[try]]></title>
-        <id>https://ac-automation27.github.io/post/try</id>
-        <link href="https://ac-automation27.github.io/post/try">
-        </link>
-        <updated>2020-03-08T14:25:04.000Z</updated>
-        <content type="html"><![CDATA[<p>try</p>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[题解 CF486C 【Palindrome Transformation】]]></title>
         <id>https://ac-automation27.github.io/post/ti-jie-cf486c-palindrome-transformation</id>
@@ -453,6 +444,94 @@ int main()
 }//完结撒花！
 
 </code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[题解 P4346 【[CERC2015]ASCII Addition】]]></title>
+        <id>https://ac-automation27.github.io/post/ti-jie-p4346-cerc2015ascii-addition</id>
+        <link href="https://ac-automation27.github.io/post/ti-jie-p4346-cerc2015ascii-addition">
+        </link>
+        <updated>2020-02-06T07:55:19.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
+<p>不要被题目的难度标签所迷惑	<s>——鲁迅</s></p>
+<h2 id="思路解题方式">思路（解题方式）</h2>
+<ol>
+<li>将字符串读入并处理成整型</li>
+<li>将答案用规定方式输出</li>
+</ol>
+<p>思路非常清晰的一道题，只是一个轻量级模拟而已（什么？不算轻量级？去看看<a href="https://www.luogu.org/problemnew/show/P3693">琪露诺的冰雪小屋</a>和<a href="https://www.luogu.org/problemnew/show/P2482">猪国杀</a>就知道这题是多么轻量级的一个模拟了）</p>
+<h2 id="小技巧">小技巧</h2>
+<p>代码本身难度不大，可以运用一些小技巧来减少码量及思维难度</p>
+<ol>
+<li>用数组存下每一个数字的表示方式，方便比对</li>
+<li>可以将代码多分成几个函数来实现，方便查错及梳理思路</li>
+</ol>
+<h2 id="然后就是代码了">然后就是代码了</h2>
+<p>应该不需要太多注释吧，思路已经很清楚了</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+using namespace std;
+#define For(i,l,r) for(int i=l;i&lt;r;i++)//减少码量
+string a[7];//存算式
+int ans[30];//演算出的结果按位存在此数组里
+long long add1=0,add2=0;//两个加数
+string n[11][7]={&quot;xxxxx&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;xxxxx&quot;,
+		 &quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,
+		 &quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;xxxxx&quot;,&quot;x....&quot;,&quot;x....&quot;,&quot;xxxxx&quot;,
+		 &quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;xxxxx&quot;,
+		 &quot;x...x&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,
+		 &quot;xxxxx&quot;,&quot;x....&quot;,&quot;x....&quot;,&quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;xxxxx&quot;,
+		 &quot;xxxxx&quot;,&quot;x....&quot;,&quot;x....&quot;,&quot;xxxxx&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;xxxxx&quot;,
+		 &quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,
+		 &quot;xxxxx&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;xxxxx&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;xxxxx&quot;,
+		 &quot;xxxxx&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;xxxxx&quot;,
+		 &quot;.....&quot;,&quot;..x..&quot;,&quot;..x..&quot;,&quot;xxxxx&quot;,&quot;..x..&quot;,&quot;..x..&quot;,&quot;.....&quot;};//每一个数字的表示方式
+bool equ(int x,int u){
+	For(i,0,7)
+		For(j,x,x+5)
+			if(n[u][i][j-x]!=a[i][j])
+				return false;	
+	return true;
+}//判断一个位置上的数字是否为u（u为10是代表加号）
+int wt(int x){
+	For(i,0,11)
+		if(equ(x,i))
+			return i;
+}//判断一个位置上的数字（或加号）是什么
+void print(int cnt){
+	For(loop,0,7){
+		for(int i=cnt-1;i&gt;=0;i--){
+			For(j,0,5)cout&lt;&lt;n[ans[i]][loop][j];
+			if(i)cout&lt;&lt;'.';
+		}cout&lt;&lt;endl;
+	}
+}//输出答案
+int main()
+{
+	For(i,0,7)cin&gt;&gt;a[i];
+	int t;
+	long long x;
+	bool flag=true;
+	for(int i=0;i&lt;a[0].size();i+=6){
+		t=wt(i);
+		if(t!=10&amp;&amp;flag)
+			add1*=10,add1+=t;
+		else if(t==10)
+			flag=false;
+		else
+			add2*=10,add2+=t;
+	}//识别出两个加数
+	int cnt=0;
+	x=add1+add2;
+	while(x!=0){
+		ans[cnt++]=x%10;
+		x/=10;
+	}//将答案按位分进ans数组中
+	print(cnt);
+	return 0;
+}
+</code></pre>
+<p>代码只有62行，应该不算长吧~</p>
 ]]></content>
     </entry>
 </feed>
