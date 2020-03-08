@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>【代码仓库】P1993 | AC-Automation&#39;s blog</title>
+<title>【代码仓库】 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -78,85 +78,50 @@
 
 
       <div class="content-container">
-        <div class="post-detail">
-          
-          <h2 class="post-title">【代码仓库】P1993</h2>
-          <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-03-02</span>
-            
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://ac-automation27.github.io/tag/hBgwjQq0s">
-                    【代码仓库】
-                    
-                  </a>
-                
-              </span>
-            
-          </div>
-          <div class="post-content">
-            <pre><code class="language-cpp">#include&lt;iostream&gt;
-using namespace std;
-int head[50005],dis[50005],queue[10000005],p[50005],hd,tl,cnt;
-struct node{
-	int v,nxt,val;
-}a[1000005];
-void add_edge(int u,int v,int val){
-	a[++cnt].v=v;
-	a[cnt].val=val;
-	a[cnt].nxt=head[u];
-	head[u]=cnt;
-}
-int main(){
-	int n,m,u,v,w,opt;
-	cin&gt;&gt;n&gt;&gt;m;
-	for(int i=0;i&lt;m;i++){
-		cin&gt;&gt;opt&gt;&gt;u&gt;&gt;v;
-		if(opt==3){
-			add_edge(u,v,0);
-			add_edge(v,u,0);
-			continue;
-		}
-		cin&gt;&gt;w;
-		if(opt==1)
-			add_edge(u,v,-w);
-		else
-			add_edge(v,u,w);
-	}
-	for(int i=1;i&lt;=n;i++){
-		add_edge(n+1,i,0);
-		dis[i]=100000000;
-	}
-	queue[tl++]=n+1;
-	while(hd&lt;tl){
-		u=queue[hd];
-		hd++;
-		for(int i=head[u];i;i=a[i].nxt){
-			if(dis[u]+a[i].val&lt;dis[a[i].v]){
-				dis[a[i].v]=dis[u]+a[i].val;
-				queue[tl++]=a[i].v;
-				p[a[i].v]++;
-				if(p[a[i].v]==n){
-					cout&lt;&lt;&quot;No&quot;;
-					return 0;
-				} 
-			}
-		}
-	}
-	cout&lt;&lt;&quot;Yes&quot;; 
-	return 0;
-}
 
-</code></pre>
-
-          </div>
+        <div class="current-tag-container">
+          <h2 class="title">
+            <i class="icon icon-pricetags-outline"></i> 【代码仓库】
+          </h2> 
         </div>
 
         
+<section class="post-item">
+    <div class="content">
+      <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-cf466c">
+        <h2 class="post-title">【代码仓库】 CF466C</h2>
+      </a>
+      <div class="post-abstract">
+        
       </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-02-28</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://ac-automation27.github.io/tag/hBgwjQq0s">
+                【代码仓库】
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
 
-      
+
+<div class="pagination-container">
+  
+    <a href="https://ac-automation27.github.io/tag/hBgwjQq0s/page/2/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+</div>
+
+
+      </div>
 
       <div class="site-footer">
   <div class="slogan"></div>

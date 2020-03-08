@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>【代码仓库】P1993 | AC-Automation&#39;s blog</title>
+<title>【代码仓库】P3258 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -80,9 +80,9 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">【代码仓库】P1993</h2>
+          <h2 class="post-title">【代码仓库】P3258</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-03-02</span>
+            <span><i class="icon-calendar-outline"></i> 2020-03-08</span>
             
               <span>
                 <i class="icon-pricetags-outline"></i>
@@ -98,56 +98,86 @@
           <div class="post-content">
             <pre><code class="language-cpp">#include&lt;iostream&gt;
 using namespace std;
-int head[50005],dis[50005],queue[10000005],p[50005],hd,tl,cnt;
+int head[500005],cnt=1;
+int depth[500005],son[500005],siz[500005],top[500005],fa[500005];
 struct node{
-	int v,nxt,val;
+	int v,nxt;
 }a[1000005];
-void add_edge(int u,int v,int val){
-	a[++cnt].v=v;
-	a[cnt].val=val;
+void add_edge(int u,int v){
+	a[cnt].v=v;
 	a[cnt].nxt=head[u];
-	head[u]=cnt;
+	head[u]=cnt; 
+	cnt++;
+}
+void dfs1(int u,int f){
+	depth[u]=depth[f]+1;
+	fa[u]=f;
+	siz[u]=1;
+	int maxx=0,tmp=0;
+	for(int i=head[u];i;i=a[i].nxt){
+		if(a[i].v==f){
+			continue; 
+		}
+		dfs1(a[i].v,u);
+		siz[u]+=siz[a[i].v];
+		if(siz[a[i].v]&gt;maxx){
+			maxx=siz[a[i].v];
+			tmp=a[i].v;
+		}
+	}
+	son[u]=tmp;
+}
+void dfs2(int u,int htop){
+	top[u]=htop;
+	if(son[u])
+		dfs2(son[u],htop);
+	for(int i=head[u];i;i=a[i].nxt){
+		if(a[i].v==fa[u]||a[i].v==son[u])continue;
+		dfs2(a[i].v,a[i].v);
+	}
+}
+int lca(int x,int y){
+	while(top[x]!=top[y]){
+		if(depth[top[x]]&lt;depth[top[y]])swap(x,y);
+		x=fa[top[x]];
+	}
+	if(depth[x]&lt;depth[y])swap(x,y);
+	return y;
+}
+int q[500005],p[500005],r[500005];
+void dfs(int u){
+	r[u]=p[u];
+	for(int i=head[u];i;i=a[i].nxt){
+		if(a[i].v==fa[u])continue;
+		dfs(a[i].v);
+		r[u]+=r[a[i].v];
+	}
+	return;
 }
 int main(){
-	int n,m,u,v,w,opt;
-	cin&gt;&gt;n&gt;&gt;m;
-	for(int i=0;i&lt;m;i++){
-		cin&gt;&gt;opt&gt;&gt;u&gt;&gt;v;
-		if(opt==3){
-			add_edge(u,v,0);
-			add_edge(v,u,0);
-			continue;
-		}
-		cin&gt;&gt;w;
-		if(opt==1)
-			add_edge(u,v,-w);
-		else
-			add_edge(v,u,w);
+	ios::sync_with_stdio(false); 
+	int n,u,v,temp;
+	cin&gt;&gt;n;
+	for(int i=1;i&lt;=n;i++)cin&gt;&gt;q[i];
+	for(int i=1;i&lt;n;i++){
+		cin&gt;&gt;u&gt;&gt;v;
+		add_edge(u,v);
+		add_edge(v,u);
 	}
-	for(int i=1;i&lt;=n;i++){
-		add_edge(n+1,i,0);
-		dis[i]=100000000;
+	dfs1(1,0);
+	dfs2(1,1);
+	for(int i=1;i&lt;n;i++){
+		p[q[i]]++;
+		p[q[i+1]]++;
+		int LCA=lca(q[i],q[i+1]);
+		p[LCA]--;
+		p[fa[LCA]]--;
 	}
-	queue[tl++]=n+1;
-	while(hd&lt;tl){
-		u=queue[hd];
-		hd++;
-		for(int i=head[u];i;i=a[i].nxt){
-			if(dis[u]+a[i].val&lt;dis[a[i].v]){
-				dis[a[i].v]=dis[u]+a[i].val;
-				queue[tl++]=a[i].v;
-				p[a[i].v]++;
-				if(p[a[i].v]==n){
-					cout&lt;&lt;&quot;No&quot;;
-					return 0;
-				} 
-			}
-		}
-	}
-	cout&lt;&lt;&quot;Yes&quot;; 
+	dfs(1);
+	for(int i=2;i&lt;=n;i++)r[q[i]]--;
+	for(int i=1;i&lt;=n;i++)cout&lt;&lt;r[i]&lt;&lt;endl;
 	return 0;
 }
-
 </code></pre>
 
           </div>
