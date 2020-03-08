@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>【代码仓库】P1503 | AC-Automation&#39;s blog</title>
+<title>try | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -81,142 +81,30 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>【代码仓库】P1503</h1>
+            <h1>try</h1>
             <p class="article-meta">
-              2020-03-05
-              
-                <a href="https://ac-automation27.github.io/tag/hBgwjQq0s" class="badge secondary">
-                  【代码仓库】
-                </a>
+              2020-03-08
               
             </p>
             
             <div class="post-content">
-              <pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cstdlib&gt;
-#include&lt;stack&gt;
-using namespace std;
-#define MAXN 100005
-struct fhq_treap{
-	int ch[MAXN][2],siz[MAXN],val[MAXN],rnd[MAXN],rt,cnt;
-	void up(int root){
-		siz[root]=siz[ch[root][0]]+siz[ch[root][1]]+1;
-	}
-	int new_node(int v){
-		cnt++;
-		val[cnt]=v;
-		rnd[cnt]=rand();
-		siz[cnt]=1;
-		return cnt;
-	}
-	int merge(int x,int y){
-		if(!x||!y){
-			return x+y;
-		}
-		if(rnd[x]&lt;rnd[y]){
-			ch[x][1]=merge(ch[x][1],y);
-			up(ch[x][1]);
-			return x;
-		}
-		else{
-			ch[y][0]=merge(x,ch[y][0]);
-			up(ch[y][0]);
-			return y;
-		}
-	}
-	void split(int root,int pos,int &amp;x,int &amp;y){
-		if(!root){
-			x=y=0;
-			return;
-		}
-		if(val[root]&lt;pos){
-			x=root;
-			split(ch[x][1],pos,ch[x][1],y);
-		}
-		else{
-			y=root;
-			split(ch[y][0],pos,x,ch[y][0]);
-		}
-		up(root);
-	}
-	void insert(int val){
-		int x,y;
-		split(rt,val,x,y);
-		rt=merge(merge(x,new_node(val)),y);
-	}
-	void del(int val){
-		int x,y,z;
-		split(rt,val,x,y);
-		split(y,val+1,y,z);
-		y=merge(ch[y][0],ch[y][1]);
-		rt=merge(merge(x,y),z);
-	}
-	int rank(int v){
-		int x,y,ret;
-		split(rt,v,x,y);
-		ret=siz[x];
-		rt=merge(x,y);
-		return ret+1;
-	}
-	int kth(int x,int k){
-		while(1){
-			if(siz[ch[x][0]]&gt;=k){
-				x=ch[x][0];
-			}
-			else if(siz[ch[x][0]]+1==k)return val[x];
-			else{
-				k-=siz[ch[x][0]]+1;
-				x=ch[x][1];
-			} 
-		}
-	}
-	int pre(int val){
-		int x,y,ret;
-		split(rt,val,x,y);
-		ret=kth(x,siz[x]);
-		rt=merge(x,y);
-		return ret;
-	}
-	int suf(int val){
-		int x,y,ret;
-		split(rt,val+1,x,y);
-		ret=kth(y,1);
-		rt=merge(x,y);
-		return ret;
-	}
-} T;
-int main(){
-	int n,m,x;
-	char ch;
-	cin&gt;&gt;n&gt;&gt;m;
-	T.insert(0);
-	T.insert(n+1);
-	stack&lt;int&gt; q;
-	for(int i=0;i&lt;m;i++){
-		cin&gt;&gt;ch;
-		if(ch=='D'){
-			cin&gt;&gt;x;
-			T.insert(x);
-			q.push(x);
-		}
-		else if(ch=='R'){
-			T.del(q.top());
-			q.pop();
-		}
-		else{
-			cin&gt;&gt;x;
-			if(T.kth(T.rt,T.rank(x))==x)cout&lt;&lt;0&lt;&lt;endl;
-			else cout&lt;&lt;T.suf(x)-T.pre(x)-1&lt;&lt;endl;
-		}
-	}
-	return 0;
-}
-</code></pre>
+              <p>try</p>
 
             </div>
           </article>
         </div>
         <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://ac-automation27.github.io/post/ti-jie-cf486c-palindrome-transformation">
+                <h3 class="post-title">
+                  题解 CF486C 【Palindrome Transformation】
+                </h3>
+              </a>
+            </div>
           
         </div>
         
@@ -380,11 +268,11 @@ int main(){
     </div>
     <div class="row">
       
-        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge warning">
+        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge success">
           【题解】
         </a>
       
-        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge ">
+        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge secondary">
           【学习笔记】
         </a>
       
