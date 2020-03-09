@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>【代码仓库】P6136 | AC-Automation&#39;s blog</title>
+<title>【代码仓库】P3128 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -81,11 +81,11 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>【代码仓库】P6136</h1>
+            <h1>【代码仓库】P3128</h1>
             <p class="article-meta">
-              2020-02-28
+              2020-03-09
               
-                <a href="https://ac-automation27.github.io/tag/hBgwjQq0s" class="badge secondary">
+                <a href="https://ac-automation27.github.io/tag/hBgwjQq0s" class="badge warning">
                   【代码仓库】
                 </a>
               
@@ -93,140 +93,86 @@
             
             <div class="post-content">
               <pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cstdlib&gt;
-#include&lt;cstdio&gt;
 using namespace std;
-#define MAXN 1100005
-struct fhq_treap{
-	int rt,cnt,siz[MAXN],ch[MAXN][2],rnd[MAXN],val[MAXN];
-	inline int new_node(int v){
-		cnt++;
-		rnd[cnt]=rand();
-		val[cnt]=v;
-		siz[cnt]=1;
-		return cnt;
-	}
-	inline void up(int root){
-		siz[root]=siz[ch[root][0]]+siz[ch[root][1]]+1;
-	}
-	int merge(int x,int y){
-		if(!x||!y)return x+y;
-		if(rnd[x]&lt;rnd[y]){
-			ch[x][1]=merge(ch[x][1],y);
-			up(x);
-			return x;
+int head[500005],cnt=1;
+int depth[500005],son[500005],siz[500005],top[500005],fa[500005];
+struct node{
+	int v,nxt;
+}a[1000005];
+void add_edge(int u,int v){
+	a[cnt].v=v;
+	a[cnt].nxt=head[u];
+	head[u]=cnt; 
+	cnt++;
+}
+void dfs1(int u,int f){
+	depth[u]=depth[f]+1;
+	fa[u]=f;
+	siz[u]=1;
+	int maxx=0,tmp=0;
+	for(int i=head[u];i;i=a[i].nxt){
+		if(a[i].v==f){
+			continue; 
 		}
-		else{
-			ch[y][0]=merge(x,ch[y][0]);
-			up(y);
-			return y;
-		}
-	}
-	void split(int root,int pos,int &amp;x,int &amp;y){//&lt;pos:x?y
-		if(!root){
-			x=y=0;
-			return;
-		}
-		if(val[root]&lt;pos){
-			x=root;
-			split(ch[root][1],pos,ch[root][1],y);
-		}
-		else{
-			y=root;
-			split(ch[root][0],pos,x,ch[root][0]);
-		}
-		up(root);
-	}
-	inline void insert(int val){
-		int x,y=new_node(val),z;
-		split(rt,val,x,z);
-		rt=merge(merge(x,y),z);
-	}
-	inline void del(int val){
-		int x,y,z;
-		split(rt,val,x,y);
-		split(y,val+1,y,z);
-		y=merge(ch[y][0],ch[y][1]);
-		rt=merge(merge(x,y),z);
-	}
-	inline int get_kth(int root,int k){
-		while(1){
-			if(siz[ch[root][0]]&gt;=k)root=ch[root][0];
-			else if(siz[ch[root][0]]==k-1)return val[root];
-			else{
-				k-=siz[ch[root][0]]+1;
-				root=ch[root][1];
-			}
+		dfs1(a[i].v,u);
+		siz[u]+=siz[a[i].v];
+		if(siz[a[i].v]&gt;maxx){
+			maxx=siz[a[i].v];
+			tmp=a[i].v;
 		}
 	}
-	inline int get_rank(int v){
-		int x,y,ans;
-		split(rt,v,x,y);
-		ans=siz[x]+1;
-		rt=merge(x,y);
-		return ans;
+	son[u]=tmp;
+}
+void dfs2(int u,int htop){
+	top[u]=htop;
+	if(son[u])
+		dfs2(son[u],htop);
+	for(int i=head[u];i;i=a[i].nxt){
+		if(a[i].v==fa[u]||a[i].v==son[u])continue;
+		dfs2(a[i].v,a[i].v);
 	}
-	inline int pre(int v){
-		int x,y,ans;
-		split(rt,v,x,y);
-		ans=get_kth(x,siz[x]);
-		rt=merge(x,y);
-		return ans;
+}
+int lca(int x,int y){
+	while(top[x]!=top[y]){
+		if(depth[top[x]]&lt;depth[top[y]])swap(x,y);
+		x=fa[top[x]];
 	}
-	inline int suf(int v){
-		int x,y,ans;
-		split(rt,v+1,x,y);
-		ans=get_kth(y,1);
-		rt=merge(x,y);
-		return ans;
+	if(depth[x]&lt;depth[y])swap(x,y);
+	return y;
+}
+int p[500005],r[500005];
+void dfs(int u){
+	r[u]=p[u];
+	for(int i=head[u];i;i=a[i].nxt){
+		if(a[i].v==fa[u])continue;
+		dfs(a[i].v);
+		r[u]+=r[a[i].v];
 	}
-}T; 
-inline int read(){
-	int x=0;
-	char ch=getchar();
-	while(ch&lt;'0'||ch&gt;'9')ch=getchar();
-	while(ch&gt;='0'&amp;&amp;ch&lt;='9'){
-		x*=10;
-		x+=ch-48;
-		ch=getchar();
-	}
-	return x;
+	return;
 }
 int main(){
-	int n,m,opt,x,lst=0,ans=0;
+	ios::sync_with_stdio(false); 
+	int n,m,u,v,temp;
 	cin&gt;&gt;n&gt;&gt;m;
-	for(register int i=0;i&lt;n;i++){
-		opt=read();
-		T.insert(opt);
+	for(int i=1;i&lt;n;i++){
+		cin&gt;&gt;u&gt;&gt;v;
+		add_edge(u,v);
+		add_edge(v,u);
 	}
-	for(register int i=0;i&lt;m;i++){
-		opt=read();
-		x=read();
-		x^=lst;
-		if(opt==1){
-			T.insert(x);
-		}
-		else if(opt==2){
-			T.del(x);
-		}
-		else if(opt==3){
-			lst=T.get_rank(x);
-			ans^=lst;
-		}
-		else if(opt==4){
-			lst=T.get_kth(T.rt,x);
-			ans^=lst;
-		}
-		else if(opt==5){
-			lst=T.pre(x);
-			ans^=lst;
-		}
-		else if(opt==6){
-			lst=T.suf(x);
-			ans^=lst;
-		}
+	dfs1(1,0);
+	dfs2(1,1);
+	for(int i=1;i&lt;=m;i++){
+		cin&gt;&gt;u&gt;&gt;v; 
+		p[u]++;
+		p[v]++;
+		int LCA=lca(u,v);
+		p[LCA]--;
+		p[fa[LCA]]--;
 	}
-	cout&lt;&lt;ans&lt;&lt;endl;
+	dfs(1);
+	int maxx=0;
+	for(int i=1;i&lt;=n;i++)maxx=max(maxx,r[i]);
+	cout&lt;&lt;maxx;
 	return 0;
 }
 </code></pre>
@@ -400,11 +346,11 @@ int main(){
     </div>
     <div class="row">
       
-        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge success">
+        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge warning">
           【题解】
         </a>
       
-        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge secondary">
+        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge ">
           【学习笔记】
         </a>
       
