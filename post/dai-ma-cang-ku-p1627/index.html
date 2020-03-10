@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>【代码仓库】CF546D | AC-Automation&#39;s blog</title>
+<title>【代码仓库】P1627 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -81,9 +81,9 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>【代码仓库】CF546D</h1>
+            <h1>【代码仓库】P1627</h1>
             <p class="article-meta">
-              2020-02-28
+              2020-03-10
               
                 <a href="https://ac-automation27.github.io/tag/hBgwjQq0s" class="badge secondary">
                   【代码仓库】
@@ -94,31 +94,36 @@
             <div class="post-content">
               <pre><code class="language-cpp">#include&lt;iostream&gt;
 using namespace std;
-int a[5000005],b[5000005],sum[5000005];
+int a[100005],bk[200005];
 int main(){
-	int n,x,y;
-	cin&gt;&gt;n;
-	for(int i=2;i&lt;=5000000;i++){
-		if(a[i]==0){
-			for(int j=i*2;j&lt;=5000000;j+=i){
-				a[j]=i;
-			}
+	int n,k,wz,sum=0;
+	cin&gt;&gt;n&gt;&gt;k;
+	for(int i=1;i&lt;=n;i++)cin&gt;&gt;a[i];
+	for(int i=1;i&lt;=n;i++){
+		if(a[i]==k){
+			wz=i;
+			break;
 		}
 	}
-	for(int i=2;i&lt;=5000000;i++){
-		if(a[i]==0)b[i]=1;
-		else{
-			b[i]=b[a[i]]+b[i/a[i]];
-		}
+	for(int i=wz-1;i&gt;0;i--){
+		if(a[i]&gt;k)
+			sum++;
+		else sum--;
+		bk[sum+100000]++;
+		//cout&lt;&lt;sum&lt;&lt;' ';
 	}
-	for(int i=2;i&lt;=5000000;i++){
-	//	cout&lt;&lt;b[i]&lt;&lt;' ';
-		sum[i]=sum[i-1]+b[i];
-	}
-	for(int i=0;i&lt;n;i++){
-		cin&gt;&gt;x&gt;&gt;y;
-		cout&lt;&lt;sum[x]-sum[y]&lt;&lt;endl;
+	bk[100000]++;
+	int ans=0;
+	sum=0;
+	//cout&lt;&lt;endl;
+	for(int i=wz+1;i&lt;=n;i++){
+		if(a[i]&lt;k)
+			sum++;
+		else sum--;
+		//cout&lt;&lt;sum&lt;&lt;' ';
+		ans+=bk[sum+100000];
 	} 
+	cout&lt;&lt;ans+bk[100000];
 	return 0;
 }
 </code></pre>
@@ -294,11 +299,11 @@ int main(){
     </div>
     <div class="row">
       
-        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge warning">
+        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge secondary">
           【题解】
         </a>
       
-        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge success">
+        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge warning">
           【学习笔记】
         </a>
       
