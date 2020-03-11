@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>【代码仓库】CF372A | AC-Automation&#39;s blog</title>
+<title>【代码仓库】CF191C | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -81,11 +81,11 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>【代码仓库】CF372A</h1>
+            <h1>【代码仓库】CF191C</h1>
             <p class="article-meta">
-              2020-02-28
+              2020-03-11
               
-                <a href="https://ac-automation27.github.io/tag/hBgwjQq0s" class="badge warning">
+                <a href="https://ac-automation27.github.io/tag/hBgwjQq0s" class="badge secondary">
                   【代码仓库】
                 </a>
               
@@ -93,28 +93,89 @@
             
             <div class="post-content">
               <pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;algorithm&gt;
 using namespace std;
-int a[500005];
-bool book[500005]; 
-int main(){
-	int n;
-	cin&gt;&gt;n;
-	for(int i=0;i&lt;n;i++)cin&gt;&gt;a[i];
-	sort(a,a+n);
-	int L=n/2-1,ans=0;
-	for(int i=n-1;i&gt;=0;i--){
-		if(book[i])continue;
-		while(book[L]||a[L]*2&gt;a[i]){
-			L--;
-			if(L==-1)break;
+int head[500005],cnt=1;
+int depth[500005],son[500005],siz[500005],top[500005],fa[500005];
+struct node{
+	int v,nxt;
+}a[1000005];
+void add_edge(int u,int v){
+	a[cnt].v=v;
+	a[cnt].nxt=head[u];
+	head[u]=cnt; 
+	cnt++;
+}
+void dfs1(int u,int f){
+	depth[u]=depth[f]+1;
+	fa[u]=f;
+	siz[u]=1;
+	int maxx=0,tmp=0;
+	for(int i=head[u];i;i=a[i].nxt){
+		if(a[i].v==f){
+			continue; 
 		}
-		if(L==-1)break;
-		book[L]=1;
-		ans++;
-		book[i]=1;
+		dfs1(a[i].v,u);
+		siz[u]+=siz[a[i].v];
+		if(siz[a[i].v]&gt;maxx){
+			maxx=siz[a[i].v];
+			tmp=a[i].v;
+		}
 	}
-	cout&lt;&lt;n-ans;
+	son[u]=tmp;
+}
+void dfs2(int u,int htop){
+	top[u]=htop;
+	if(son[u])
+		dfs2(son[u],htop);
+	for(int i=head[u];i;i=a[i].nxt){
+		if(a[i].v==fa[u]||a[i].v==son[u])continue;
+		dfs2(a[i].v,a[i].v);
+	}
+}
+int lca(int x,int y){
+	while(top[x]!=top[y]){
+		if(depth[top[x]]&lt;depth[top[y]])swap(x,y);
+		x=fa[top[x]];
+	}
+	if(depth[x]&lt;depth[y])swap(x,y);
+	return y;
+}
+int q[500005],p[500005],r[500005];
+void dfs(int u){
+	r[u]=p[u];
+	for(int i=head[u];i;i=a[i].nxt){
+		if(a[i].v==fa[u])continue;
+		dfs(a[i].v);
+		r[u]+=r[a[i].v];
+	}
+	return;
+}
+int eg[500005][2];
+int main(){
+	ios::sync_with_stdio(false); 
+	int n,m,u,v;
+	cin&gt;&gt;n;
+	for(int i=1;i&lt;n;i++){
+		cin&gt;&gt;u&gt;&gt;v;
+		eg[i][0]=u;
+		eg[i][1]=v;
+		add_edge(u,v);
+		add_edge(v,u);
+	}
+	dfs1(1,0);
+	dfs2(1,1);
+	cin&gt;&gt;m;
+	for(int i=1;i&lt;=m;i++){
+		cin&gt;&gt;u&gt;&gt;v;
+		p[u]++;
+		p[v]++;
+		int LCA=lca(u,v);
+		p[LCA]-=2;
+	}
+	dfs(1);
+	for(int i=1;i&lt;n;i++){
+		cout&lt;&lt;((depth[eg[i][0]]&lt;depth[eg[i][1]])?r[eg[i][1]]:r[eg[i][0]])&lt;&lt;' ';
+	}
 	return 0;
 }
 </code></pre>
