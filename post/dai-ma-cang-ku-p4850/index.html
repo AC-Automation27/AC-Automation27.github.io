@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>【代码仓库】 CF466C | AC-Automation&#39;s blog</title>
+<title>【代码仓库】P4850 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -81,11 +81,11 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>【代码仓库】 CF466C</h1>
+            <h1>【代码仓库】P4850</h1>
             <p class="article-meta">
-              2020-02-28
+              2020-03-12
               
-                <a href="https://ac-automation27.github.io/tag/hBgwjQq0s" class="badge warning">
+                <a href="https://ac-automation27.github.io/tag/hBgwjQq0s" class="badge secondary">
                   【代码仓库】
                 </a>
               
@@ -93,40 +93,34 @@
             
             <div class="post-content">
               <pre><code class="language-cpp">#include&lt;iostream&gt;
-#define int long long
 using namespace std;
-int a[500005];
-bool b1[500005],b2[500005];
-int c[500005];
-signed main(){
-	int n,sum=0,kk;
-	cin&gt;&gt;n;
-	for(int i=1;i&lt;=n;i++)cin&gt;&gt;a[i],sum+=a[i];
-	if(sum%3!=0){
-		cout&lt;&lt;0;
-		return 0;
+int a[55][55],sum[55][55],dp[55*55*55*55];
+const int t1=55,t2=55*55,t3=55*55*55;
+int dfs(int x1,int y1,int x2,int y2){
+	int temp=x1*t3+y1*t2+x2*t1+y2;
+	if(dp[temp])return dp[temp];
+	if(x1==x2&amp;&amp;y1==y2)return 0;
+	dp[temp]=1000000000;
+	for(register int i=x1;i&lt;x2;i++)
+		dp[temp]=min(dp[temp],dfs(x1,y1,i,y2)+dfs(i+1,y1,x2,y2));
+	for(register int i=y1;i&lt;y2;i++)
+		dp[temp]=min(dp[temp],dfs(x1,y1,x2,i)+dfs(x1,i+1,x2,y2));
+	dp[temp]+=sum[x2][y2]-sum[x1-1][y2]-sum[x2][y1-1]+sum[x1-1][y1-1];
+	return dp[temp];
+} 
+int main(){
+	int n,m;
+	cin&gt;&gt;n&gt;&gt;m;
+	for(register int i=1;i&lt;=n;i++){
+		for(register int j=1;j&lt;=m;j++){
+			cin&gt;&gt;a[i][j];
+			sum[i][j]=sum[i-1][j]+sum[i][j-1]-sum[i-1][j-1]+a[i][j];
+		}
 	}
-	kk=sum/3;
-	sum=0;
-	for(int i=1;i&lt;=n;i++){
-		sum+=a[i];
-		if(sum==kk)b1[i]=1;
-	}
-	sum=0;
-	for(int i=n;i&gt;0;i--){
-		sum+=a[i];
-		if(sum==kk)b2[i]=1;
-	}
-	for(int i=1;i&lt;=n;i++){
-		c[i]=c[i-1]+b1[i];
-	}
-	int ans=0;
-	for(int i=3;i&lt;=n;i++){
-		ans+=b2[i]*c[i-2];
-	}
-	cout&lt;&lt;ans;
+	cout&lt;&lt;dfs(1,1,n,m);
 	return 0;
 }
+
 </code></pre>
 
             </div>
