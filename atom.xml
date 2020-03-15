@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ac-automation27.github.io</id>
     <title>AC-Automation&apos;s blog</title>
-    <updated>2020-03-12T13:29:33.590Z</updated>
+    <updated>2020-03-15T12:21:30.325Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ac-automation27.github.io"/>
     <link rel="self" href="https://ac-automation27.github.io/atom.xml"/>
@@ -88,41 +88,6 @@ int main(){
 }
 </code></pre>
 <p>很明显，时间复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[刷题日志]]></title>
-        <id>https://ac-automation27.github.io/post/shua-ti-ri-zhi</id>
-        <link href="https://ac-automation27.github.io/post/shua-ti-ri-zhi">
-        </link>
-        <updated>2020-02-26T12:58:40.000Z</updated>
-        <content type="html"><![CDATA[<p>20-02-24 CF466C <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-cf466c/">代码</a><br>
-20-02-24 CF474D <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-cf474d/">代码</a><br>
-20-02-25 CF546D <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-cf546d/">代码</a><br>
-20-02-26 CF372A <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-cf372a/">代码</a><br>
-20-02-27 P6136 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p6136/">代码</a><br>
-20-02-27 P1351 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p1351/">代码</a><br>
-20-02-28 CF486C <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-cf486c/">代码</a><br>
-20-02-28 SP2713 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-sp2713/">代码</a><br>
-20-02-29 P3467 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p3467/">代码</a><br>
-20-02-29 P3385 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p3385/">代码</a><br>
-20-03-01 P2572 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p2572/">代码</a><br>
-20-03-01 P5960 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p5960/">代码</a><br>
-20-03-01 P2286 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p2286/">代码</a><br>
-20-03-02 P1993 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p1993/">代码</a><br>
-20-03-02 P3275 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p3275/">代码</a><br>
-20-03-03 P4878 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p3275/">代码</a><br>
-20-03-04 P1503 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p1503/">代码</a><br>
-20-03-05 P2341 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p2341/">代码</a><br>
-20-03-06 P2812&amp;2746 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p2812andp2746/">代码</a><br>
-20-03-07 P1726 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p1726/">代码</a><br>
-20-03-08 P3258 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p3258/">代码</a><br>
-20-03-08 P3398 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p3398/">代码</a><br>
-20-03-09 P3128 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p3128/">代码</a><br>
-20-03-10 P1627 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p1627/">代码</a><br>
-20-03-11 CF191C <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-cf191c/">代码</a><br>
-20-03-12 P4850 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p4850/">代码</a><br>
-20-03-12 P3834 <a href="https://ac-automation27.github.io/post/dai-ma-cang-ku-p3834/">代码</a></p>
 ]]></content>
     </entry>
     <entry>
@@ -538,6 +503,80 @@ int main()
 }
 </code></pre>
 <p>代码只有62行，应该不算长吧~</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[题解 P2002 【消息扩散】]]></title>
+        <id>https://ac-automation27.github.io/post/ti-jie-p2002-xiao-xi-kuo-san</id>
+        <link href="https://ac-automation27.github.io/post/ti-jie-p2002-xiao-xi-kuo-san">
+        </link>
+        <updated>2020-02-06T07:54:37.000Z</updated>
+        <content type="html"><![CDATA[<p>刚学tarjan，写篇题解加深下印象。</p>
+<h2 id="tarjan算法详解">tarjan算法详解</h2>
+<p>给定一张有向图，求它的所有强连通分量。</p>
+<p>每次选择一个未遍历的点开始dfs。</p>
+<p>定义dfn[i]表示i被遍历到的时间，low[i]表示从i出发，只经过至多一条dfn变小的边，能走到的dfn最小的点的dfn的值。（可能有些绕，看不懂建议多看几遍）</p>
+<p>维护一个栈，dfs到一个点时将它加入栈内。</p>
+<p>如果一个点的dfn=low，那么不停弹出栈顶元素直到这个点被弹出，被弹出的所有点就构成了一个强连通分量。</p>
+<p>时间复杂度O(m),m是边数</p>
+<hr>
+<h4 id="思路先用tarjan缩点然后统计入度为0的点的个数缩点指将每一个强连通分量缩成一个点">思路：先用tarjan缩点，然后统计入度为0的点的个数（缩点指将每一个强连通分量缩成一个点）</h4>
+<p>这里有一个小技巧，可以不用在缩点后重新建图，直接统计入度即可</p>
+<p>code:</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+using namespace std;
+#define N 100005
+int dfn[N],low[N],tim=1,stack[N],top=0,belong[N],pn=0,du[N];
+bool in[N];
+vector&lt;int&gt; a[N];
+void tarjan(int u){
+	low[u]=tim;
+	dfn[u]=tim++;
+	stack[top++]=u;
+	in[u]=true;//先初始化dfn值和low值，并压入栈
+	int siz=a[u].size(),v;
+	for(int i=0;i&lt;siz;i++){
+		v=a[u][i];
+		if(!dfn[v]){
+			tarjan(v);
+			low[u]=min(low[u],low[v]);
+		}
+		else if(in[v]) 
+			low[u]=min(low[u],low[v]);//递归并更新low值
+	}
+	if(dfn[u]==low[u]){
+		pn++;
+		while(stack[top]!=u){
+			top--;
+			belong[stack[top]]=pn;
+			in[stack[top]]=false;
+		}
+	}//将强连通分量中的点打上标记
+}
+int main()
+{
+	int n,m,x,y,ans=0;
+	cin&gt;&gt;n&gt;&gt;m;
+	for(int i=0;i&lt;m;i++){
+		cin&gt;&gt;x&gt;&gt;y;
+		if(x!=y)
+			a[x].push_back(y);
+	}
+	for(int i=1;i&lt;=n;i++)
+		if(!dfn[i])
+			tarjan(i);//如果没有遍历过，那就遍历它
+	for(int i=1;i&lt;=n;i++)
+		for(int j=0;j&lt;a[i].size();j++)
+			if(belong[i]!=belong[a[i][j]])
+				du[belong[a[i][j]]]++;//统计入度
+	for(int i=1;i&lt;=pn;i++)
+		ans+=(du[i]==0);//统计答案
+	cout&lt;&lt;ans;
+	return 0;
+}
+
+</code></pre>
 ]]></content>
     </entry>
 </feed>
