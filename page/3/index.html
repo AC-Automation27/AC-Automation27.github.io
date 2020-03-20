@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>题解 P2002 【消息扩散】 | AC-Automation&#39;s blog</title>
+<title>AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -23,7 +23,6 @@
 
   </head>
   <body>
-  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://ac-automation27.github.io">AC-Automation&#39;s blog</a></h3>
@@ -77,112 +76,49 @@
   </div>
 </nav>
 
+
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
-          <article class="article">
-            <h1>题解 P2002 【消息扩散】</h1>
-            <p class="article-meta">
-              2020-02-06
-              
-                <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge secondary">
-                  【学习笔记】
-                </a>
-              
-                <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge warning">
-                  【题解】
-                </a>
-              
-            </p>
-            
-            <div class="post-content">
-              <p>刚学tarjan，写篇题解加深下印象。</p>
-<h2 id="tarjan算法详解">tarjan算法详解</h2>
-<p>给定一张有向图，求它的所有强连通分量。</p>
-<p>每次选择一个未遍历的点开始dfs。</p>
-<p>定义dfn[i]表示i被遍历到的时间，low[i]表示从i出发，只经过至多一条dfn变小的边，能走到的dfn最小的点的dfn的值。（可能有些绕，看不懂建议多看几遍）</p>
-<p>维护一个栈，dfs到一个点时将它加入栈内。</p>
-<p>如果一个点的dfn=low，那么不停弹出栈顶元素直到这个点被弹出，被弹出的所有点就构成了一个强连通分量。</p>
-<p>时间复杂度O(m),m是边数</p>
-<hr>
-<h4 id="思路先用tarjan缩点然后统计入度为0的点的个数缩点指将每一个强连通分量缩成一个点">思路：先用tarjan缩点，然后统计入度为0的点的个数（缩点指将每一个强连通分量缩成一个点）</h4>
-<p>这里有一个小技巧，可以不用在缩点后重新建图，直接统计入度即可</p>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;vector&gt;
-using namespace std;
-#define N 100005
-int dfn[N],low[N],tim=1,stack[N],top=0,belong[N],pn=0,du[N];
-bool in[N];
-vector&lt;int&gt; a[N];
-void tarjan(int u){
-	low[u]=tim;
-	dfn[u]=tim++;
-	stack[top++]=u;
-	in[u]=true;//先初始化dfn值和low值，并压入栈
-	int siz=a[u].size(),v;
-	for(int i=0;i&lt;siz;i++){
-		v=a[u][i];
-		if(!dfn[v]){
-			tarjan(v);
-			low[u]=min(low[u],low[v]);
-		}
-		else if(in[v]) 
-			low[u]=min(low[u],low[v]);//递归并更新low值
-	}
-	if(dfn[u]==low[u]){
-		pn++;
-		while(stack[top]!=u){
-			top--;
-			belong[stack[top]]=pn;
-			in[stack[top]]=false;
-		}
-	}//将强连通分量中的点打上标记
-}
-int main()
-{
-	int n,m,x,y,ans=0;
-	cin&gt;&gt;n&gt;&gt;m;
-	for(int i=0;i&lt;m;i++){
-		cin&gt;&gt;x&gt;&gt;y;
-		if(x!=y)
-			a[x].push_back(y);
-	}
-	for(int i=1;i&lt;=n;i++)
-		if(!dfn[i])
-			tarjan(i);//如果没有遍历过，那就遍历它
-	for(int i=1;i&lt;=n;i++)
-		for(int j=0;j&lt;a[i].size();j++)
-			if(belong[i]!=belong[a[i][j]])
-				du[belong[a[i][j]]]++;//统计入度
-	for(int i=1;i&lt;=pn;i++)
-		ans+=(du[i]==0);//统计答案
-	cout&lt;&lt;ans;
-	return 0;
-}
-
-</code></pre>
-
-            </div>
-          </article>
-        </div>
-        <div class="paper" data-aos="fade-in">
           
-            <div class="next-post">
-              <div class="next">
-                下一篇
-              </div>
-              <a href="https://ac-automation27.github.io/post/ti-jie-p1438-wu-liao-de-shu-lie">
-                <h3 class="post-title">
-                  题解 P1438 【无聊的数列】
-                </h3>
-              </a>
-            </div>
-          
+  <article class="article">
+    <h2 class="article-title">
+      <a href="https://ac-automation27.github.io/post/ti-jie-cf1197c-array-splitting">题解 CF1197C 【Array Splitting】</a>
+    </h2>
+    <p class="article-meta">
+      2020-02-06
+      
+        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge success">
+          【题解】
+        </a>
+      
+    </p>
+    <p class="text-lead">
+      
+    </p>
+    <div class="row">
+      <a href="https://ac-automation27.github.io/post/ti-jie-cf1197c-array-splitting" class="readmore-link">
+        <button>
+          Read More
+        </button>
+      </a>
+    </div>
+  </article>
+
+
         </div>
         
-      </div>
+        <div class="row flex-edges">
+  
+    <a href="https://ac-automation27.github.io/page/2/" class="paper-btn">
+      上一页
+    </a>
+  
+  
+</div>
 
+      </div>
+      
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://ac-automation27.github.io/images/avatar.png?v=1584698086322" class="no-responsive avatar">
@@ -299,11 +235,11 @@ int main()
     </div>
     <div class="row">
       
-        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge success">
+        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge secondary">
           【题解】
         </a>
       
-        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge secondary">
+        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge success">
           【学习笔记】
         </a>
       
@@ -314,9 +250,7 @@ int main()
   </div>
 </div>
 
-
     </div>
-
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
 <script type="application/javascript">

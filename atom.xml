@@ -2,13 +2,103 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ac-automation27.github.io</id>
     <title>AC-Automation&apos;s blog</title>
-    <updated>2020-03-17T09:25:42.913Z</updated>
+    <updated>2020-03-20T09:54:49.322Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ac-automation27.github.io"/>
     <link rel="self" href="https://ac-automation27.github.io/atom.xml"/>
     <logo>https://ac-automation27.github.io/images/avatar.png</logo>
     <icon>https://ac-automation27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, AC-Automation&apos;s blog</rights>
+    <entry>
+        <title type="html"><![CDATA[题解 SP61 【BRCKTS - Brackets】]]></title>
+        <id>https://ac-automation27.github.io/post/ti-jie-sp61-brckts-brackets</id>
+        <link href="https://ac-automation27.github.io/post/ti-jie-sp61-brckts-brackets">
+        </link>
+        <updated>2020-03-20T09:54:22.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="线段树">线段树</h3>
+<p>容易发现，如果一个括号串的左右括号数相等，且没有任何一个前缀的右括号数量比左括号数量多。<br>
+我们分别为左括号和右括号赋值为 1 和 -1 ，并存放在 q 数组里。<br>
+考虑对 q 数组做前缀和，记录到 sum 数组里。<br>
+这样，判断一个括号串是否是合法的就非常简单了。只要保证对于所有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>i</mi></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">sum_i \ge 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7859700000000001em;vertical-align:-0.15em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，并且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>n</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">sum_n=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>即可。<br>
+我们可以使用线段树来维护这个前缀和数组。<br>
+对于每一次询问，我们用线段树找到全局最小，并判断是否为零。<br>
+对于每一次修改，我们直接在线段树区间修改前缀和数组即可。<br>
+具体细节可以参照代码，一定注意输出格式。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+using namespace std;
+int sum[30005],q[30005];
+struct node{
+	int tag,mn;
+}a[120005];
+inline void up(int rt){
+	a[rt].mn=min(a[rt&lt;&lt;1].mn,a[rt&lt;&lt;1|1].mn);
+}
+inline void pd(int rt){
+	if(a[rt].tag){
+		a[rt&lt;&lt;1].tag+=a[rt].tag;
+		a[rt&lt;&lt;1|1].tag+=a[rt].tag;
+		a[rt&lt;&lt;1].mn+=a[rt].tag;
+		a[rt&lt;&lt;1|1].mn+=a[rt].tag; 
+		a[rt].tag=0;
+	}
+}
+void build(int rt,int l,int r){
+	a[rt].tag=0;
+	if(l==r){
+		a[rt].mn=sum[l];
+		return;
+	}
+	int mid=(l+r)&gt;&gt;1;
+	build(rt&lt;&lt;1,l,mid);
+	build(rt&lt;&lt;1|1,mid+1,r);
+	up(rt);
+}
+void add(int rt,int l,int r,int ql,int qr,int k){
+	if(ql&lt;=l&amp;&amp;qr&gt;=r){
+		a[rt].tag+=k;
+		a[rt].mn+=k;
+		return;
+	}
+	pd(rt);
+	int mid=(l+r)&gt;&gt;1;
+	if(ql&lt;=mid)add(rt&lt;&lt;1,l,mid,ql,qr,k);
+	if(qr&gt;mid)add(rt&lt;&lt;1|1,mid+1,r,ql,qr,k);
+	up(rt);
+}
+//以上为线段树基本操作，区间加和区间最值
+int main(){
+	for(int _=1;_&lt;=10;_++){//注意，一共10组数据！
+		int n,m,total=0,x;//用total记录q数组的和
+		char ch;
+		cin&gt;&gt;n;
+		for(int i=1;i&lt;=n;i++){
+			cin&gt;&gt;ch;
+			if(ch=='(')q[i]=1,sum[i]=sum[i-1]+1,total++;
+			else q[i]=-1,sum[i]=sum[i-1]-1,total--;
+		}//预处理
+		build(1,1,n);
+		cin&gt;&gt;m;
+		cout&lt;&lt;&quot;Test &quot;&lt;&lt;_&lt;&lt;&quot;:&quot;&lt;&lt;endl;
+		for(int i=0;i&lt;m;i++){
+			cin&gt;&gt;x;
+			if(x==0){
+				if(total==0&amp;&amp;a[1].mn==0)cout&lt;&lt;&quot;YES&quot;&lt;&lt;endl;
+				else cout&lt;&lt;&quot;NO&quot;&lt;&lt;endl;
+                //mn==0是指判断全局的最小值是否是正数。由于前面对total的判断，一定存在一个位置的值为0。
+			}
+			else{
+				if(q[x]==1)add(1,1,n,x,n,-2),total-=2;
+				else add(1,1,n,x,n,2),total+=2;
+				q[x]=0-q[x];//翻转括号，调整前缀和数组
+			}
+		}
+	} 
+	return 0;
+}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[题解 SP15620 【POSTERIN - Postering】]]></title>
         <id>https://ac-automation27.github.io/post/ti-jie-sp15620-posterin-postering</id>
@@ -450,94 +540,6 @@ int main()
 }//完结撒花！
 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[题解 P4346 【[CERC2015]ASCII Addition】]]></title>
-        <id>https://ac-automation27.github.io/post/ti-jie-p4346-cerc2015ascii-addition</id>
-        <link href="https://ac-automation27.github.io/post/ti-jie-p4346-cerc2015ascii-addition">
-        </link>
-        <updated>2020-02-06T07:55:19.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
-<p>不要被题目的难度标签所迷惑	<s>——鲁迅</s></p>
-<h2 id="思路解题方式">思路（解题方式）</h2>
-<ol>
-<li>将字符串读入并处理成整型</li>
-<li>将答案用规定方式输出</li>
-</ol>
-<p>思路非常清晰的一道题，只是一个轻量级模拟而已（什么？不算轻量级？去看看<a href="https://www.luogu.org/problemnew/show/P3693">琪露诺的冰雪小屋</a>和<a href="https://www.luogu.org/problemnew/show/P2482">猪国杀</a>就知道这题是多么轻量级的一个模拟了）</p>
-<h2 id="小技巧">小技巧</h2>
-<p>代码本身难度不大，可以运用一些小技巧来减少码量及思维难度</p>
-<ol>
-<li>用数组存下每一个数字的表示方式，方便比对</li>
-<li>可以将代码多分成几个函数来实现，方便查错及梳理思路</li>
-</ol>
-<h2 id="然后就是代码了">然后就是代码了</h2>
-<p>应该不需要太多注释吧，思路已经很清楚了</p>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;cstring&gt;
-using namespace std;
-#define For(i,l,r) for(int i=l;i&lt;r;i++)//减少码量
-string a[7];//存算式
-int ans[30];//演算出的结果按位存在此数组里
-long long add1=0,add2=0;//两个加数
-string n[11][7]={&quot;xxxxx&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;xxxxx&quot;,
-		 &quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,
-		 &quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;xxxxx&quot;,&quot;x....&quot;,&quot;x....&quot;,&quot;xxxxx&quot;,
-		 &quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;xxxxx&quot;,
-		 &quot;x...x&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,
-		 &quot;xxxxx&quot;,&quot;x....&quot;,&quot;x....&quot;,&quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;xxxxx&quot;,
-		 &quot;xxxxx&quot;,&quot;x....&quot;,&quot;x....&quot;,&quot;xxxxx&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;xxxxx&quot;,
-		 &quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;....x&quot;,
-		 &quot;xxxxx&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;xxxxx&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;xxxxx&quot;,
-		 &quot;xxxxx&quot;,&quot;x...x&quot;,&quot;x...x&quot;,&quot;xxxxx&quot;,&quot;....x&quot;,&quot;....x&quot;,&quot;xxxxx&quot;,
-		 &quot;.....&quot;,&quot;..x..&quot;,&quot;..x..&quot;,&quot;xxxxx&quot;,&quot;..x..&quot;,&quot;..x..&quot;,&quot;.....&quot;};//每一个数字的表示方式
-bool equ(int x,int u){
-	For(i,0,7)
-		For(j,x,x+5)
-			if(n[u][i][j-x]!=a[i][j])
-				return false;	
-	return true;
-}//判断一个位置上的数字是否为u（u为10是代表加号）
-int wt(int x){
-	For(i,0,11)
-		if(equ(x,i))
-			return i;
-}//判断一个位置上的数字（或加号）是什么
-void print(int cnt){
-	For(loop,0,7){
-		for(int i=cnt-1;i&gt;=0;i--){
-			For(j,0,5)cout&lt;&lt;n[ans[i]][loop][j];
-			if(i)cout&lt;&lt;'.';
-		}cout&lt;&lt;endl;
-	}
-}//输出答案
-int main()
-{
-	For(i,0,7)cin&gt;&gt;a[i];
-	int t;
-	long long x;
-	bool flag=true;
-	for(int i=0;i&lt;a[0].size();i+=6){
-		t=wt(i);
-		if(t!=10&amp;&amp;flag)
-			add1*=10,add1+=t;
-		else if(t==10)
-			flag=false;
-		else
-			add2*=10,add2+=t;
-	}//识别出两个加数
-	int cnt=0;
-	x=add1+add2;
-	while(x!=0){
-		ans[cnt++]=x%10;
-		x/=10;
-	}//将答案按位分进ans数组中
-	print(cnt);
-	return 0;
-}
-</code></pre>
-<p>代码只有62行，应该不算长吧~</p>
 ]]></content>
     </entry>
 </feed>
