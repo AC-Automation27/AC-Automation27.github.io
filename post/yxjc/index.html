@@ -7,7 +7,7 @@
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1591511591770">
+<link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1591536356774">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
@@ -90,12 +90,42 @@
             <div class="post-content">
               <ol>
 <li>你生活在一块神奇的大陆之上。</li>
-<li>在这片大陆上，有四个互相对峙的国家，分别是不死帝国、野蛮人帝国、人类王国和精灵王国。</li>
-<li>请选择你的身份（巫妖，雷系刺客，火系法师）</li>
+<li>在这块大陆上，有四个互相对峙的国家，分别是不死帝国、野蛮人帝国、人类王国和精灵王国。</li>
+<li>请选择你的身份（巫妖，雷系刺客，火系法师，精灵弓箭手）（goto 4，unknown*3）</li>
+<li>你是一名普通的巫妖，正准备开启自己的修炼之路。（获得：1魔杖（0xp），1浅蓝魔晶，1骨之石，60魔石）</li>
+</ol>
+<pre><code>地图：
+商店
+幽暗森林
+佩斯布达（有战力要求）
+待补充
+
+商店：
+技能魔法球
+碎冰击（1，20xp）：1浅蓝魔晶
+冰雪冲击（1，25xp）：1浅蓝魔晶
+待补充
+-----
+魔石兑换：
+50魔石-&gt;浅蓝魔晶
+浅蓝魔晶-&gt;40魔石
+生命魔石
+魔力星
+魔力药剂
+致命宝石
+极寒之石
+骨龙之息
+待补充
+</code></pre>
+<pre><code>xp：由冥想、战斗（与对手实力成正比）、学习等获得（与自身xp成反比，有地区加成）
+hp：上限由生命魔石提供（有最高上限），冥想、学习会获得
+mp：战斗后重置为最高，上限由魔力星提供，有魔力药剂
+战力：xp+装备经验
+</code></pre>
+<ol start="5">
+<li>战力超过一定数值，商店对话：“你的能力已经很高，是时候去佩斯布达进行进一步修炼了”</li>
+<li>位于佩斯布达询问长者：选择：（参与对人类帝国的战争，前往费城）（goto 7，unknown）</li>
 <li></li>
-<li></li>
-<li></li>
-<li>你是一名普通的熟手巫妖</li>
 </ol>
 
             </div>
@@ -109,7 +139,7 @@
 
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
-    <img src="https://ac-automation27.github.io/images/avatar.png?v=1591511591770" class="no-responsive avatar">
+    <img src="https://ac-automation27.github.io/images/avatar.png?v=1591536356774" class="no-responsive avatar">
     <div class="text-muted"></div>
     <div class="social-container">
       
@@ -227,11 +257,11 @@
     </div>
     <div class="row">
       
-        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge success">
+        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge secondary">
           【题解】
         </a>
       
-        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge ">
+        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge secondary">
           【学习笔记】
         </a>
       
