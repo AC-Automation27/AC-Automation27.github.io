@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>题解 CF486C 【Palindrome Transformation】 | AC-Automation&#39;s blog</title>
+<title>     | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -81,90 +81,22 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>题解 CF486C 【Palindrome Transformation】</h1>
+            <h1>    </h1>
             <p class="article-meta">
-              2020-02-28
-              
-                <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge ">
-                  【题解】
-                </a>
+              2020-06-06
               
             </p>
             
             <div class="post-content">
-              <p>貌似现在只有一篇<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的题解？给一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的吧。</p>
-<p>我们先预处理出来每一个字符要想和其对应位置的字符相同，所需的操作次数。<br>
-以样例为例子：</p>
-<pre><code>aeabcaez
-10011001
-</code></pre>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext mathvariant="monospace">a</mtext></mrow><annotation encoding="application/x-tex">\texttt{a}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord text"><span class="mord texttt">a</span></span></span></span></span>变成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext mathvariant="monospace">z</mtext></mrow><annotation encoding="application/x-tex">\texttt{z}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord text"><span class="mord texttt">z</span></span></span></span></span>要1步，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext mathvariant="monospace">b</mtext></mrow><annotation encoding="application/x-tex">\texttt{b}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61111em;vertical-align:0em;"></span><span class="mord text"><span class="mord texttt">b</span></span></span></span></span>变成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext mathvariant="monospace">c</mtext></mrow><annotation encoding="application/x-tex">\texttt{c}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord text"><span class="mord texttt">c</span></span></span></span></span>要1步<br>
-然后分类讨论k的位置即可，详见代码注释</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cmath&gt;
-#include&lt;cstring&gt;
-using namespace std;
-int c[100005]; 
-int f(char ch1,char ch2){
-	int x=ch1-96,y=ch2-96;
-	return min(abs(x-y),min(abs(x+26-y),abs(x-y-26)));
-}//预处理
-int main(){
-	int n,k,ans=0;
-	string s;
-	cin&gt;&gt;n&gt;&gt;k&gt;&gt;s;
-	k--;
-	for(int i=0;i&lt;n;i++){
-		c[i]=f(s[i],s[n-i-1]);
-	}
-	int L=-1,R=-1;
-	if(k&lt;n/2){//k在前半部分
-		for(int i=0;i+i&lt;=n;i++)if(c[i]){L=i;break;}
-		for(int i=n/2-1;i&gt;=0;i--)if(c[i]){R=i;break;}//确认要经过的范围
-		if(L==R&amp;&amp;L==-1){
-			cout&lt;&lt;0;
-			return 0;
-		}//直接回文串的话处理掉就行
-		if(k&lt;=L){
-			ans+=R-k;
-		}//k在要经过范围左侧
-		else if(k&gt;=R){
-			ans+=k-L;
-		}//右侧
-		else{
-			ans+=R-L+min(k-L,R-k); 
-		}//内部
-		for(int i=L;i&lt;=R;i++){
-			ans+=c[i];
-		}
-		cout&lt;&lt;ans;
-	}
-	else{//k在后半部分，其他同上
-		for(int i=n/2;i&lt;=n;i++)if(c[i]){L=i;break;}
-		for(int i=n;i&gt;=n/2;i--)if(c[i]){R=i;break;}
-		if(L==R&amp;&amp;L==-1){
-			cout&lt;&lt;0;
-			return 0;
-		}
-		if(k&lt;=L){
-			ans+=R-k;
-		}
-		else if(k&gt;=R){
-			ans+=k-L;
-		}
-		else{
-			ans+=R-L+min(k-L,R-k); 
-		}
-		for(int i=L;i&lt;=R;i++){
-			ans+=c[i];
-		}
-		cout&lt;&lt;ans;
-		
-	}
-	return 0;
-}
-</code></pre>
-<p>很明显，时间复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的</p>
+              <ol>
+<li>你生活在一块神奇的大陆之上。</li>
+<li>在这片大陆上，有四个互相对峙的国家，分别是不死帝国、野蛮人帝国、人类王国和精灵王国。</li>
+<li>请选择你的身份（巫妖，雷系刺客，火系法师）</li>
+<li></li>
+<li></li>
+<li></li>
+<li>你是一名普通的熟手巫妖</li>
+</ol>
 
             </div>
           </article>
@@ -175,9 +107,9 @@ int main(){
               <div class="next">
                 下一篇
               </div>
-              <a href="https://ac-automation27.github.io/post/ti-jie-cf466c-number-of-ways">
+              <a href="https://ac-automation27.github.io/post/ti-jie-p6003-usaco20janloan-repayment-s">
                 <h3 class="post-title">
-                  题解 CF466C 【Number of Ways】
+                  题解 P6003 【[USACO20JAN]Loan Repayment S】
                 </h3>
               </a>
             </div>
@@ -306,11 +238,11 @@ int main(){
     </div>
     <div class="row">
       
-        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge ">
+        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge success">
           【题解】
         </a>
       
-        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge warning">
+        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge secondary">
           【学习笔记】
         </a>
       

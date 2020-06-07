@@ -2,13 +2,30 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ac-automation27.github.io</id>
     <title>AC-Automation&apos;s blog</title>
-    <updated>2020-04-12T14:01:19.558Z</updated>
+    <updated>2020-06-07T06:31:34.369Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ac-automation27.github.io"/>
     <link rel="self" href="https://ac-automation27.github.io/atom.xml"/>
     <logo>https://ac-automation27.github.io/images/avatar.png</logo>
     <icon>https://ac-automation27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, AC-Automation&apos;s blog</rights>
+    <entry>
+        <title type="html"><![CDATA[    ]]></title>
+        <id>https://ac-automation27.github.io/post/url-yxjc</id>
+        <link href="https://ac-automation27.github.io/post/url-yxjc">
+        </link>
+        <updated>2020-06-06T12:58:13.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>你生活在一块神奇的大陆之上。</li>
+<li>在这片大陆上，有四个互相对峙的国家，分别是不死帝国、野蛮人帝国、人类王国和精灵王国。</li>
+<li>请选择你的身份（巫妖，雷系刺客，火系法师）</li>
+<li></li>
+<li></li>
+<li></li>
+<li>你是一名普通的熟手巫妖</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[题解 P6003 【[USACO20JAN]Loan Repayment S】]]></title>
         <id>https://ac-automation27.github.io/post/ti-jie-p6003-usaco20janloan-repayment-s</id>
@@ -508,50 +525,6 @@ int main()
 	}//处理询问
 	return 0;
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[题解 CF1097B 【Petr and a Combination Lock】]]></title>
-        <id>https://ac-automation27.github.io/post/ti-jie-cf1097b-petr-and-a-combination-lock</id>
-        <link href="https://ac-automation27.github.io/post/ti-jie-cf1097b-petr-and-a-combination-lock">
-        </link>
-        <updated>2020-02-06T07:58:28.000Z</updated>
-        <content type="html"><![CDATA[<h4 id="这道题一看数据规模就知道是爆搜">这道题一看数据规模就知道是爆搜</h4>
-<p>是一道还不错的DFS练习题</p>
-<p>只要每一次尝试顺时针或逆时针转，转完之后计算是否转回0°就好了</p>
-<h3 id="注意如果逆时针转不能直接减去度数会变成负数">注意如果逆时针转，不能直接减去度数，会变成负数。</h3>
-<p>代码：</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-using namespace std;
-bool flag=true;//有没有得到解
-int a[20];//转动度数
-void dfs(int nd,int n){
-	if(n==-1){
-		if(nd%360==0)
-			flag=false;
-		return;
-	}//判断是否转回0°
-	if(flag)
-		dfs(nd+a[n],n-1);//向下搜
-	if(flag)
-		dfs(nd+360-a[n],n-1);//向下搜
-}
-int main()
-{
-	int n;
-	cin&gt;&gt;n;
-	for(int i=0;i&lt;n;i++)
-		cin&gt;&gt;a[i];//输入
-	dfs(0,n-1);//递归
-	if(flag)
-		cout&lt;&lt;&quot;NO\n&quot;;
-	else
-		cout&lt;&lt;&quot;YES\n&quot;;//输出
-	return 0;
-}
-//个人认为代码可读性还是可以的吧
-
 </code></pre>
 ]]></content>
     </entry>
