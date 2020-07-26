@@ -2,13 +2,63 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ac-automation27.github.io</id>
     <title>AC-Automation&apos;s blog</title>
-    <updated>2020-06-07T13:25:58.920Z</updated>
+    <updated>2020-07-26T10:56:37.446Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ac-automation27.github.io"/>
     <link rel="self" href="https://ac-automation27.github.io/atom.xml"/>
     <logo>https://ac-automation27.github.io/images/avatar.png</logo>
     <icon>https://ac-automation27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, AC-Automation&apos;s blog</rights>
+    <entry>
+        <title type="html"><![CDATA[题解 P1879 【[USACO06NOV]Corn Fields G】]]></title>
+        <id>https://ac-automation27.github.io/post/ti-jie-p1879-usaco06novcorn-fields-g</id>
+        <link href="https://ac-automation27.github.io/post/ti-jie-p1879-usaco06novcorn-fields-g">
+        </link>
+        <updated>2020-07-26T10:39:07.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="数据范围肉眼可见状压dp">数据范围肉眼可见状压DP</h2>
+<p>考虑选择套路的状态设计方式，令<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><msub><mi>p</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">dp_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>为截至第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>行，第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>行的状态为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>情况下的方案数。<br>
+转移的时候，枚举上一级的状态来更新即可，边界条件为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><msub><mi>p</mi><mrow><mn>0</mn><mo separator="true">,</mo><mn>0</mn></mrow></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">dp_{0,0}=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mpunct mtight">,</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。<br>
+更新的方法上，可以枚举j的补集的子集来进行更新。<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>×</mo><msup><mn>3</mn><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n\times 3^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<pre><code>#include&lt;iostream&gt;
+using namespace std;
+int a[15][15],f[15];
+int dp[15][5005];
+int main(){
+	int m,n;
+	cin&gt;&gt;m&gt;&gt;n;
+	for(int i=1;i&lt;=m;i++){
+		for(int j=1;j&lt;=n;j++){
+			cin&gt;&gt;a[i][j];
+			f[i]=(f[i]&lt;&lt;1)+a[i][j];
+		}
+	}
+	dp[0][0]=1;
+	for(int i=1;i&lt;=m;i++){
+		for(int j=0;j&lt;(1&lt;&lt;n);j++){
+			if(((j&amp;(j&lt;&lt;1))==0)&amp;&amp;((j&amp;(j&gt;&gt;1))==0)&amp;&amp;((j&amp;f[i])==j)){
+				int x=((1&lt;&lt;n)-1)^j;
+				for(int k=x;k;k=((k-1)&amp;x)){
+					dp[i][j]+=dp[i-1][k];
+					dp[i][j]%=(int)(1e9);
+				}
+				dp[i][j]+=dp[i-1][0];
+				dp[i][j]%=(int)(1e9);
+			}
+		}
+	}
+	int ans=0;
+	for(int j=0;j&lt;(1&lt;&lt;n);j++){
+		ans+=dp[m][j];
+		ans%=(int)(1e9); 
+	}
+	cout&lt;&lt;ans;
+	return 0;
+}
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[题解 P6003 【[USACO20JAN]Loan Repayment S】]]></title>
         <id>https://ac-automation27.github.io/post/ti-jie-p6003-usaco20janloan-repayment-s</id>
@@ -508,50 +558,6 @@ int main()
 	}//处理询问
 	return 0;
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[题解 CF1097B 【Petr and a Combination Lock】]]></title>
-        <id>https://ac-automation27.github.io/post/ti-jie-cf1097b-petr-and-a-combination-lock</id>
-        <link href="https://ac-automation27.github.io/post/ti-jie-cf1097b-petr-and-a-combination-lock">
-        </link>
-        <updated>2020-02-06T07:58:28.000Z</updated>
-        <content type="html"><![CDATA[<h4 id="这道题一看数据规模就知道是爆搜">这道题一看数据规模就知道是爆搜</h4>
-<p>是一道还不错的DFS练习题</p>
-<p>只要每一次尝试顺时针或逆时针转，转完之后计算是否转回0°就好了</p>
-<h3 id="注意如果逆时针转不能直接减去度数会变成负数">注意如果逆时针转，不能直接减去度数，会变成负数。</h3>
-<p>代码：</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-using namespace std;
-bool flag=true;//有没有得到解
-int a[20];//转动度数
-void dfs(int nd,int n){
-	if(n==-1){
-		if(nd%360==0)
-			flag=false;
-		return;
-	}//判断是否转回0°
-	if(flag)
-		dfs(nd+a[n],n-1);//向下搜
-	if(flag)
-		dfs(nd+360-a[n],n-1);//向下搜
-}
-int main()
-{
-	int n;
-	cin&gt;&gt;n;
-	for(int i=0;i&lt;n;i++)
-		cin&gt;&gt;a[i];//输入
-	dfs(0,n-1);//递归
-	if(flag)
-		cout&lt;&lt;&quot;NO\n&quot;;
-	else
-		cout&lt;&lt;&quot;YES\n&quot;;//输出
-	return 0;
-}
-//个人认为代码可读性还是可以的吧
-
 </code></pre>
 ]]></content>
     </entry>

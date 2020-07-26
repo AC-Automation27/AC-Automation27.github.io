@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>题解 P2002 【消息扩散】 | AC-Automation&#39;s blog</title>
+<title>题解 P1879 【[USACO06NOV]Corn Fields G】 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -81,82 +81,50 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>题解 P2002 【消息扩散】</h1>
+            <h1>题解 P1879 【[USACO06NOV]Corn Fields G】</h1>
             <p class="article-meta">
-              2020-02-06
-              
-                <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge warning">
-                  【学习笔记】
-                </a>
-              
-                <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge secondary">
-                  【题解】
-                </a>
+              2020-07-26
               
             </p>
             
             <div class="post-content">
-              <p>刚学tarjan，写篇题解加深下印象。</p>
-<h2 id="tarjan算法详解">tarjan算法详解</h2>
-<p>给定一张有向图，求它的所有强连通分量。</p>
-<p>每次选择一个未遍历的点开始dfs。</p>
-<p>定义dfn[i]表示i被遍历到的时间，low[i]表示从i出发，只经过至多一条dfn变小的边，能走到的dfn最小的点的dfn的值。（可能有些绕，看不懂建议多看几遍）</p>
-<p>维护一个栈，dfs到一个点时将它加入栈内。</p>
-<p>如果一个点的dfn=low，那么不停弹出栈顶元素直到这个点被弹出，被弹出的所有点就构成了一个强连通分量。</p>
-<p>时间复杂度O(m),m是边数</p>
-<hr>
-<h4 id="思路先用tarjan缩点然后统计入度为0的点的个数缩点指将每一个强连通分量缩成一个点">思路：先用tarjan缩点，然后统计入度为0的点的个数（缩点指将每一个强连通分量缩成一个点）</h4>
-<p>这里有一个小技巧，可以不用在缩点后重新建图，直接统计入度即可</p>
-<p>code:</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;vector&gt;
+              <h2 id="数据范围肉眼可见状压dp">数据范围肉眼可见状压DP</h2>
+<p>考虑选择套路的状态设计方式，令<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><msub><mi>p</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">dp_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>为截至第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>行，第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>行的状态为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>情况下的方案数。<br>
+转移的时候，枚举上一级的状态来更新即可，边界条件为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><msub><mi>p</mi><mrow><mn>0</mn><mo separator="true">,</mo><mn>0</mn></mrow></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">dp_{0,0}=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mpunct mtight">,</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。<br>
+更新的方法上，可以枚举j的补集的子集来进行更新。<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>×</mo><msup><mn>3</mn><mi>n</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n\times 3^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<pre><code>#include&lt;iostream&gt;
 using namespace std;
-#define N 100005
-int dfn[N],low[N],tim=1,stack[N],top=0,belong[N],pn=0,du[N];
-bool in[N];
-vector&lt;int&gt; a[N];
-void tarjan(int u){
-	low[u]=tim;
-	dfn[u]=tim++;
-	stack[top++]=u;
-	in[u]=true;//先初始化dfn值和low值，并压入栈
-	int siz=a[u].size(),v;
-	for(int i=0;i&lt;siz;i++){
-		v=a[u][i];
-		if(!dfn[v]){
-			tarjan(v);
-			low[u]=min(low[u],low[v]);
+int a[15][15],f[15];
+int dp[15][5005];
+int main(){
+	int m,n;
+	cin&gt;&gt;m&gt;&gt;n;
+	for(int i=1;i&lt;=m;i++){
+		for(int j=1;j&lt;=n;j++){
+			cin&gt;&gt;a[i][j];
+			f[i]=(f[i]&lt;&lt;1)+a[i][j];
 		}
-		else if(in[v]) 
-			low[u]=min(low[u],low[v]);//递归并更新low值
 	}
-	if(dfn[u]==low[u]){
-		pn++;
-		while(stack[top]!=u){
-			top--;
-			belong[stack[top]]=pn;
-			in[stack[top]]=false;
+	dp[0][0]=1;
+	for(int i=1;i&lt;=m;i++){
+		for(int j=0;j&lt;(1&lt;&lt;n);j++){
+			if(((j&amp;(j&lt;&lt;1))==0)&amp;&amp;((j&amp;(j&gt;&gt;1))==0)&amp;&amp;((j&amp;f[i])==j)){
+				int x=((1&lt;&lt;n)-1)^j;
+				for(int k=x;k;k=((k-1)&amp;x)){
+					dp[i][j]+=dp[i-1][k];
+					dp[i][j]%=(int)(1e9);
+				}
+				dp[i][j]+=dp[i-1][0];
+				dp[i][j]%=(int)(1e9);
+			}
 		}
-	}//将强连通分量中的点打上标记
-}
-int main()
-{
-	int n,m,x,y,ans=0;
-	cin&gt;&gt;n&gt;&gt;m;
-	for(int i=0;i&lt;m;i++){
-		cin&gt;&gt;x&gt;&gt;y;
-		if(x!=y)
-			a[x].push_back(y);
 	}
-	for(int i=1;i&lt;=n;i++)
-		if(!dfn[i])
-			tarjan(i);//如果没有遍历过，那就遍历它
-	for(int i=1;i&lt;=n;i++)
-		for(int j=0;j&lt;a[i].size();j++)
-			if(belong[i]!=belong[a[i][j]])
-				du[belong[a[i][j]]]++;//统计入度
-	for(int i=1;i&lt;=pn;i++)
-		ans+=(du[i]==0);//统计答案
+	int ans=0;
+	for(int j=0;j&lt;(1&lt;&lt;n);j++){
+		ans+=dp[m][j];
+		ans%=(int)(1e9); 
+	}
 	cout&lt;&lt;ans;
 	return 0;
 }
@@ -172,9 +140,9 @@ int main()
               <div class="next">
                 下一篇
               </div>
-              <a href="https://ac-automation27.github.io/post/ti-jie-p1438-wu-liao-de-shu-lie">
+              <a href="https://ac-automation27.github.io/post/ti-jie-p6003-usaco20janloan-repayment-s">
                 <h3 class="post-title">
-                  题解 P1438 【无聊的数列】
+                  题解 P6003 【[USACO20JAN]Loan Repayment S】
                 </h3>
               </a>
             </div>
