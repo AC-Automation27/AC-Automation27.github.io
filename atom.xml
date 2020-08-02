@@ -2,13 +2,113 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ac-automation27.github.io</id>
     <title>AC-Automation&apos;s blog</title>
-    <updated>2020-07-27T06:59:30.399Z</updated>
+    <updated>2020-08-02T12:52:54.949Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ac-automation27.github.io"/>
     <link rel="self" href="https://ac-automation27.github.io/atom.xml"/>
     <logo>https://ac-automation27.github.io/images/avatar.png</logo>
     <icon>https://ac-automation27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, AC-Automation&apos;s blog</rights>
+    <entry>
+        <title type="html"><![CDATA[题解 P2213 【[USACO14MAR]The Lazy Cow S】]]></title>
+        <id>https://ac-automation27.github.io/post/ti-jie-p2213-usaco14marthe-lazy-cow-s</id>
+        <link href="https://ac-automation27.github.io/post/ti-jie-p2213-usaco14marthe-lazy-cow-s">
+        </link>
+        <updated>2020-08-02T12:51:33.000Z</updated>
+        <content type="html"><![CDATA[<p>暴力对于每一行做前缀和，枚举中间点即可<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>3</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，可以通过S组的此题</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#define int long long
+using namespace std;
+int a[405][405];
+int sum[405][405];
+signed main(){
+	int n,k;
+	cin&gt;&gt;n&gt;&gt;k;
+	for(int i=1;i&lt;=n;i++){
+		for(int j=1;j&lt;=n;j++){
+			cin&gt;&gt;a[i][j];
+			sum[i][j]=sum[i][j-1]+a[i][j];
+		}
+	}
+	int ans=0;
+	for(int i=1;i&lt;=n;i++){
+		for(int j=1;j&lt;=n;j++){
+			int s=0;
+			for(int l=max(i-k,0ll);l&lt;=i;l++){
+				s+=sum[l][min(j+l+k-i,n)]-sum[l][max(j-l-k+i-1,0ll)];
+			}
+			for(int l=i+1;l&lt;=min(i+k,n);l++){
+				s+=sum[l][min(j+i-l+k,n)]-sum[l][max(j-i-k+l-1,0ll)];
+			}
+			ans=max(ans,s); 
+		}
+	}
+	cout&lt;&lt;ans;
+	return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[题解  P3478 【[POI2008]STA-Station】]]></title>
+        <id>https://ac-automation27.github.io/post/ti-jie-p3478-poi2008sta-station</id>
+        <link href="https://ac-automation27.github.io/post/ti-jie-p3478-poi2008sta-station">
+        </link>
+        <updated>2020-08-02T12:47:46.000Z</updated>
+        <content type="html"><![CDATA[<p>换根DP板子题<br>
+先以一个节点作为根统计一下子树大小，然后dfs更新每个节点作为根的答案<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#define int long long
+using namespace std;
+vector&lt;int&gt; g[1000005];
+int sum[1000005],s,ans,n,pp=1;
+void dfs1(int u,int f,int d){
+	sum[u]=1;
+	s+=d;
+	for(int i=0;i&lt;g[u].size();i++){
+		if(g[u][i]==f)continue;
+		dfs1(g[u][i],u,d+1);
+		sum[u]+=sum[g[u][i]];
+	}
+}
+void dfs2(int u,int f){
+	for(int i=0;i&lt;g[u].size();i++){
+		if(g[u][i]==f)continue;
+		int v=g[u][i];
+		int rs=s,ru=sum[u],rv=sum[v];
+		s=s+n-2*sum[v];
+		sum[u]-=sum[v];
+		sum[v]=n;
+		if(s&gt;ans){
+			ans=s;
+			pp=v;
+		}
+		dfs2(v,u);
+		s=rs;
+		sum[u]=ru;
+		sum[v]=rv;
+	}
+}
+signed main(){
+	int u,v;
+	cin&gt;&gt;n;
+	for(int i=1;i&lt;n;i++){
+		cin&gt;&gt;u&gt;&gt;v;
+		g[u].push_back(v);
+		g[v].push_back(u);
+	}
+	dfs1(1,0,0);
+	ans=s;
+	dfs2(1,0);
+	cout&lt;&lt;pp;
+	return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[题解 P1879 【[USACO06NOV]Corn Fields G】]]></title>
         <id>https://ac-automation27.github.io/post/ti-jie-p1879-usaco06novcorn-fields-g</id>
@@ -467,97 +567,6 @@ int main(){
 	return 0;
 }
 
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[题解 CF902B 【Coloring a Tree】 ]]></title>
-        <id>https://ac-automation27.github.io/post/ti-jie-cf902b-coloring-a-tree</id>
-        <link href="https://ac-automation27.github.io/post/ti-jie-cf902b-coloring-a-tree">
-        </link>
-        <updated>2020-02-08T05:52:04.000Z</updated>
-        <content type="html"><![CDATA[<p>题面：一颗树，每次可以选择一个子树染成同一个颜色，求染成目标状态的最小操作次数。</p>
-<p>首先，如果对于一个子树，这个子树的根节点需要被染色，那么这个根节点一定要先被染色，然后他的孩子们才会被染色。因为给这个根节点染色的时候，它下面的孩子们同时也会被染色，若是之前就给他的孩子们染色，那么这样的染色是会被浪费掉的。</p>
-<p>其次，对于两个兄弟子树，他们染色的先后顺序是不影响染色的次数的。</p>
-<p>知道的这两点之后，就有了一种很容易设计出的算法了。从根节点开始遍历整棵树，如果某个子树的根节点需要被染色，则ans++，并将这个子树染成这种颜色（打标记），然后再遍历它的所有孩子，重复以上操作。</p>
-<p>代码（注释应该比较清晰）</p>
-<pre><code>#include&lt;iostream&gt;
-using namespace std;
-struct edge{
-	int v,nxt;
-}a[20005];
-int head[10005],clr[10005],cnt=0;
-void add_edge(int u,int v){
-	cnt++;
-	a[cnt].v=v;
-	a[cnt].nxt=head[u];
-	head[u]=cnt;
-}//链式前向星
-int dfs(int u,int color,int fa){//color代表它这个子树之前被染成什么颜色了，u是节点编号
-	int ans=0;
-	if(color!=clr[u])ans++;//需要被染色一次
-	for(int i=head[u];i;i=a[i].nxt){
-		if(a[i].v==fa)continue;
-		ans+=dfs(a[i].v,clr[u],u);//递归下去，此时这个子树一定被染成了clr[u]这个颜色，因为如果没有将当前节点的子树染色，则这个子树一定在之前被染过一次色
-	}
-	return ans;
-}
-int main(){
-	int n,v;
-	cin&gt;&gt;n;
-	for(int i=2;i&lt;=n;i++){
-		cin&gt;&gt;v;
-		add_edge(i,v);
-		add_edge(v,i);
-	}
-	for(int i=1;i&lt;=n;i++)cin&gt;&gt;clr[i];
-	cout&lt;&lt;dfs(1,0,-1);
-	return 0;
-}
-
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[题解 CF816B 【Karen and Coffee】]]></title>
-        <id>https://ac-automation27.github.io/post/ti-jie-cf816b-karen-and-coffee</id>
-        <link href="https://ac-automation27.github.io/post/ti-jie-cf816b-karen-and-coffee">
-        </link>
-        <updated>2020-02-06T07:58:48.000Z</updated>
-        <content type="html"><![CDATA[<p>思路：用差分来维护每种温度被食谱的认可度，再用前缀和处理询问（本来以为要用线段树维护，后来发现询问都在最后，于是写的差分）。</p>
-<p>有关差分的介绍请看这里：<a href="https://rpdreamer.blog.luogu.org/ci-fen-and-shu-shang-ci-fen">差分数组&amp;树上差分</a></p>
-<p><s>前缀和不用多讲了吧</s></p>
-<p>最后是代码：</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-using namespace std;
-int a[200005],b[200005],sum[200005];
-int main()
-{
-	int n,k,q,l,r;
-	cin&gt;&gt;n&gt;&gt;k&gt;&gt;q;
-	for(int i=0;i&lt;n;i++)
-	{
-		cin&gt;&gt;l&gt;&gt;r;
-		b[l]++;
-		b[r+1]--;
-	}//差分
-	int sum1=0,sum2=0;
-	for(int i=1;i&lt;=200000;i++)
-	{
-		sum1+=b[i];
-		a[i]=sum1;
-		if(a[i]&gt;=k)
-			sum2++;
-		sum[i]=sum2;
-	}//计算前缀和
-	for(int i=0;i&lt;q;i++)
-	{
-		cin&gt;&gt;l&gt;&gt;r;
-		cout&lt;&lt;sum[r]-sum[l-1]&lt;&lt;endl;
-	}//处理询问
-	return 0;
-}
 </code></pre>
 ]]></content>
     </entry>

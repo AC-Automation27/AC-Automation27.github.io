@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>题解 CF1197C 【Array Splitting】 | AC-Automation&#39;s blog</title>
+<title>题解 P2213 【[USACO14MAR]The Lazy Cow S】 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -81,53 +81,41 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>题解 CF1197C 【Array Splitting】</h1>
+            <h1>题解 P2213 【[USACO14MAR]The Lazy Cow S】</h1>
             <p class="article-meta">
-              2020-02-06
-              
-                <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge secondary">
-                  【题解】
-                </a>
+              2020-08-02
               
             </p>
             
             <div class="post-content">
-              <p>感觉这题没有蓝题难度吧，CF的题恶评太严重了。</p>
-<p>言归正传，我们考虑先分成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>段，然后合并成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>段。</p>
-<p>每次计算合并后造成的影响，合并影响最小的。</p>
-<p>以样例1为例：</p>
-<pre><code>6 3
-4 8 15 16 23 42
-
-</code></pre>
-<p>计算两数之间的差值为：4，7，1，7，19</p>
-<p>我们分别将差值为1，4，7的两个数合并，合并后原序列变成4<sub>8，15</sub>23，42（或者4~16，23，42），统计后得到答案为12。</p>
-<p>考虑如何方便计算。</p>
-<p>我们可以先计算<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>[</mo><mi>n</mi><mo>]</mo><mo>−</mo><mi>a</mi><mo>[</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">a[n]-a[1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault">n</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span></span></span></span>的差值，在减去没有被合并的差值。这里可以用堆来找出前<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>小的差值贪心地来合并（当然排序也行了）</p>
-<p>时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mtext> </mtext><mi>l</mi><mi>o</mi><mi>g</mi><mtext> </mtext><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n\ log\ n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace"> </span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mspace"> </span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
-<p>最后放代码：</p>
+              <p>暴力对于每一行做前缀和，枚举中间点即可<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>3</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，可以通过S组的此题</p>
 <pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;queue&gt;
-#include&lt;algorithm&gt; 
-#include&lt;functional&gt;
+#define int long long
 using namespace std;
-int a[300005];
-priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; pq;
-int main(){
-	int n,sum,k;
-	cin&gt;&gt;n&gt;&gt;k;sum=n;
-	for(int i=0;i&lt;n;i++)cin&gt;&gt;a[i];
-	for(int i=0;i&lt;n-1;i++){
-		pq.push(a[i+1]-a[i]);//计算差值
+int a[405][405];
+int sum[405][405];
+signed main(){
+	int n,k;
+	cin&gt;&gt;n&gt;&gt;k;
+	for(int i=1;i&lt;=n;i++){
+		for(int j=1;j&lt;=n;j++){
+			cin&gt;&gt;a[i][j];
+			sum[i][j]=sum[i][j-1]+a[i][j];
+		}
 	}
-	while(sum&gt;k){
-		pq.pop();
-		sum--;//找到前k小差值
-	}
-	int ans=a[n-1]-a[0];
-	while(!pq.empty()){
-		ans-=pq.top();//计算答案
-		pq.pop();
+	int ans=0;
+	for(int i=1;i&lt;=n;i++){
+		for(int j=1;j&lt;=n;j++){
+			int s=0;
+			for(int l=max(i-k,0ll);l&lt;=i;l++){
+				s+=sum[l][min(j+l+k-i,n)]-sum[l][max(j-l-k+i-1,0ll)];
+			}
+			for(int l=i+1;l&lt;=min(i+k,n);l++){
+				s+=sum[l][min(j+i-l+k,n)]-sum[l][max(j-i-k+l-1,0ll)];
+			}
+			ans=max(ans,s); 
+		}
 	}
 	cout&lt;&lt;ans;
 	return 0;
@@ -143,9 +131,9 @@ int main(){
               <div class="next">
                 下一篇
               </div>
-              <a href="https://ac-automation27.github.io/post/about">
+              <a href="https://ac-automation27.github.io/post/ti-jie-p3478-poi2008sta-station">
                 <h3 class="post-title">
-                  关于
+                  题解  P3478 【[POI2008]STA-Station】
                 </h3>
               </a>
             </div>
@@ -278,11 +266,11 @@ int main(){
     </div>
     <div class="row">
       
-        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge secondary">
+        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge success">
           【题解】
         </a>
       
-        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge ">
+        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge secondary">
           【学习笔记】
         </a>
       
