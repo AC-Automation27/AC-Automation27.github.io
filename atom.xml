@@ -2,13 +2,53 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ac-automation27.github.io</id>
     <title>AC-Automation&apos;s blog</title>
-    <updated>2020-08-02T12:52:54.949Z</updated>
+    <updated>2020-08-02T12:58:11.506Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ac-automation27.github.io"/>
     <link rel="self" href="https://ac-automation27.github.io/atom.xml"/>
     <logo>https://ac-automation27.github.io/images/avatar.png</logo>
     <icon>https://ac-automation27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, AC-Automation&apos;s blog</rights>
+    <entry>
+        <title type="html"><![CDATA[题解 P3594 【[POI2015]WIL-Wilcze doły】]]></title>
+        <id>https://ac-automation27.github.io/post/ti-jie-p3594-poi2015wil-wilcze-doly</id>
+        <link href="https://ac-automation27.github.io/post/ti-jie-p3594-poi2015wil-wilcze-doly">
+        </link>
+        <updated>2020-08-02T12:54:37.000Z</updated>
+        <content type="html"><![CDATA[<p>双指针+单调队列<br>
+先使用双指针卡出区间，用单调队列进行类似滑动窗口的方式维护定长区间和最小值即可<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;queue&gt; 
+#define int long long
+using namespace std;
+int a[2000005],pre[2000005];
+deque&lt;int&gt; q;
+signed main(){
+	int p,n,d;
+	cin&gt;&gt;n&gt;&gt;p&gt;&gt;d;
+	for(int i=1;i&lt;=n;i++){
+		cin&gt;&gt;a[i];
+		pre[i]=pre[i-1]+a[i];
+	}
+	int l=1;
+	q.push_back(d);
+	int ans=d;
+	for(int r=d+1;r&lt;=n;r++){
+		while(!q.empty()&amp;&amp;pre[q.back()]-pre[q.back()-d]&lt;pre[r]-pre[r-d])q.pop_back();
+		q.push_back(r);
+		while(!q.empty()&amp;&amp;pre[r]-pre[l-1]-pre[q.front()]+pre[q.front()-d]&gt;p){
+			l++;
+			while(!q.empty()&amp;&amp;q.front()-d+1&lt;l)q.pop_front();
+		}
+		ans=max(ans,r-l+1);
+	}
+	cout&lt;&lt;ans;
+	return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[题解 P2213 【[USACO14MAR]The Lazy Cow S】]]></title>
         <id>https://ac-automation27.github.io/post/ti-jie-p2213-usaco14marthe-lazy-cow-s</id>
@@ -530,40 +570,6 @@ int main(){
 	}
     //如果对于一个中间点，它的左边最小和右边最小都比它小，或者它的左边最大和右边最大都比它大，那么它就可以构成非有序子序列
 	cout&lt;&lt;0;
-	return 0;
-}
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[题解 CF873B 【Balanced Substring】]]></title>
-        <id>https://ac-automation27.github.io/post/ti-jie-cf873b-balanced-substring</id>
-        <link href="https://ac-automation27.github.io/post/ti-jie-cf873b-balanced-substring">
-        </link>
-        <updated>2020-02-10T11:43:51.000Z</updated>
-        <content type="html"><![CDATA[<p>题意：给出一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>长度的01串，其中含有相同0，1个数的子串被称为“平衡串”，问最长的平衡串的长度。</p>
-<p>我们可以先将0改变成-1，这样的话，新串中和为0的子串即为原串中“平衡串”。</p>
-<p>考虑枚举某一个端点，并判断是否存在可行的另一个端点。在这道题中，我们枚举右端点。</p>
-<p>让我们维护一个前缀和数组<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><mi>m</mi><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">sum[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span></span></span></span>。对于某一个右端点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>，如果存在一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi><mo>∈</mo><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">j\in[1,k-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>，使得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><mi>m</mi><mo>[</mo><mi>j</mi><mo>]</mo><mo>=</mo><mi>s</mi><mi>u</mi><mi>m</mi><mo>[</mo><mi>k</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">sum[j]=sum[k]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span></span></span></span>，那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mi>j</mi><mo>+</mo><mn>1</mn></mrow><mi>k</mi></msubsup><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{i=j+1}^ka_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.424826em;vertical-align:-0.43581800000000004em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9890079999999999em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.43581800000000004em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>就一定等于0。这样的话，就形成了一个平衡串。我们可以用一个桶来记录前缀和数组之前是否存在过某个值，就可以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>判断一个右端点是否对应一个左端点，即可通过本题。</p>
-<pre><code>#include&lt;iostream&gt;
-using namespace std;
-int book[200005];//桶
-int main(){
-	int n,sum=0,ans=0;
-	cin&gt;&gt;n;
-	string s;
-	cin&gt;&gt;s;
-	for(int i=1;i&lt;=n;i++){
-		if(s[i-1]=='1')sum++;
-		else sum--;//sum记录前缀和
-		if(sum==0)ans=max(ans,i); //有可能平衡串出现在最开始的某一个串
-		if(book[sum+100000]==0)book[sum+100000]=i;
-		else ans=max(ans,i-book[sum+100000]);
-        //注意：1.桶内如果已经有了元素，那么不要改变它，因为左端点越靠左越好
-        //2.因为前缀和有可能&lt;0，那么我们需要整体移动桶的下标
-	}
-	cout&lt;&lt;ans;
 	return 0;
 }
 

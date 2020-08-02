@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>【学习笔记】 | AC-Automation&#39;s blog</title>
+<title>题解 P3594 【[POI2015]WIL-Wilcze doły】 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -23,6 +23,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://ac-automation27.github.io">AC-Automation&#39;s blog</a></h3>
@@ -79,44 +80,67 @@
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
-          <h2 class="current-tag">标签: 【学习笔记】</h2>
-          
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://ac-automation27.github.io/post/ti-jie-p2002-xiao-xi-kuo-san">题解 P2002 【消息扩散】</a>
-    </h2>
-    <p class="article-meta">
-      2020-02-06
-      
-        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge warning">
-          【学习笔记】
-        </a>
-      
-        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge warning">
-          【题解】
-        </a>
-      
-    </p>
-    <p class="text-lead">
-      
-    </p>
-    <div class="row">
-      <a href="https://ac-automation27.github.io/post/ti-jie-p2002-xiao-xi-kuo-san" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
+          <article class="article">
+            <h1>题解 P3594 【[POI2015]WIL-Wilcze doły】</h1>
+            <p class="article-meta">
+              2020-08-02
+              
+            </p>
+            
+            <div class="post-content">
+              <p>双指针+单调队列<br>
+先使用双指针卡出区间，用单调队列进行类似滑动窗口的方式维护定长区间和最小值即可<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;queue&gt; 
+#define int long long
+using namespace std;
+int a[2000005],pre[2000005];
+deque&lt;int&gt; q;
+signed main(){
+	int p,n,d;
+	cin&gt;&gt;n&gt;&gt;p&gt;&gt;d;
+	for(int i=1;i&lt;=n;i++){
+		cin&gt;&gt;a[i];
+		pre[i]=pre[i-1]+a[i];
+	}
+	int l=1;
+	q.push_back(d);
+	int ans=d;
+	for(int r=d+1;r&lt;=n;r++){
+		while(!q.empty()&amp;&amp;pre[q.back()]-pre[q.back()-d]&lt;pre[r]-pre[r-d])q.pop_back();
+		q.push_back(r);
+		while(!q.empty()&amp;&amp;pre[r]-pre[l-1]-pre[q.front()]+pre[q.front()-d]&gt;p){
+			l++;
+			while(!q.empty()&amp;&amp;q.front()-d+1&lt;l)q.pop_front();
+		}
+		ans=max(ans,r-l+1);
+	}
+	cout&lt;&lt;ans;
+	return 0;
+}
+</code></pre>
 
-
+            </div>
+          </article>
         </div>
-        <div class="row flex-edges">
-  
-  
-</div>
-
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://ac-automation27.github.io/post/ti-jie-p2213-usaco14marthe-lazy-cow-s">
+                <h3 class="post-title">
+                  题解 P2213 【[USACO14MAR]The Lazy Cow S】
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
       </div>
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://ac-automation27.github.io/images/avatar.png?v=1596373088879" class="no-responsive avatar">
@@ -243,11 +267,11 @@
     </div>
     <div class="row">
       
-        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge secondary">
+        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge ">
           【题解】
         </a>
       
-        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge success">
+        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge ">
           【学习笔记】
         </a>
       
@@ -257,6 +281,7 @@
     Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://ac-automation27.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
+
 
     </div>
 
