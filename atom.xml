@@ -2,13 +2,41 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ac-automation27.github.io</id>
     <title>AC-Automation&apos;s blog</title>
-    <updated>2020-08-02T12:58:11.506Z</updated>
+    <updated>2020-08-09T13:15:57.505Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ac-automation27.github.io"/>
     <link rel="self" href="https://ac-automation27.github.io/atom.xml"/>
     <logo>https://ac-automation27.github.io/images/avatar.png</logo>
     <icon>https://ac-automation27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, AC-Automation&apos;s blog</rights>
+    <entry>
+        <title type="html"><![CDATA[三句话题解合集]]></title>
+        <id>https://ac-automation27.github.io/post/san-ju-hua-ti-jie-he-ji</id>
+        <link href="https://ac-automation27.github.io/post/san-ju-hua-ti-jie-he-ji">
+        </link>
+        <updated>2020-08-09T12:58:00.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="p2837-usaco08febdining-cows-b">P2837 [USACO08FEB]Dining Cows B</h2>
+<p>定义<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>r</mi><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">pre_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>为将前<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>个数均改为1所需要的次数，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><msub><mi>f</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">suf_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>同理，为后缀，但是为改成2所需的次数<br>
+然后遍历一边寻找答案即可<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<h2 id="p1020-导弹拦截">P1020 导弹拦截</h2>
+<p>LIS 经典题，第一问为最长不升子序列长度，第二问为最长严格上升子序列长度<br>
+值域不大，不需要离散化，暴力BIT优化DP即可<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>w</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n log w)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mclose">)</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span></span></span></span>为值域</p>
+<h2 id="p2642-双子序列最大和">P2642 双子序列最大和</h2>
+<p>最大子段和经典题，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>r</mi><msub><mi>e</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">pre_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>−</mo><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_1 - a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的最大子段和，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><msub><mi>f</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">suf_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>为后缀，同理<br>
+暴力枚举断点统计答案即可<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>，记得开<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext mathvariant="monospace">long</mtext><mtext> </mtext><mtext mathvariant="monospace">long</mtext></mrow><annotation encoding="application/x-tex">\texttt{long long}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.22222em;"></span><span class="mord text"><span class="mord texttt">long long</span></span></span></span></span></p>
+<h2 id="p1982-小朋友的数字">P1982 小朋友的数字</h2>
+<p>用类似最大子段和的方式算出特征值，再扫一遍统计分数即可<br>
+需要写高精或者用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext mathvariant="monospace">int128</mtext></mrow><annotation encoding="application/x-tex">\texttt{int128}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61111em;vertical-align:0em;"></span><span class="mord text"><span class="mord texttt">int128</span></span></span></span></span>，很毒瘤<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<h2 id="p1043-数字游戏">P1043 数字游戏</h2>
+<p>先考虑链上情况，定义<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><msub><mi>p</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">dp_{i,j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>−</mo><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_1 - a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>分成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>段的极值，暴力枚举进行转移即可<br>
+环上问题做n次dp即可<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>4</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^4)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[题解 P3594 【[POI2015]WIL-Wilcze doły】]]></title>
         <id>https://ac-automation27.github.io/post/ti-jie-p3594-poi2015wil-wilcze-doly</id>
@@ -520,56 +548,6 @@ signed main(){
 		ans+=b2[i]*c[i-2];
 	}//统计答案
 	cout&lt;&lt;ans;
-	return 0;
-}
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[题解 CF27C 【Unordered Subsequence】]]></title>
-        <id>https://ac-automation27.github.io/post/ti-jie-cf27c-unordered-subsequence</id>
-        <link href="https://ac-automation27.github.io/post/ti-jie-cf27c-unordered-subsequence">
-        </link>
-        <updated>2020-02-13T04:27:05.000Z</updated>
-        <content type="html"><![CDATA[<p>这道题的翻译有问题，要找到的是最短的非有序子序列。</p>
-<p>很明显，长度 &lt; 3 的子序列不可能是非有序的，这样的话我们只需要找到长度为三，且非有序的子序列就行了。因为如果我们有一个长度为4的非有序子序列，我们一定可以删掉其中的一个元素，并保持它的非有序性。</p>
-<p>于是，题目简化为找到一个长度为3的非有序子序列。我们可以枚举这个子序列的中间点，然后判断是否可以以它为中间点找到非有序子序列。这可以用前缀最大最小值，后缀最大最小值来完成。<br>
-code: 😄</p>
-<pre><code>#include&lt;iostream&gt;
-using namespace std;
-int a[100005];
-struct node{
-	int premax,premin,sufmax,sufmin;
-}q[100005];//前后缀最大最小值
-int main(){
-	int n;
-	cin&gt;&gt;n;
-	for(int i=1;i&lt;=n;i++)cin&gt;&gt;a[i];
-	a[n+2]=999999999;
-	a[n+1]=-999999999;
-	q[0].premin=q[n+1].sufmin=n+2;
-	q[0].premax=q[n+1].sufmax=n+1;
-	for(int i=1;i&lt;=n;i++){
-		q[i].premax=(a[i]&gt;a[q[i-1].premax])?i:q[i-1].premax;
-		q[i].premin=(a[i]&lt;a[q[i-1].premin])?i:q[i-1].premin;
-	}
-	for(int i=n;i&gt;0;i--){
-		q[i].sufmax=(a[i]&gt;a[q[i+1].sufmax])?i:q[i+1].sufmax;
-		q[i].sufmin=(a[i]&lt;a[q[i+1].sufmin])?i:q[i+1].sufmin;
-	}//预处理
-	for(int i=2;i&lt;n;i++){
-		if(a[q[i-1].premin]&lt;a[i]&amp;&amp;a[q[i+1].sufmin]&lt;a[i]){
-			cout&lt;&lt;3&lt;&lt;endl&lt;&lt;q[i-1].premin&lt;&lt;' '&lt;&lt;i&lt;&lt;' '&lt;&lt;q[i+1].sufmin;
-			return 0;
-		}
-		if(a[q[i-1].premax]&gt;a[i]&amp;&amp;a[q[i+1].sufmax]&gt;a[i]){
-			cout&lt;&lt;3&lt;&lt;endl&lt;&lt;q[i-1].premax&lt;&lt;' '&lt;&lt;i&lt;&lt;' '&lt;&lt;q[i+1].sufmax;
-			return 0;
-		}
-	}
-    //如果对于一个中间点，它的左边最小和右边最小都比它小，或者它的左边最大和右边最大都比它大，那么它就可以构成非有序子序列
-	cout&lt;&lt;0;
 	return 0;
 }
 
