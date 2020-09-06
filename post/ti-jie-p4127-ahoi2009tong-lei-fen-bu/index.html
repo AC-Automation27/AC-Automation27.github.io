@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>题解 P4127 【[AHOI2009]同类分布】 | AC-Automation&#39;s blog</title>
+<meta name="description" content="">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://ac-automation27.github.io/favicon.ico?v=1599378527097">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://ac-automation27.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://ac-automation27.github.io">AC-Automation&#39;s blog</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>题解 P4127 【[AHOI2009]同类分布】</h1>
+            <p class="article-meta">
+              2020-09-06
+              
+            </p>
+            
+            <div class="post-content">
+              <p>数据范围明示数位dp<br>
+先考虑将题目转化为求两次<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">1 - x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>之间的符合条件的数的个数后相减<br>
+对于求一次的过程，我们先枚举数字之和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>o</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">mod</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span></span></span></span>，再直接进行dp即可<br>
+状态为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><msub><mi>p</mi><mrow><mi>o</mi><mi>p</mi><mo separator="true">,</mo><mi>s</mi><mi>u</mi><mi>m</mi><mo separator="true">,</mo><mi>s</mi><mi>t</mi><mo separator="true">,</mo><mi>l</mi><mi>i</mi><mi>m</mi><mi>i</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">dp_{op,sum,st,limit}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">p</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight">m</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">t</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight" style="margin-right:0.01968em;">l</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>，其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>o</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">op</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span></span></span></span>表示当前位数，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">sum</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span></span></span></span>表示当前数位之和，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">st</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span></span></span></span>表示当前数对<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>o</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">mod</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span></span></span></span>取模后的值，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>i</mi><mi>m</mi><mi>i</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">limit</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span></span></span></span>表示在之前是否取到最大值<br>
+时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>4</mn></msup><mo>∗</mo><msup><mn>9</mn><mn>3</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^4*9^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">9</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，对于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>=</mo><mn>18</mn></mrow><annotation encoding="application/x-tex">n=18</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">8</span></span></span></span>可以在3s内通过<br>
+代码：</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+using namespace std;
+long long dp[20][200][200][2];
+int a[20],mod;
+long long dfs(int k,int s,int st,bool limit){
+	if(k&lt;=0)return (st==0)&amp;&amp;(s==mod);
+	if(dp[k][s][st][limit]!=-1)return dp[k][s][st][limit];
+	int mx=(limit==1)?a[k]:9;
+	long long ans=0;
+	for(int i=0;i&lt;=mx;i++){
+		ans+=dfs(k-1,s+i,(st*10+i)%mod,(i==mx)&amp;&amp;limit);
+	}
+	return dp[k][s][st][limit]=ans;
+}
+long long solve(long long k){
+	int cnt=0;
+	while(k&gt;0){
+		a[++cnt]=k%10;
+		k/=10;
+	}
+	long long ans=0;
+	for(mod=1;mod&lt;=cnt*9;mod++){
+		memset(dp,-1,sizeof(dp));
+		ans+=dfs(cnt,0,0,1);
+	}
+	return ans;
+}
+int main(){
+	long long l,r;
+	cin&gt;&gt;l&gt;&gt;r;
+	cout&lt;&lt;solve(r)-solve(l-1);
+	return 0;
+}
+
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://ac-automation27.github.io/post/san-ju-hua-ti-jie-he-ji">
+                <h3 class="post-title">
+                  三句话题解合集
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://ac-automation27.github.io/images/avatar.png?v=1599378527097" class="no-responsive avatar">
+    <div class="text-muted"></div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://ac-automation27.github.io/post/ti-jie-p4127-ahoi2009tong-lei-fen-bu">题解 P4127 【[AHOI2009]同类分布】</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://ac-automation27.github.io/post/san-ju-hua-ti-jie-he-ji">三句话题解合集</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://ac-automation27.github.io/post/ti-jie-p3594-poi2015wil-wilcze-doly">题解 P3594 【[POI2015]WIL-Wilcze doły】</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://ac-automation27.github.io/post/ti-jie-p2213-usaco14marthe-lazy-cow-s">题解 P2213 【[USACO14MAR]The Lazy Cow S】</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://ac-automation27.github.io/post/ti-jie-p3478-poi2008sta-station">题解  P3478 【[POI2008]STA-Station】</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://ac-automation27.github.io/post/ti-jie-p1879-usaco06novcorn-fields-g">题解 P1879 【[USACO06NOV]Corn Fields G】</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://ac-automation27.github.io/post/ti-jie-p6003-usaco20janloan-repayment-s">题解 P6003 【[USACO20JAN]Loan Repayment S】</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://ac-automation27.github.io/post/ti-jie-sp61-brckts-brackets">题解 SP61 【BRCKTS - Brackets】</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://ac-automation27.github.io/post/ti-jie-sp15620-posterin-postering">题解 SP15620 【POSTERIN - Postering】</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://ac-automation27.github.io/post/ti-jie-cf486c-palindrome-transformation">题解 CF486C 【Palindrome Transformation】</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge ">
+          【题解】
+        </a>
+      
+        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge warning">
+          【学习笔记】
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://ac-automation27.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>
