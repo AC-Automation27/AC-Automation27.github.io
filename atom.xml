@@ -2,13 +2,27 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ac-automation27.github.io</id>
     <title>AC-Automation&apos;s blog</title>
-    <updated>2020-09-13T11:36:23.442Z</updated>
+    <updated>2020-09-19T07:49:37.624Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ac-automation27.github.io"/>
     <link rel="self" href="https://ac-automation27.github.io/atom.xml"/>
     <logo>https://ac-automation27.github.io/images/avatar.png</logo>
     <icon>https://ac-automation27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, AC-Automation&apos;s blog</rights>
+    <entry>
+        <title type="html"><![CDATA[语文周记9.13]]></title>
+        <id>https://ac-automation27.github.io/post/yu-wen-zhou-ji-913</id>
+        <link href="https://ac-automation27.github.io/post/yu-wen-zhou-ji-913">
+        </link>
+        <updated>2020-09-13T03:14:19.000Z</updated>
+        <content type="html"><![CDATA[<p>来之不易的平常<br>
+正值开学季，因疫情而持续数月的居家学习生活终于结束。我们又回到了那已有些陌生的校园，珍惜着这来之不易的平常。而在这一周中，有一个画面一定让许多人都难以忘怀。<br>
+长安街上，阳光铺洒；礼宾车队，稳速前行。在国宾护卫队的护卫下，载着四位英雄的礼宾车缓缓驶向人民大会堂。这四位英雄，正是在抗疫过程中做出巨大贡献的：钟南山、张伯礼、张定宇和陈薇四人。<br>
+9月8日，全国抗击新冠疫情表彰大会在京召开。在表彰大会中，这四位英雄分别得到了国家勋章和国家荣誉称号的荣誉。在这八个月的抗疫历程中，他们坚守一线，面对未知的敌人，书写责任与担当。正是他们的无私奉献，让整个社会重新恢复运转。他们与时间赛跑，与死神较量，正是他们的付出，让中国在面对疫情之时得以交出令人惊叹的答卷。他们用行动诠释了什么叫作抗疫精神。<br>
+我们说：“没有从天而降的英雄，只有挺身而出的凡人。”在抗疫过程中，无数白衣天使以凡人之躯挺身而出，与死神正面交锋。除去英雄二字，还有什么词语能够如此贴切地形容他们呢？在这次的表彰大会中，共有1499名“全国抗击新冠肺炎疫情先进个人”被表彰。没有他们的付出，我们得以重返校园之日也将遥遥无期。<br>
+2020年，一个注定不平凡的年份。为了让我们能够平常地生活，有着无数的人们在为此而努力着。这样的平常是如此来之不易，我们又怎能不珍惜呢？</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[题解 P4127 【[AHOI2009]同类分布】]]></title>
         <id>https://ac-automation27.github.io/post/ti-jie-p4127-ahoi2009tong-lei-fen-bu</id>
@@ -522,87 +536,6 @@ int main(){
 }
 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[题解 CF486C 【Palindrome Transformation】]]></title>
-        <id>https://ac-automation27.github.io/post/ti-jie-cf486c-palindrome-transformation</id>
-        <link href="https://ac-automation27.github.io/post/ti-jie-cf486c-palindrome-transformation">
-        </link>
-        <updated>2020-02-28T11:08:55.000Z</updated>
-        <content type="html"><![CDATA[<p>貌似现在只有一篇<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的题解？给一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的吧。</p>
-<p>我们先预处理出来每一个字符要想和其对应位置的字符相同，所需的操作次数。<br>
-以样例为例子：</p>
-<pre><code>aeabcaez
-10011001
-</code></pre>
-<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext mathvariant="monospace">a</mtext></mrow><annotation encoding="application/x-tex">\texttt{a}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord text"><span class="mord texttt">a</span></span></span></span></span>变成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext mathvariant="monospace">z</mtext></mrow><annotation encoding="application/x-tex">\texttt{z}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord text"><span class="mord texttt">z</span></span></span></span></span>要1步，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext mathvariant="monospace">b</mtext></mrow><annotation encoding="application/x-tex">\texttt{b}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61111em;vertical-align:0em;"></span><span class="mord text"><span class="mord texttt">b</span></span></span></span></span>变成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext mathvariant="monospace">c</mtext></mrow><annotation encoding="application/x-tex">\texttt{c}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord text"><span class="mord texttt">c</span></span></span></span></span>要1步<br>
-然后分类讨论k的位置即可，详见代码注释</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cmath&gt;
-#include&lt;cstring&gt;
-using namespace std;
-int c[100005]; 
-int f(char ch1,char ch2){
-	int x=ch1-96,y=ch2-96;
-	return min(abs(x-y),min(abs(x+26-y),abs(x-y-26)));
-}//预处理
-int main(){
-	int n,k,ans=0;
-	string s;
-	cin&gt;&gt;n&gt;&gt;k&gt;&gt;s;
-	k--;
-	for(int i=0;i&lt;n;i++){
-		c[i]=f(s[i],s[n-i-1]);
-	}
-	int L=-1,R=-1;
-	if(k&lt;n/2){//k在前半部分
-		for(int i=0;i+i&lt;=n;i++)if(c[i]){L=i;break;}
-		for(int i=n/2-1;i&gt;=0;i--)if(c[i]){R=i;break;}//确认要经过的范围
-		if(L==R&amp;&amp;L==-1){
-			cout&lt;&lt;0;
-			return 0;
-		}//直接回文串的话处理掉就行
-		if(k&lt;=L){
-			ans+=R-k;
-		}//k在要经过范围左侧
-		else if(k&gt;=R){
-			ans+=k-L;
-		}//右侧
-		else{
-			ans+=R-L+min(k-L,R-k); 
-		}//内部
-		for(int i=L;i&lt;=R;i++){
-			ans+=c[i];
-		}
-		cout&lt;&lt;ans;
-	}
-	else{//k在后半部分，其他同上
-		for(int i=n/2;i&lt;=n;i++)if(c[i]){L=i;break;}
-		for(int i=n;i&gt;=n/2;i--)if(c[i]){R=i;break;}
-		if(L==R&amp;&amp;L==-1){
-			cout&lt;&lt;0;
-			return 0;
-		}
-		if(k&lt;=L){
-			ans+=R-k;
-		}
-		else if(k&gt;=R){
-			ans+=k-L;
-		}
-		else{
-			ans+=R-L+min(k-L,R-k); 
-		}
-		for(int i=L;i&lt;=R;i++){
-			ans+=c[i];
-		}
-		cout&lt;&lt;ans;
-		
-	}
-	return 0;
-}
-</code></pre>
-<p>很明显，时间复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的</p>
 ]]></content>
     </entry>
 </feed>

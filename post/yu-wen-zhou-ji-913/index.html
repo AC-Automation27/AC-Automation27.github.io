@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>题解  P3478 【[POI2008]STA-Station】 | AC-Automation&#39;s blog</title>
+<title>语文周记9.13 | AC-Automation&#39;s blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -81,64 +81,19 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>题解  P3478 【[POI2008]STA-Station】</h1>
+            <h1>语文周记9.13</h1>
             <p class="article-meta">
-              2020-08-02
+              2020-09-13
               
             </p>
             
             <div class="post-content">
-              <p>换根DP板子题<br>
-先以一个节点作为根统计一下子树大小，然后dfs更新每个节点作为根的答案<br>
-时间复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;vector&gt;
-#define int long long
-using namespace std;
-vector&lt;int&gt; g[1000005];
-int sum[1000005],s,ans,n,pp=1;
-void dfs1(int u,int f,int d){
-	sum[u]=1;
-	s+=d;
-	for(int i=0;i&lt;g[u].size();i++){
-		if(g[u][i]==f)continue;
-		dfs1(g[u][i],u,d+1);
-		sum[u]+=sum[g[u][i]];
-	}
-}
-void dfs2(int u,int f){
-	for(int i=0;i&lt;g[u].size();i++){
-		if(g[u][i]==f)continue;
-		int v=g[u][i];
-		int rs=s,ru=sum[u],rv=sum[v];
-		s=s+n-2*sum[v];
-		sum[u]-=sum[v];
-		sum[v]=n;
-		if(s&gt;ans){
-			ans=s;
-			pp=v;
-		}
-		dfs2(v,u);
-		s=rs;
-		sum[u]=ru;
-		sum[v]=rv;
-	}
-}
-signed main(){
-	int u,v;
-	cin&gt;&gt;n;
-	for(int i=1;i&lt;n;i++){
-		cin&gt;&gt;u&gt;&gt;v;
-		g[u].push_back(v);
-		g[v].push_back(u);
-	}
-	dfs1(1,0,0);
-	ans=s;
-	dfs2(1,0);
-	cout&lt;&lt;pp;
-	return 0;
-}
-</code></pre>
+              <p>来之不易的平常<br>
+正值开学季，因疫情而持续数月的居家学习生活终于结束。我们又回到了那已有些陌生的校园，珍惜着这来之不易的平常。而在这一周中，有一个画面一定让许多人都难以忘怀。<br>
+长安街上，阳光铺洒；礼宾车队，稳速前行。在国宾护卫队的护卫下，载着四位英雄的礼宾车缓缓驶向人民大会堂。这四位英雄，正是在抗疫过程中做出巨大贡献的：钟南山、张伯礼、张定宇和陈薇四人。<br>
+9月8日，全国抗击新冠疫情表彰大会在京召开。在表彰大会中，这四位英雄分别得到了国家勋章和国家荣誉称号的荣誉。在这八个月的抗疫历程中，他们坚守一线，面对未知的敌人，书写责任与担当。正是他们的无私奉献，让整个社会重新恢复运转。他们与时间赛跑，与死神较量，正是他们的付出，让中国在面对疫情之时得以交出令人惊叹的答卷。他们用行动诠释了什么叫作抗疫精神。<br>
+我们说：“没有从天而降的英雄，只有挺身而出的凡人。”在抗疫过程中，无数白衣天使以凡人之躯挺身而出，与死神正面交锋。除去英雄二字，还有什么词语能够如此贴切地形容他们呢？在这次的表彰大会中，共有1499名“全国抗击新冠肺炎疫情先进个人”被表彰。没有他们的付出，我们得以重返校园之日也将遥遥无期。<br>
+2020年，一个注定不平凡的年份。为了让我们能够平常地生活，有着无数的人们在为此而努力着。这样的平常是如此来之不易，我们又怎能不珍惜呢？</p>
 
             </div>
           </article>
@@ -149,9 +104,9 @@ signed main(){
               <div class="next">
                 下一篇
               </div>
-              <a href="https://ac-automation27.github.io/post/ti-jie-p1879-usaco06novcorn-fields-g">
+              <a href="https://ac-automation27.github.io/post/ti-jie-p4127-ahoi2009tong-lei-fen-bu">
                 <h3 class="post-title">
-                  题解 P1879 【[USACO06NOV]Corn Fields G】
+                  题解 P4127 【[AHOI2009]同类分布】
                 </h3>
               </a>
             </div>
@@ -292,11 +247,11 @@ signed main(){
     </div>
     <div class="row">
       
-        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge warning">
+        <a href="https://ac-automation27.github.io/tag/OSh4LBKEC" class="badge ">
           【题解】
         </a>
       
-        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge success">
+        <a href="https://ac-automation27.github.io/tag/O3AzfwIcz" class="badge ">
           【学习笔记】
         </a>
       
